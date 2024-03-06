@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
 
+
   resources :users, only: [:show, :update] do
     resources :vehicles, only: [:new, :create] # Ressources des véhicules
   end
