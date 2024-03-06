@@ -1,0 +1,22 @@
+body {
+  background-color: #F5F5F5;
+}
+
+.form-creation-vehicle {
+  border-radius: 10px;
+
+
+  h3 {
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .btn.bouton-creation-voiture {
+    background: linear-gradient(to left, #9B0054, #FF6868);
+    color: white;
+    border-radius: 10px;
+    width: 113px;
+    font-size: 0.9rem;
+  }
+}

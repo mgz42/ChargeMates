@@ -11,11 +11,11 @@ Rails.application.routes.draw do
     resources :bookings, only: [:create]
   end
 
-  resources :user, only: [:show, :update] do
-    resources :vehicle, only: [:new, :create]
+  resources :users, only: [:show, :update] do
+    resources :vehicles, only: [:new, :create]
   end
 
-  resources :vehicle, only: [:edit, :update, :destroy]
+  resources :vehicles, only: [:edit, :update, :destroy]
   resources :bookings, only: [:index, :show, :edit, :update] do
     resources :conflicts, only: [:new, :create]
     resources :messages, only: [:create]
