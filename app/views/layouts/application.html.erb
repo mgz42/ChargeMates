@@ -10,8 +10,24 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body><%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
+ <nav class="navbar fixed-bottom navbar-light bg-light d-md-none">
+  <div class="container">
+    <div class="row justify-content-around">
+      <div class="col">
+        <p>Rechercher</p>
+      </div>
+      <div class="col">
+        <p>Mon Profil</p>
+      </div>
+      <div class="col">
+        <p>Mes Mates</p>
+      </div>
+      <div class="col">
+        <p>Tente ta Chance</p>
+      </div>
+    </div>
+  </div>
+</nav>
 
     <%= yield %>
   </body>

@@ -1,0 +1,38 @@
+<div class="container my-profil">
+  <div class="row">
+    <div class="col-md-8 navbar">
+      <!-- Mettez ici tout le contenu de votre barre de navigation -->
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12 d-flex justify-content-between">
+      <div class="d-flex flex-column align-items-start">
+        <img src="https://via.placeholder.com/100?text=No+Avatar&bg=CCCCCC&fg=000000" class="img-fluid rounded-circle" alt="No Avatar" style="width: 4rem; height: 4rem;">
+      </div>
+      <div class="flex-grow-1 ml-3 d-flex flex-column align-items-end">
+        <p><%= current_user.username.capitalize %> XP : <%= current_user.xp %></p>
+        <div class="progress" style="height: 0.5rem; width: 50%;">
+          <div class="progress-bar bg-success" role="progressbar" style="width: <%= current_user.xp %>%;" aria-valuenow="<%= current_user.xp %>" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container leaderboard">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center">Classement:</h1>
+      <h2 class="text-center">Top France</h2>
+      <div class="text-center">
+        <p>Votre rang : <strong><%= @current_user_rank %> / <%= @total_users_count %></strong> - <strong><%= current_user.xp %></strong> XP</p>
+      </div>
+      <!-- Petit rectangle pour afficher le nombre de réservations complétées -->
+      <div class="card text-white bg-primary mb-3 align-items-" style="max-width: 7rem; color:linear-gradient(blue, pink)">
+        <div class="card-header text-center">partagé</div>
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text text-center">nb de booking</p>
+    </div>
+  </div>
+</div>
