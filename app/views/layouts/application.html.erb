@@ -8,10 +8,38 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
   </head>
 
-  <body><%= render "shared/navbar" %>
+
+  <body>
 <%= render "shared/flashes" %>
+
+<nav class="navbar fixed-bottom navbar-light bg-light d-md-none">
+  <div class="container">
+    <div class="row justify-content-between center">
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-magnifying-glass" style="font-size: 1.2rem;"></i>
+        <span class="small mt-1" style="font-size: 0.8rem;">Rechercher</span>
+      </div>
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-user" style="font-size: 1.2rem;"></i>
+        <span class="small mt-1" style="font-size: 0.8rem;">Mon Profil</span>
+      </div>
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-users" style="font-size: 1.2rem;"></i>
+        <span class="small mt-1" style="font-size: 0.8rem;">Mes Mates</span>
+      </div>
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-dice" style="font-size: 1.2rem;"></i>
+        <span class="small mt-1" style="font-size: 0.8rem;">Bonus</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
 
     <%= yield %>
   </body>

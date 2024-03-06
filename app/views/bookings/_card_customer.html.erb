@@ -1,0 +1,11 @@
+<img src="" alt="" class="carte-index-booking-background-image">
+<img src="https://i.ibb.co/vQ5k3GG/Capture-d-cran-2024-02-16-170917.png" alt="" class="carte-index-booking-avatar">
+<i class="fa-brands fa-envira"></i>
+  <div class="carte-index-booking-content">
+    <div class="carte-index-booking-infos">
+      <img src="https://i.ibb.co/3TcC1Mr/prise-de-courant-1.png" width=30 alt="plug">
+      <h4><%= booking.vehicle.user.username %></h4>
+    </div>
+    <%# à remplacer par booking_path(@booking) %>
+    <%= link_to "En voir plus", bookings_path, class: "btn bouton-index-booking" %>
+  </div>

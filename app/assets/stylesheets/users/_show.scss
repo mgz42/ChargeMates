@@ -1,0 +1,14 @@
+/* Style pour le conteneur de défilement sur mobile */
+.mobile-scroll-container {
+  max-height: calc(100vh - 100px); /* Réglez la hauteur maximale en fonction de la hauteur de l'écran */
+  overflow-y: auto; /* Active le défilement vertical si le contenu dépasse la hauteur du conteneur */
+
+}
+
+.bg-primary {
+  background: linear-gradient(#FF6868, #9B0054);
+}
+
+.bg-primary custom {
+  background: grey;
+}
