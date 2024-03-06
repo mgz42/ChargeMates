@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get '/leaderboard', to: 'users#leaderboard'
 
 
-  resources :vehicles, only: [:edit, :update, :destroy]
+  resources :vehicles, only: [:edit, :update, :destroy, :new, :create]
   resources :bookings, only: [:index, :show, :edit, :update] do
     resources :conflicts, only: [:new, :create]
     resources :messages, only: [:create]

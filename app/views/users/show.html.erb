@@ -27,12 +27,41 @@
       <div class="text-center">
         <p>Votre rang : <strong><%= @current_user_rank %> / <%= @total_users_count %></strong> - <strong><%= current_user.xp %></strong> XP</p>
       </div>
-      <!-- Petit rectangle pour afficher le nombre de réservations complétées -->
-      <div class="card text-white bg-primary mb-3 align-items-" style="max-width: 7rem; color:linear-gradient(blue, pink)">
-        <div class="card-header text-center">partagé</div>
-        <div class="card-body">
-          <h5 class="card-title"></h5>
-          <p class="card-text text-center">nb de booking</p>
+      <div class="col-md-12 d-flex justify-content-center"> <!-- Centrer les cartes sur une ligne -->
+        <!-- Première carte -->
+        <div class="card text-white bg-primary mb-3 align-items-center mx-2" style="max-width: 7rem;">
+          <div class="card-header text-center">Partagé</div>
+          <div class="card-body">
+            <h5 class="card-title"> <!-- Remplacez ceci par le contenu dynamique si nécessaire --> </h5>
+            <p class="card-text text-center">nb de booking</p>
+          </div>
+        </div>
+        <!-- Deuxième carte -->
+        <div class="card text-white bg-primary mb-3 align-items-center mx-2" style="max-width: 7rem;">
+          <div class="card-header text-center">Partagé</div>
+          <div class="card-body">
+            <h5 class="card-title"> <!-- Remplacez ceci par le contenu dynamique si nécessaire --> </h5>
+            <p class="card-text text-center">nb de booking</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container d-flex justify-content-center my-3">
+  <div class="card text-white bg-primary mb-3 align-items-center" style="width: 20rem;">
+    <div class="card-body">
+      <div class="d-flex justify-content-center"> <!-- Centrer le bouton "Ajouter" -->
+        <%= link_to "Ajouter", new_vehicle_path, class: "btn btn-primary", style: "background-color: grey; color: black" %>
+      </div>
+      <hr> <!-- Ligne de séparation -->
+      <div class="mt-3"> <!-- Espace entre les éléments -->
+        <% current_user.vehicles.each do |vehicle| %>
+          <p><strong><%= vehicle.brand %> <%= vehicle.model %> <%= vehicle.plug %></strong></p>
+          <hr> <!-- Ligne de séparation -->
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
