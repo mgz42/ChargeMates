@@ -1,0 +1,38 @@
+<div class="container-sm">
+  <div class="station-main-titre">Ma Voiture</div>
+  <div class="row">
+    <%# Ci dessous formulaire d'envois des parametres de filtre %>
+  <%= form_with url: stations_path, method: :get, class: "" do |f|%>
+      <div class="d-flex justify-content-end"><%= f.select :plug, @array_of_cars, class: 'formulaire-rouge' %></div>
+      <%= f.date_field :date_available, class: 'form-control mt-2 formulaire' %>
+      <div class="d-flex w-100 form-control justify-content-between mt-2 mb-2 formulaire">
+      <%= f.text_field :address,
+      placeholder: "Adresse...", class: 'barre-de-recherche' %>
+      <%= f.button nil, class: "barre-de-recherche" do %><i class="fa-solid fa-magnifying-glass"></i>
+      <% end %>
+      </div>
+    <% end %>
+
+
+
+
+  </div>
+  <div  class="mt-2 carte-radius-border" style="width: 100%; aspect-ratio: 1/1;"
+  data-controller="map"
+  data-map-markers-value="<%= @markers.to_json %>"
+  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+</div>
+
+
+
+
+
+
+<%# ci dessous affiche les stations ! %>
+<% if @stations != "" %>
+  <% @stations.each do |station| %>
+  <div><%= station.address %><%= station.plug %></div>
+  <% end %>
+<% end %>
+
+<%# ci dessous MapBox %>
