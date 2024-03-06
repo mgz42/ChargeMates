@@ -1,17 +1,15 @@
 class BookingsController < ApplicationController
-
   before_action :authenticate_user!
+  before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def index
-    # Pour récupérer les véhicules et les stations de l'utilisateur actuel
+    # Pour récupérer les véhicules et la station de l'utilisateur actuel
     user_vehicles = current_user.vehicles
     user_station = current_user.station
 
-    # Pour afficher seulement les bookings reliés aux véhicules et aux stations de l'utilisateur actuel
+    # Pour afficher seulement les bookings reliés aux véhicules et à la station de l'utilisateur actuel
     @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id))
   end
-
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def new
     @station = Station.find(params[:station_id])
@@ -60,5 +58,4 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:quantity)
   end
-
 end
