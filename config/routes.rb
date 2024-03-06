@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
@@ -11,11 +10,14 @@ Rails.application.routes.draw do
     resources :bookings, only: [:create]
   end
 
-  resources :user, only: [:show, :update] do
-    resources :vehicle, only: [:new, :create]
+  resources :users, only: [:show, :update] do  # Remarquez le changement ici: resources :users, au lieu de resource :user
+    resources :vehicles, only: [:new, :create]  # Assurez-vous que cette ligne correspond également à la définition des routes
   end
 
-  resources :vehicle, only: [:edit, :update, :destroy]
+  get '/leaderboard', to: 'users#leaderboard'
+
+
+  resources :vehicles, only: [:edit, :update, :destroy, :new, :create]
   resources :bookings, only: [:index, :show, :edit, :update] do
     resources :conflicts, only: [:new, :create]
     resources :messages, only: [:create]
@@ -23,4 +25,3 @@ Rails.application.routes.draw do
 
   resources :badges, only: [:create]
 end
-# Les belles routes

@@ -1,12 +1,26 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background: white;
+.navbar {
+  background-color: #F35A5A; /* Couleur de fond pour la barre de navigation */
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+.bg-light {
+  background-color: #F35A5A !important; /* Couleur de fond pour les éléments avec la classe bg-light */
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.row.justify-content-between {
+  justify-content: space-between; /* Espacement entre les colonnes */
+}
+
+.col-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrer les éléments verticalement */
+}
+
+i {
+  color: white; /* Couleur de l'icône */
+}
+
+span {
+  color: white; /* Couleur du texte */
+  font-size: 0.8rem; /* Taille de la police */
 }
