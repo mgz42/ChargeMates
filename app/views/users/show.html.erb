@@ -1,9 +1,4 @@
 <div class="container my-profil">
-  <div class="row">
-    <div class="col-md-8 navbar">
-      <!-- Mettez ici tout le contenu de votre barre de navigation -->
-    </div>
-  </div>
   <div class="row mt-3">
     <div class="col-md-12 d-flex justify-content-between">
       <div class="d-flex flex-column align-items-start">
@@ -22,7 +17,7 @@
 <div class="container leaderboard">
   <div class="row">
     <div class="col-md-12">
-      <h1 class="text-center">Classement:</h1>
+      <h1 class="text-center"><strong>Classement</strong></h1>
       <h2 class="text-center">Top France</h2>
       <div class="text-center">
         <p>Votre rang : <strong><%= @current_user_rank %> / <%= @total_users_count %></strong> - <strong><%= current_user.xp %></strong> XP</p>
@@ -49,6 +44,7 @@
   </div>
 </div>
 
+<h1 class="text-center"><strong>Mes voitures</strong></h1>
 <div class="container d-flex justify-content-center my-3">
   <div class="card text-white bg-primary mb-3 align-items-center" style="width: 20rem;">
     <div class="card-body">
@@ -57,9 +53,40 @@
       </div>
       <hr> <!-- Ligne de séparation -->
       <div class="mt-3"> <!-- Espace entre les éléments -->
+        <!-- Affichage des véhicules -->
         <% current_user.vehicles.each do |vehicle| %>
-          <p><strong><%= vehicle.brand %> <%= vehicle.model %> <%= vehicle.plug %></strong></p>
+          <!-- Lien vers la page d'édition du véhicule -->
+          <%= link_to edit_vehicle_path(vehicle), class: "text-decoration-none text-reset" do %>
+            <p><strong><%= vehicle.brand %> <%= vehicle.model %> <%= vehicle.plug %></strong></p>
+          <% end %>
           <hr> <!-- Ligne de séparation -->
+        <% end %>
+        <!-- Si l'utilisateur n'a aucun véhicule -->
+        <% if current_user.vehicles.empty? %>
+          <p class="text-center">Vous n'avez aucun véhicule.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mes-bookings d-flex justify-content-center align-items-center">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center"><strong>Historique</strong></h1>
+      <div class="mt-3"> <!-- Espace entre les éléments -->
+        <% if current_user.bookings.any? %>
+          <% current_user.bookings.each do |booking| %>
+            <p><strong><%= booking.station_id %> <%= booking.date_heure_reservation %> <%= booking.duree_recharge %> <%= booking.status %></strong></p>
+            <hr> <!-- Ligne de séparation -->
+          <% end %>
+        <% else %>
+          <div class="row">
+            <div class="col text-center">
+              <p>Vous n'avez aucune réservation</p>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>

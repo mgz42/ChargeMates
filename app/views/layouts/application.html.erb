@@ -10,24 +10,33 @@
     <%= javascript_importmap_tags %>
   </head>
 
- <nav class="navbar fixed-bottom navbar-light bg-light d-md-none">
+<nav class="navbar fixed-bottom navbar-light bg-light d-md-none">
   <div class="container">
-    <div class="row justify-content-around">
-      <div class="col">
-        <p>Rechercher</p>
+    <div class="row justify-content-between">
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-magnifying-glass" style="font-size: 1.2rem;"></i>
+        <p class="small mt-1" style="font-size: 0.8rem;">Rechercher</p>
       </div>
-      <div class="col">
-        <p>Mon Profil</p>
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-user" style="font-size: 1.2rem;"></i>
+        <p class="small mt-1" style="font-size: 0.8rem;">Mon Profil</p>
       </div>
-      <div class="col">
-        <p>Mes Mates</p>
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-users" style="font-size: 1.2rem;"></i>
+        <p class="small mt-1" style="font-size: 0.8rem;">Mes Mates</p>
       </div>
-      <div class="col">
-        <p>Tente ta Chance</p>
+      <div class="col-3 text-center">
+        <i class="fa-solid fa-dice" style="font-size: 1.2rem;"></i>
+        <p class="small mt-1 text-truncate" style="font-size: 0.8rem;">Tourne la roue</p>
       </div>
     </div>
   </div>
 </nav>
+
+
+
+
+
 
     <%= yield %>
   </body>
