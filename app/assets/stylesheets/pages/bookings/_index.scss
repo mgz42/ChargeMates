@@ -1,0 +1,49 @@
+.carte-index-booking {
+  background-color: white;
+  height: 180px;
+  position: relative;
+
+  .carte-index-booking-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .carte-index-booking-background-image {
+    background-color: grey;
+    object-fit: cover;
+    width: 100%;
+    height: 100px;
+  }
+
+  .carte-index-booking-avatar {
+    position: absolute;
+    left: 4px;
+    width: 85px;
+    height: 85px;
+    top: 30px;
+    border-radius: 50%;
+    margin: 10px;
+  }
+
+  .carte-index-booking-infos {
+    display: flex;
+    font-size: 20px;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.container-bookings {
+  background-color: black;
+}
+
+
+
+h4 {
+  margin-top: 0px;
+}
