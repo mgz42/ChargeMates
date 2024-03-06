@@ -1,0 +1,76 @@
+<!-- Header -->
+<div class="bookinghead">
+  <!-- Header vignette photo garage -->
+  <div class="bookingbackgroud">
+    <!-- Header photo du locataire de la borne -->
+    <div class="bookingheadpic">
+      <!-- Header username du locataire de la borne -->
+      <div class="bookingheadusername">
+        <!-- Header des logos map et waze -->
+        <div class="bookingwaze">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- details du contrat entre les deux parties-->
+<div class="bookingdetail">
+  <!-- rentrer les dates -->
+  <div class="bookingdateplan">
+    <!-- recap total heures -->
+    <div class="bookingcapheure">
+      <!-- Prix total en fonction de l'heure -->
+      <div class="bookingtotalprice">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Bouton d'action en fonction des // utilisateurs -->
+<div class="bookingactionuser">
+
+</div>
+<!-- TCHAT -->
+<div class="bookingchatroom">
+  <!-- Tchatbox -->
+  <div class="bookingmessage">
+    <% @booking.messages.each do |message| %>
+      <div id="message-<%= message.id %>">
+        <small>
+          <strong><%= message.user.username %></strong>
+          <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+        </small>
+        <p><%= message.content %></p>
+      </div>
+    <% end %>
+    <!-- ligne input du message -->
+    <div class="bookingwhrite">
+      <%= simple_form_for [@booking, @message],
+  html: {class: "d-flex"} do |f|
+%>
+  <%= f.input :content,
+    label: false,
+    placeholder: "Message ##{@booking.name}",
+    wrapper_html: {class: "flex-grow-1"}
+  %>
+  <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+<% end %>
+
+    </div>
+  </div>
+</div>
+
+<!-- Bouton signaler et paiement du bas de page -->
+<div class="bookingfoot">
+  <!-- Bouton Signaler -->
+  <div class="bookingconflict">
+    <!-- Bouton paiement -->
+    <div class="bookingpaiement">
+
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
