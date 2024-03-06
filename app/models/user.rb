@@ -8,4 +8,5 @@ class User < ApplicationRecord
   has_many :stations
   has_many :messages
   has_many :conflicts
+  has_many :bookings
 end

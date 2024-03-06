@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-
+  before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def new
     @station = Station.find(params[:station_id])
@@ -11,22 +11,32 @@ class BookingsController < ApplicationController
     @booking = @station.bookings.new(booking_params)
     @booking.user_id = current_user.id
     if @booking.save
-      redirect_to bookings_path(@bookings)
+      redirect_to booking_path(@booking)
     else
       render :new
     end
   end
 
   def show
-    @booking = Booking.new
+    @bookings = current_user.bookings
     @message = Message.new
   end
 
-  def edit; end
+  def edit
+
+  end
 
   def update
-    @station.update(station_params)
-    redirect_to station_path(@station)
+    if @booking.update(booking_params)
+      redirect_to booking_path(@booking)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @booking.destroy
+    redirect_to root_path
   end
 
   private
