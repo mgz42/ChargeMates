@@ -1,0 +1,55 @@
+.bookingheadpic {
+  position: relative; /* Positionnement relatif pour positionner le cercle */
+  display: inline-block; /* Pour que les éléments s'alignent horizontalement */
+
+}
+
+.bookingheadpic {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background-color: #cccccc;
+  border: 2px solid #000000;
+  position: absolute;
+  left: 1rem;
+  top: 8rem;
+  transform: translateY(-50%);
+}
+
+.bookinghead {
+  width: auto;
+  height: 13rem;
+}
+
+.bookingheadusername {
+  position: absolute;
+  left: 7rem;
+  top: 3rem;
+}
+
+.cardisplay {
+  display: flex;
+  justify-content: space-around;
+}
+
+.datereservation {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.bookingdateplan {
+  background-color: #373737;
+  color: white;
+  margin-left: 0.2rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.changerdate {
+  background-color: #D9D9D9;
+  color: #595959;
+  border-radius: 15%;
+  border-color: #D9D9D9;
+  box-shadow: none;
+  padding: 0rem 1.2rem;
+}

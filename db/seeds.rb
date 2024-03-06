@@ -25,7 +25,6 @@
 #     )
 #   end
 # end
-
 User.create(username: "marine", email: "marine@wagon.com", password: "123456", xp: 1200)
 User.create(username: "honorine", email: "honorine@wagon.com", password: "123456", xp: 3420)
 User.create(username: "benoit", email: "benoit@wagon.com", password: "123456", xp: 850)

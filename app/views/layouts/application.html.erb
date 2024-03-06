@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
   </head>
 
+
+  <body>
+<%= render "shared/flashes" %>
+
 <nav class="navbar fixed-bottom navbar-light bg-light d-md-none">
   <div class="container">
     <div class="row justify-content-between center">
@@ -35,10 +39,6 @@
     </div>
   </div>
 </nav>
-
-
-
-
 
 
     <%= yield %>

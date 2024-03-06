@@ -11,8 +11,6 @@ class User < ApplicationRecord
   has_many :conflicts
   has_many :bookings
 
-
-
   # Définir les colonnes de votre table users dans le modèle
   validates :email, presence: true, uniqueness: true
   validates :encrypted_password, presence: true
@@ -30,4 +28,5 @@ class User < ApplicationRecord
       "https://via.placeholder.com/150?text=No+Avatar&bg=CCCCCC&fg=000000"
     end
   end
+
 end

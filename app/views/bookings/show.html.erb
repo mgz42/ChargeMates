@@ -1,0 +1,100 @@
+<!-- Header -->
+<div class="bookinghead">
+  <!-- Header vignette photo garage -->
+  <div class="bookingbackgroud bg-secondary text-white p-5">
+      Aucune photo disponible
+  </div>
+
+    <!-- Header photo du locataire de la borne -->
+    <div class="bookingheadpic">
+      <!-- Header username du locataire de la borne -->
+      <div class="bookingheadusername">
+        <%= @booking.station.user.username %>
+        <!-- Header des logos map et waze -->
+        <div class="bookingwaze">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- details du contrat entre les deux parties-->
+<div class="bookingdetail">
+  <div class="cardisplay mb-4" >
+    <div class="brandmodel">
+      <%= @booking.vehicle.brand %> <%= @booking.vehicle.model %>
+    </div>
+    <div class="plugtype">
+      <%= @booking.vehicle.plug %>
+    </div>
+  </div>
+  <!-- rentrer les dates -->
+  <div class="datereservation">
+    <div class="bookingdateplan">
+      <!-- timedate-->
+      <%= @booking.date_heure_reservation.strftime("%A %e %B") %> <%= @booking.date_heure_reservation.strftime("%Hh%M") %>
+    </div>
+    <button class="changerdate">Changer
+    </button>
+  </div>
+        <!-- recap total heures (calculé avec JavaScript) -->
+        <div class="bookingcapheure" id="step1_summary"></div>
+</div>
+
+<!-- Bouton d'action en fonction des utilisateurs -->
+<div class="bookingactionuser">
+  <!-- Etape 2 : Accepter ou refuser l'offre -->
+  <div id="step2" style="display: none;">
+    <%= button_to "Accepter l'offre", accept_offer_path, method: :post %>
+    <%= button_to "Refuser l'offre", reject_offer_path, method: :post %>
+  </div>
+
+  <!-- Etape 3 : Démarrer la recharge -->
+  <div id="step3" style="display: none;">
+    <%= button_to "Démarrer la recharge", start_charging_path, method: :post, id: "start_charging_button", disabled: true %>
+    <div id="countdown_timer"></div>
+  </div>
+
+  <!-- Etape 4 : Arrêter la recharge -->
+  <div id="step4" style="display: none;">
+    <%= button_to "Arrêter la recharge", stop_charging_path, method: :post %>
+    <div id="charging_duration"></div>
+  </div>
+</div>
+
+<!-- TCHAT -->
+<div class="bookingchatroom">
+  <!-- Tchatbox -->
+  <div class="bookingmessage">
+    <% @booking.messages.each do |message| %>
+      <div id="message-<%= message.id %>">
+        <small>
+          <strong><%= message.user.username %></strong>
+          <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+        </small>
+        <p><%= message.content %></p>
+      </div>
+    <% end %>
+    <!-- ligne input du message -->
+    <div class="bookingwhrite">
+      <%= simple_form_for [@booking, @message], html: {class: "d-flex"} do |f| %>
+        <%= f.input :content, label: false, placeholder: "Message for #{@booking.vehicle.user.username}", wrapper_html: {class: "flex-grow-1"} %>
+        <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Bouton signaler et paiement du bas de page -->
+<div class="bookingfoot">
+  <!-- Bouton Signaler -->
+  <div class="bookingconflict">
+    <!-- Bouton paiement -->
+    <div class="bookingpaiement">
+     <%= %>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
