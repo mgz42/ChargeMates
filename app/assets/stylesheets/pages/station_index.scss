@@ -1,0 +1,40 @@
+.station-main-titre {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #373737;
+}
+.barre-de-recherche {
+  all: unset !important;
+}
+.carte-radius-border {
+  border-radius: 8px;
+}
+.formulaire {
+  background-color: #e1e1e1;
+  color: rgb(53, 53, 53);
+  i{
+    font-size: 1.2rem;
+    color: grey;
+  }
+}
+#plug{
+  background-image: linear-gradient(to left, #FF6868, #9B0054);
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  height: 2rem;
+  border-radius: 10px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  color: white;
+
+  option{
+    color: rgb(55, 55, 55);
+  }
+
+  select option{
+    background-color: grey;
+  }
+}
