@@ -1,26 +1,41 @@
-.navbar {
-  background-color: #F35A5A; /* Couleur de fond pour la barre de navigation */
-}
+// .navbar {
+//   background-color: #F35A5A; /* Couleur de fond pour la barre de navigation */
+// }
 
-.bg-light {
-  background-color: #F35A5A !important; /* Couleur de fond pour les éléments avec la classe bg-light */
-}
+// .bg-light {
+//   background-color: #F35A5A !important; /* Couleur de fond pour les éléments avec la classe bg-light */
+// }
 
-.row.justify-content-between {
-  justify-content: space-between; /* Espacement entre les colonnes */
-}
+// .row.justify-content-between {
+//   justify-content: space-between; /* Espacement entre les colonnes */
+// }
 
-.col-3 {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centrer les éléments verticalement */
-}
+// .col-3 {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center; /* Centrer les éléments verticalement */
+// }
 
-i {
-  color: white; /* Couleur de l'icône */
-}
+// i {
+//   color: white; /* Couleur de l'icône */
+// }
 
-span {
-  color: white; /* Couleur du texte */
-  font-size: 0.8rem; /* Taille de la police */
+// span {
+//   color: white; /* Couleur du texte */
+//   font-size: 0.8rem; /* Taille de la police */
+// }
+
+.navbarre {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4rem;
+  background-color: #F35A5A;
+  z-index: 100;
+  font-size: 0.8rem;
+  color: white;
+}
+.navbarre-icon{
+  font-size: 1.6rem !important;
 }

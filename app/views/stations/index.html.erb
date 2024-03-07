@@ -1,11 +1,13 @@
 <div class="container-sm">
-  <div class="station-main-titre">Ma Voiture</div>
+  <div class="station-main-titre mt-2">Recharger ma voiture</div>
   <div class="row">
     <%# Ci dessous formulaire d'envois des parametres de filtre %>
   <%= form_with url: stations_path, method: :get, class: "" do |f|%>
-      <div class="d-flex justify-content-end"><%= f.select :plug, @array_of_cars, class: 'formulaire-rouge' %></div>
-      <%= f.date_field :date_available, class: 'form-control mt-2 formulaire' %>
-      <div class="d-flex w-100 form-control justify-content-between mt-2 mb-2 formulaire">
+      <div class="d-flex justify-content-start"><%= f.select :plug, @array_of_cars %></div>
+      <div class="station-main-titre secondaire mt-2">Quand ?</div>
+      <%= f.date_field :date_available, class: 'form-control formulaire' %>
+        <div class="station-main-titre secondaire mt-2">Ou ?</div>
+      <div class="d-flex w-100 form-control justify-content-between mb-2 formulaire">
       <%= f.text_field :address,
       placeholder: "Adresse...", class: 'barre-de-recherche' %>
       <%= f.button nil, class: "barre-de-recherche" do %><i class="fa-solid fa-magnifying-glass"></i>
@@ -13,26 +15,42 @@
       </div>
     <% end %>
 
-
-
-
   </div>
+  <%# ci dessous MapBox %>
   <div  class="mt-2 carte-radius-border" style="width: 100%; aspect-ratio: 1/1;"
   data-controller="map"
   data-map-markers-value="<%= @markers.to_json %>"
   data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-</div>
+
+  <%# ligne de coupure grise %>
 
 
+  <%# espace %>
+  <div class="station-break"></div>
 
-
-
-
-<%# ci dessous affiche les stations ! %>
-<% if @stations != "" %>
-  <% @stations.each do |station| %>
-  <div><%= station.address %><%= station.plug %></div>
+  <%# ci dessous affiche les stations ! %>
+  <% if @stations != "" %>
+  <div class="mb-4 p-1">Stations disponible autour de <strong><%= params[:address] %></strong></div>
+    <% @stations.each do |station| %>
+      <div class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
+        <div>
+          <div class="image-station-index-filter">
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column">
+              <div>Nom du vendeur</div>
+              <div>Top mate</div>
+              <div class="barre-de-niveau-station"></div>
+            </div>
+            <div class="d-flex flex-column">
+              <div><%= station.available ? Time.now.to_s : ""%></div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="bouton-station-index-carte text-center">En voir plus</div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
-
-<%# ci dessous MapBox %>
+</div>
