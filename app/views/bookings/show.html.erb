@@ -54,8 +54,23 @@
         <div class="heuredefin d-flex justify-content-around">Heure de fin<p> <%= heure_fin.strftime("%Hh%M") %></p></div>
       </div>
       <!-- prix total -->
-      <div class="prixtotal">
-        <p>TOTAL</p>
+      <<div class="prixtotal">
+  <p class="prixtitre">TOTAL</p>
+  <% vehicle = @booking.vehicle %>
+  <% puissance_maximale = vehicle.car_list[vehicle.brand]['Puissance_maximale_recharge'] %>
+  <% capacite_batterie = vehicle.car_list[vehicle.brand]['capacite'] %>
+  <% temps_recharge_heures = @booking.duree_recharge.to_f %>
+  <% prix_par_kwh = 0.22 # Prix par kWh en euros %>
+  <% energie_consommee_kwh = puissance_maximale * temps_recharge_heures %>
+
+  <% if energie_consommee_kwh > capacite_batterie %>
+    <% energie_consommee_kwh = capacite_batterie %>
+  <% end %>
+
+  <% prix_total = (energie_consommee_kwh * prix_par_kwh) + 3 %>
+  <p class="prixdisplay"><%= prix_total.round(2) %>€</p>
+</div>
+
       </div>
     </div>
 </div>
@@ -128,4 +143,4 @@
 </div>
 
 <!-- NAVBAR -->
-<span class="mx-5"></span>
+<div class="vide"></div>

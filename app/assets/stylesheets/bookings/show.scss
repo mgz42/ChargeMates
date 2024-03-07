@@ -102,15 +102,22 @@
   border-radius: 10px;
   padding: 0rem 1.7rem 0.5rem 1.7rem;
 }
-.prixtotal p {
+.prixtitre {
 font-weight: bold;
 color: #A40753;
+margin-bottom: 0px;
+margin-top: 0.3rem;
+}
+
+.prixdisplay {
+  font-weight: 300;
+  margin-bottom: 0px;
 }
 
 
 
 .soumettreoffre button{
-  background: linear-gradient(#FF6868, #9B0054);
+  background: linear-gradient(to right, #FF6868, #9B0054);
   margin: 1rem 0rem 2rem 0rem;
   color:white;
   padding: 0.2rem 5.2rem;
@@ -120,7 +127,7 @@ color: #A40753;
 
 .zonetext {
   background: linear-gradient(#d5d5d5, #f1f1f1);
-  height: 13rem;
+  height: 18rem;
   overflow-y: auto;
 }
 
@@ -188,6 +195,6 @@ color: #A40753;
 
 }
 
-.navbar {
-  display: none;
+.vide{
+margin-bottom: 5rem;
 }
