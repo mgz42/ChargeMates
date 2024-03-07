@@ -2,16 +2,22 @@
 
 <div class="container-bookings">
   <div class="row">
-    <% @bookings.each do |booking| %>
-    <div class="col-12">
-      <div class="carte-index-booking m-1">
-        <% if booking.vehicle.user_id == current_user.id %>
-          <%= render partial: 'card_owner', locals: { booking: booking } %>
-        <% else %>
-          <%= render partial: 'card_customer', locals: { booking: booking } %>
-        <% end %>
+    <% if @bookings.present? %>
+      <% @bookings.each do |booking| %>
+        <div class="col-12">
+          <div class="carte-index-booking m-1">
+            <% if booking.vehicle.user_id == current_user.id %>
+              <%= render partial: 'card_owner', locals: { booking: booking } %>
+            <% else %>
+              <%= render partial: 'card_customer', locals: { booking: booking } %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-12">
+        <p>Vous n'avez pas de réservations pour le moment.</p>
       </div>
-    </div>
     <% end %>
   </div>
 </div>
