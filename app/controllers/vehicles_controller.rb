@@ -23,6 +23,21 @@ class VehiclesController < ApplicationController
     end
   end
 
+  def edit
+  @vehicle = Vehicle.find(params[:id])
+  end
+
+  def update
+    @vehicle = Vehicle.find(params[:id])
+    if @vehicle.update(vehicle_params)
+      redirect_to @vehicle, notice: 'Véhicule mis à jour avec succès.'
+    else
+      render :edit
+    end
+  end
+
+
+
   private
 
   def set_user

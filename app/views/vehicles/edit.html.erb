@@ -1,0 +1,10 @@
+<h1>Édition du véhicule</h1>
+
+<%= simple_form_for [@user, @vehicle] do |f| %>
+  <%= f.input :brand, placeholder: 'Marque de ma voiture' %>
+  <%= f.input :model, placeholder: 'Modèle de ma voiture' %>
+  <%= f.input :model_year, placeholder: 'Année de sortie du modèle' %>
+  <%= f.input :immatriculation, placeholder: 'Mon immatriculation' %>
+
+  <%= f.submit class: 'btn bouton-creation-voiture' %>
+<% end %>
