@@ -7,11 +7,11 @@
         </div>
         <div class="flex-grow-1 ml-3 d-flex flex-column justify-content-end align-items-end">
           <div class="station-username d-flex align-items-end mt-2 text-end">
-            <%= current_user.username %>
-            <div class="station-username-level ps-1"><%= current_user.xp / 1000 %></div>
+            <h5 class="username-badge"><%= current_user.username %></h5>
           </div>
           <% mateType = current_user.xp < 25000 ? "Mate Débutant" : current_user.xp < 50000 ? "Mate Avancé" : current_user.xp < 75000 ? "Super Mate" : "Top Mate" %>
-          <div class="mate-type-station text-end"><%= mateType %></div>
+          <div class="mate-type-user text-end"><%= mateType %> <%= current_user.xp / 1000 %></div>
+          <div class="station-username-level ps-1"></div>
           <% barreColor = current_user.xp < 25000 ? "#CAD82E" : current_user.xp < 50000 ? "#5EA482" : current_user.xp < 75000 ? "#FECD4F" : "#FE9751" %>
           <% barreLength = (current_user.xp.to_f / 1000) %>
           <div class="barre-de-niveau-station" style="--width-barre: <%= barreLength %>%; --color-barre: <%= barreColor %>;"></div>

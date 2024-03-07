@@ -2,6 +2,7 @@
 .mobile-scroll-container {
   max-height: calc(100vh - 100px); /* Réglez la hauteur maximale en fonction de la hauteur de l'écran */
   overflow-y: auto; /* Active le défilement vertical si le contenu dépasse la hauteur du conteneur */
+  margin-bottom: auto;
 }
 
 .bg-primary {
@@ -64,13 +65,15 @@
   padding: auto;
 }
 
-
-
 .avatar-placeholder {
   width: 4rem; /* Adjust as needed */
   height: 4rem; /* Adjust as needed */
   background-color: #ccc; /* Grey color */
   border-radius: 50%; /* Rounded shape */
+  position: relative;
+    bottom: 1rem;
+    right: 0rem;
+    z-index: 1000;
 }
 
 
@@ -91,15 +94,20 @@ h4 {
 
 }
 
-.justify-content-between {
-  justify-content: space-between;
+h5.username-badge {
+  color: #5F5F5F;
+  font-size: 1rem;
+  margin-bottom: -0.3rem;
+  position: relative; /* Positionnement absolu */
+  bottom: 0rem;
+  right: 4rem;
+  z-index: 1000;
+
 }
 
-.align-items-start {
-  align-items: start;
-}
+
 
 .row {
   margin-bottom: 1rem;
-  margin-top: auto;
+  margin-top: 1rem;
 }
