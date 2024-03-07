@@ -51,6 +51,12 @@ class BookingsController < ApplicationController
 
   private
 
+  def update_duration
+    booking = Booking.find(params[:id])
+    booking.update(duree_recharge: params[:duree_recharge].to_f)
+    render json: { success: true }
+  end
+
   def set_booking
     @booking = Booking.find(params[:id])
   end

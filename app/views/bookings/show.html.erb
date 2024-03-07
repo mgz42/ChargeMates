@@ -21,7 +21,7 @@
 <div class="barregrise"></div>
 <!-- details du contrat entre les deux parties-->
 <div class="bookingdetail">
-  <div class="cardisplay mb-5" >
+  <div class="cardisplay mb-4" >
     <div class="brandmodel card-text d-flex justify-content-center align-items-center">
        <%= image_tag @booking.vehicle.car_list[@booking.vehicle.brand]['Logo_url'], alt: "Vehicle Logo", width: "30px" %>
     <span class="mx-1"></span><%= @booking.vehicle.brand %> <%= @booking.vehicle.model %>
@@ -37,12 +37,16 @@
       <span class="mx-3"></span>
       <%= @booking.date_heure_reservation.strftime("%Hh%M") %>
     </div>
-    <button class="changerdate">Changer
-    </button>
+    <button class="changerdate">Changer</button>
   </div>
     <!-- Nombre d'heures reservées-->
     <div class="bookingcapheure">
-      <p class="d-flex justify-content-center align-items-center"> Nombres d'heures reservées <p> <p class="d-flex justify-content-center align-items-center">-</p> <p id=bookingduree><%= @booking.duree_recharge %></p> <p class="d-flex justify-content-center align-items-center">+</p>
+      <p class="d-flex justify-content-center align-items-center m-0">Nombre d'heures reservées</p>
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="-0.5">-</button>
+            <p data-target="booking.duration" id="bookingduree"><%= @booking.duree_recharge %></p>
+              <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="0.5">+</button>
+        </div>
     </div>
     <!-- recap total heures (calculé avec JavaScript) -->
     <div class="heureprix d-flex justify-content-around mb-3">
@@ -54,13 +58,13 @@
         <div class="heuredefin d-flex justify-content-around">Heure de fin<p> <%= heure_fin.strftime("%Hh%M") %></p></div>
       </div>
       <!-- prix total -->
-      <<div class="prixtotal">
+      <div class="prixtotal">
   <p class="prixtitre">TOTAL</p>
   <% vehicle = @booking.vehicle %>
   <% puissance_maximale = vehicle.car_list[vehicle.brand]['Puissance_maximale_recharge'] %>
   <% capacite_batterie = vehicle.car_list[vehicle.brand]['capacite'] %>
   <% temps_recharge_heures = @booking.duree_recharge.to_f %>
-  <% prix_par_kwh = 0.22 # Prix par kWh en euros %>
+  <% prix_par_kwh = 0.23 # Prix par kWh en euros %>
   <% energie_consommee_kwh = puissance_maximale * temps_recharge_heures %>
 
   <% if energie_consommee_kwh > capacite_batterie %>
