@@ -1,6 +1,8 @@
 class Vehicle < ApplicationRecord
   belongs_to :user
   has_many :bookings
+  validates :brand, presence: true
+  validates :model, presence: true
 
   # Liste de tout les vehicules
   cattr_reader :car_list
@@ -188,4 +190,14 @@ class Vehicle < ApplicationRecord
       'Logo_prise_url' => 'https://i.ibb.co/KzVtFBG/type2.png'
     }
   }
+#   def self.car_list
+#     @@car_list
+#   end
+
+  def self.all_car_models
+    @@car_list.each do |brand, details|
+      models = details["Modeles"]
+    end
+  end
 end
+
