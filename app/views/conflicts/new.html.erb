@@ -1,0 +1,17 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="bg-white form-creation-conflict p-3 shadow">
+        <h3>Faire un signalement</h3>
+        <%= simple_form_for [@booking, @conflict] do |f| %>
+          <%= f.input :title, label: 'Titre', placeholder: 'Motif du signalement' %>
+          <%= f.input :content, as: :text, input_html: { rows: 4 }, label: 'Description', placeholder: 'Descritpion détaillée du problème' %>
+
+        <div class='btn bouton-creation-conflict'>
+          <%= f.submit 'Signaler'%>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

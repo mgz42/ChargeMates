@@ -9,6 +9,7 @@ class BookingsController < ApplicationController
 
     # Pour afficher seulement les bookings reliés aux véhicules et aux stations de l'utilisateur actuel
 
+
     @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id))
   end
 
