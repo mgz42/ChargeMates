@@ -3,22 +3,26 @@
   font-weight: 600;
   color: #373737;
 }
+.secondaire{
+  font-size: 1rem;
+  font-weight: 600;
+}
 .barre-de-recherche {
   all: unset !important;
 }
 .carte-radius-border {
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .formulaire {
   background-color: #e1e1e1;
-  color: rgb(53, 53, 53);
+  color: rgb(83, 83, 83);
   i{
     font-size: 1.2rem;
-    color: grey;
+    color: #F35A5A;
   }
 }
 #plug{
-  background-image: linear-gradient(to left, #FF6868, #9B0054);
+  background-image: linear-gradient(to right, #FF6868, #9B0054);
   padding-left: 1rem !important;
   padding-right: 1rem !important;
   height: 2rem;
@@ -29,12 +33,72 @@
   text-indent: 1px;
   text-overflow: '';
   color: white;
+  width: 85%;
 
   option{
     color: rgb(55, 55, 55);
   }
+}
 
-  select option{
-    background-color: grey;
-  }
+select {
+  background-color: rgb(244, 130, 89);
+}
+option {
+  background-color: #e1e1e1;
+}
+
+#plug:focus{
+  outline: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  font-size: 1.4rem;
+  padding: 0;
+  margin: 0;
+  color: grey!important;
+  opacity: 0.6;
+}
+
+.ligne-grise{
+    height: 6px;
+    background-color: #e0e0e0;
+    width: 100vw;
+    margin-top: 1.5rem;
+    left: 0;
+    position: absolute;
+}
+
+.image-station-index-filter{
+  height: 5rem;
+  width: 100%;
+  background-color: rgb(165, 165, 165);
+}
+
+.carte-station-index{
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.34);
+  border-radius: 10px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+.station-break {
+  height: 1.5rem;
+  width: 100%;
+}
+
+.bouton-station-index-carte{
+  background-image: linear-gradient(to right, #FF6868, #9B0054);
+  padding: 0.1rem;
+  margin-top: 0.6rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-radius: 10px;
+  color: white;
+  width: fit-content;
+}
+
+.barre-de-niveau-station{
+  height: 0.25rem;
+  background-color: grey;
+  width: 7rem;
 }
