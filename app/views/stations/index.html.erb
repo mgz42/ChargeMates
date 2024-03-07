@@ -30,27 +30,48 @@
 
   <%# ci dessous affiche les stations ! %>
   <% if @stations != "" %>
-  <div class="mb-4 p-1">Stations disponible autour de <strong><%= params[:address] %></strong></div>
+  <div class="mb-4 p-1 <%= "d-none" if params[:address] == ""%>">Stations disponible autour de <strong><%= params[:address] %></strong></div>
     <% @stations.each do |station| %>
-      <div class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
+    <% barreColor = station.user.xp < 25000 ? "#cad82e" : station.user.xp < 50000 ? "#5ea482" : station.user.xp < 75000 ? "#fecd4f" : "#fe9751"
+       mateType = station.user.xp < 25000 ? "Mate Débutant" : station.user.xp < 50000 ? "Mate Avancé" : station.user.xp < 75000 ? "Super Mate" : "Top Mate"
+       barreLength = (station.user.xp - ((station.user.xp.to_f / 1000).floor * 1000)) / 10
+       userLevel = (station.user.xp.to_f / 1000).floor
+    %>
+
+      <div data-controller="station-toggle" class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
         <div>
           <div class="image-station-index-filter">
           </div>
+          <div class="station-avatar-rond"></div>
           <div class="d-flex justify-content-between">
             <div class="d-flex flex-column">
-              <div>Nom du vendeur</div>
-              <div>Top mate</div>
-              <div class="barre-de-niveau-station"></div>
+              <div class="station-username d-flex align-items-end mt-2"><%= station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
+              <div class="mate-type-station"><%= mateType %></div>
+              <div class="barre-de-niveau-station" style="--width-barre: <%= barreLength%>%; --color-barre: <%= barreColor%>;"></div>
             </div>
-            <div class="d-flex flex-column">
-              <div><%= station.available ? Time.now.to_s : ""%></div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="mt-1 disponible-station">Disponible</div>
+                <div class="mate-type-station bis"><%= params[:date_available].to_time.strftime("%d-%m-%Y") if params[:date_available] != "" %></div>
+                <div class="price-hour-station"><%=('%.2f' % station.consomation_price) + "€ / heure"%></div>
+                <div class="bouton-station-index-carte text-center">En voir plus</div>
             </div>
           </div>
-        </div>
-        <div class="d-flex justify-content-center">
-          <div class="bouton-station-index-carte text-center">En voir plus</div>
+
+          <div>
+            <div class="d-flex flex-column align-items-end">
+              <%= form_with model: [station, @booking] do |f| %>
+                <%= f.datetime_field :date_heure_reservation %>
+                <%= f.number_field :vehicle_id, :value => params[:plug], class: "d-none"%>
+                <%= f.submit "Reserver", class:"bouton-station-index-carte text-center border-none" %>
+              <% end %>
+
+            </div>
+          </div>
+
+
         </div>
       </div>
     <% end %>
   <% end %>
+  <div class="mt-5 pt-5"></div>
 </div>

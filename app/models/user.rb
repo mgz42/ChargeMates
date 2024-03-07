@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_one :station
   has_many :messages
   has_many :conflicts
-  has_many :bookings
 
   # Définir les colonnes de votre table users dans le modèle
   validates :email, presence: true, uniqueness: true

@@ -19,18 +19,17 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @station = Station.find(params[:station_id])
-    @booking = @station.bookings.new(booking_params)
-    @booking.user_id = current_user.id
+    @booking = Booking.new(booking_params)
+    @booking.station_id = params[:station_id]
+    @booking.status = "en attente"
     if @booking.save
-      redirect_to booking_path(@booking)
+      redirect_to bookings_path
     else
       render :new
     end
   end
 
   def show
-    @bookings = current_user.bookings
     @message = Message.new
   end
 
@@ -64,6 +63,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:quantity)
+    params.require(:booking).permit(:date_heure_reservation, :vehicle_id)
   end
 end

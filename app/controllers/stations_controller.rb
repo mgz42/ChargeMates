@@ -6,13 +6,12 @@ class StationsController < ApplicationController
     @vehicles.each do |vehicle|
       arr = []
       arr.push(" " + vehicle.brand + " " + vehicle.model + " - " + vehicle.plug + " ")
-      arr.push(vehicle.plug)
+      arr.push(vehicle.id)
       @array_of_cars.push(arr)
     end
 
       if params[:address] && params[:plug] && params[:date_available]
-        # @stations = Station.near(params[:address], 10, order: :distance).where('plug = ? AND available = ? AND ( avaibility_end IS NULL OR avaibility_end < ? )', params[:plug], 'true', params[:date_available].to_time)
-        @stations = Station.all
+        @stations = Station.near(params[:address], 10, order: :distance).where('plug = ? AND available = ? AND ( avaibility_end IS NULL OR avaibility_end < ? )', Vehicle.find(params[:plug]).plug, 'true', params[:date_available].to_time)
       else
         @stations = ""
       end
@@ -30,5 +29,7 @@ class StationsController < ApplicationController
     else
       @markers = [];
     end
+
+    @booking = Booking.new
   end
 end
