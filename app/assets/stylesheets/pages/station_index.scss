@@ -79,6 +79,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 10px;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
+  color: #373737;
+  position: relative;
 }
 
 .station-break {
@@ -95,10 +97,68 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 10px;
   color: white;
   width: fit-content;
+  border: none;
 }
 
 .barre-de-niveau-station{
   height: 0.25rem;
-  background-color: grey;
+  background-color: #c8c8c8cd;
   width: 7rem;
+  --color-barre: orange;
+  --width-barre: 100%;
+}
+
+.barre-de-niveau-station::before{
+  background-color: var(--color-barre);
+  content: "";
+  display: block;
+  height: 0.25rem;
+  width: var(--width-barre);
+  background-image: linear-gradient(90deg, #ffffff00, #1f10032b);
+}
+
+.station-username {
+  font-size: 1.5rem;
+}
+
+.station-username-level {
+  font-size: 0.8rem;
+  padding-bottom: 0.35rem;
+}
+
+.mate-type-station {
+  margin-top: -0.4rem;
+}
+
+.bis{
+  font-size: 0.85rem;
+  margin-top: -0.2rem;
+}
+
+// .word-until-station {
+//   font-size: 0.7rem;
+// }
+
+// .date-until-station {
+//   font-size: 0.7rem;
+// }
+
+.price-hour-station {
+  color: #249856;
+  margin-top: 0.2rem;
+}
+
+.disponible-station {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.station-avatar-rond{
+  border-radius: 50%;
+  height: 4.4rem;
+  width: 4.4rem;
+  left: 1.37rem;
+  position: absolute;
+  top: 2.2rem;
+  background-color: grey;
 }
