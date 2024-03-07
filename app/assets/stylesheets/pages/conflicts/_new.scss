@@ -1,0 +1,32 @@
+body {
+  background-color: #F5F5F5;
+}
+
+.form-creation-conflict {
+  border-radius: 10px;
+  margin: 10px;
+
+  h3 {
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .bouton-creation-conflict {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+.bouton-creation-conflict input[type="submit"] {
+  background-image: linear-gradient(to right, #FF6868, #9B0054);
+  padding: 0.1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-radius: 10px;
+  color: white;
+  width: fit-content;
+  border: none;
+
+}
