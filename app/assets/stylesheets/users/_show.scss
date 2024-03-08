@@ -76,10 +76,12 @@
 }
 
 .avatar-placeholder {
-  width: 4rem; /* Adjust as needed */
-  height: 4rem; /* Adjust as needed */
+  width: 5rem; /* Adjust as needed */
+  height: 5rem; /* Adjust as needed */
   background-color: #ccc; /* Grey color */
   border-radius: 50%; /* Rounded shape */
+  border: 4px solid #f5f5f5;
+  margin-top: 0.2rem;
 }
 
 p {
@@ -100,7 +102,7 @@ h4 {
 }
 h5.username-badge {
   color: #5F5F5F;
-  font-size: 1rem;
+  font-size: 1.4rem;
   margin-bottom: -0.3rem;
 }
 
@@ -166,6 +168,7 @@ div.flex-grow-1 {
   border-radius: 10px !important;
 }
 
+
 .img.mr-3 {
   position: relative;
   right: 1rem;
@@ -179,4 +182,26 @@ div.flex-grow-1 {
 .booking-duration {
   position: relative;
   right: -0.7rem;
+
+.booking-barre-plusgrande {
+    width: 14rem;
+}
+
+.booking-barre-plusgrande::before {
+  height: 0.35rem;
+}
+
+.user-level-placement{
+  width: 93%;
+}
+
+.badges-if-any-parent {
+  position: relative;
+}
+
+.badges-if-any{
+  font-size: 0.7rem;
+  position: absolute;
+  top: 0.3rem;
+  right: 1rem;
 }

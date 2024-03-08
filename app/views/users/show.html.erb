@@ -1,26 +1,27 @@
 <div class="mobile-scroll-container">
   <div class="container my-profil">
     <div class="row mt-3">
-      <div class="col-md-12 d-flex justify-content-center align-items-start">
+      <div class="badges-if-any-parent col-md-12 d-flex justify-content-between align-items-center">
+      <div class="badges-if-any"><%= "Pas encore de badge" %></div>
         <div class="d-flex flex-column align-items-center">
           <div class="avatar-placeholder rounded-circle"></div>
         </div>
-        <div class="flex-grow-1 ml-3 d-flex flex-column justify-content-end align-items-end">
+        <div class="flex-grow-1 ml-3 d-flex flex-column justify-content-end align-items-start ms-5">
           <div class="station-username d-flex align-items-end mt-2 text-end">
-            <h5 class="username-badge"><%= current_user.username %></h5>
+            <h5 class="username-badge"><%= current_user.username.capitalize %></h5>
           </div>
           <% mateType = current_user.xp < 25000 ? "Mate Débutant" : current_user.xp < 50000 ? "Mate Avancé" : current_user.xp < 75000 ? "Super Mate" : "Top Mate" %>
-          <div class="mate-type-user text-end"><%= mateType %> <%= current_user.xp / 1000 %></div>
+          <div class="mate-type-user text-end d-flex justify-content-between user-level-placement"> <div><%= mateType %></div> <div><%= current_user.xp / 1000 %></div></div>
           <div class="station-username-level ps-1"></div>
           <% barreColor = current_user.xp < 25000 ? "#CAD82E" : current_user.xp < 50000 ? "#5EA482" : current_user.xp < 75000 ? "#FECD4F" : "#FE9751" %>
           <% barreLength = (current_user.xp.to_f / 1000) %>
-          <div class="barre-de-niveau-station" style="--width-barre: <%= barreLength %>%; --color-barre: <%= barreColor %>;"></div>
+          <div class="barre-de-niveau-station booking-barre-plusgrande" style="height: 0.6rem; --width-barre: <%= barreLength %>%; --color-barre: <%= barreColor %>;"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="barregrise"></div>
+  <div class="barregrise mt-2"></div>
 
     <div class="text-center">
       <h1><strong>Classement</strong></h1>
@@ -99,7 +100,7 @@
           <% if current_user.vehicles.any? %>
             <% current_user.vehicles.each do |vehicle| %>
               <% vehicle.bookings.each do |booking| %>
-                <div class="card mb-3">
+                <div class="card mb-3" style="border: none;">
                   <!-- Enveloppez le contenu de chaque réservation dans une balise <a> avec un lien vers la page de détails de la réservation -->
                   <a href="<%= booking_path(booking) %>" class="text-decoration-none text-reset">
                     <div class="card-body-historique d-flex align-items-center">
