@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
 
   resources :users, only: [:show, :update] do
-    resources :vehicles, only: [:new, :create] # Ressources des véhicules
+    resources :vehicles, only: [:new, :create, :edit, :update]  # Ressources des véhicules
   end
 
   get '/leaderboard', to: 'users#leaderboard'
