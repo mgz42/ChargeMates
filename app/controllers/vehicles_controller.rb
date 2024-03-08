@@ -1,6 +1,7 @@
 class VehiclesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:new, :create]
+  before_action :set_vehicle, only: [:edit, :update, :destroy]
 
   def index
     user_vehicles = current_user.Vehicle.all
@@ -24,11 +25,18 @@ class VehiclesController < ApplicationController
   end
 
   def edit
+<<<<<<< Updated upstream
   @vehicle = Vehicle.find(params[:id])
+=======
+    @user = current_user
+    #@vehicle = Vehicle.find(params[:id])
+    @vehicle_list = Vehicle.car_list # Si vous avez une méthode car_list qui renvoie une liste de marques de véhicules
+    @all_vehicle_models = @vehicle_list.values.flat_map { |car| car['Modeles'] }.uniq
+>>>>>>> Stashed changes
   end
 
   def update
-    @vehicle = Vehicle.find(params[:id])
+    #@vehicle = Vehicle.find(params[:id])
     if @vehicle.update(vehicle_params)
       redirect_to @vehicle, notice: 'Véhicule mis à jour avec succès.'
     else
@@ -36,12 +44,19 @@ class VehiclesController < ApplicationController
     end
   end
 
-
+  def destroy
+    @vehicle.destroy
+    redirect_to user_path(@user), notice: "Véhicule supprimé avec succès."
+  end
 
   private
 
   def set_user
     @user = current_user
+  end
+
+  def set_vehicle
+    @vehicle = Vehicle.find(params[:id])
   end
 
   def vehicle_params

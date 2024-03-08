@@ -76,6 +76,11 @@
             <p class="text-center">Vous n'avez aucun véhicule.</p>
           <% end %>
         </div>
+
+        <div class="d-flex justify-content-center">
+            <%= link_to "Ajouter wallbox", new_station_path, class: "btn btn-primary"%>
+          </div>
+
         <% if current_user.station.present? %>
           <div class="d-flex justify-content-center">
             <%= link_to "Ajouter wallbox", new_station_path, class: "btn btn-primary"%>

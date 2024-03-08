@@ -32,4 +32,42 @@ class StationsController < ApplicationController
 
     @booking = Booking.new
   end
+<<<<<<< Updated upstream
+=======
+
+  def new
+    @station = Station.new
+  end
+
+  def create
+    @station = Station.new(station_params)
+    @station.user = @user
+
+    respond_to do |format|
+      if @station.save
+        format.html { redirect_to user_path(@user), notice: "Flat was successfully created." }
+        format.json { render :show, status: :created, location: @station }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @station.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+    #if @station.save
+
+    #  redirect_to user_path(@user), notice: "Nous avons ajouté votre station de recharge."
+    #else
+    #  raise
+    #  flash.now[:error] = "Nous n'avons pas pu ajouter votre station de recharge."
+    #  render :new
+    #end
+  #end
+
+  private
+
+  def station_params
+    params.require(:station).permit(:address, :plug, :brand, :model, :max_kW_recharge, :available, :availability_end, :code_station, :latitude, :longitude)
+  end
+
+>>>>>>> Stashed changes
 end
