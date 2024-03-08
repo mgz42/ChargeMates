@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-
+import flatpickr from "flatpickr";
 
 export default class extends Controller {
   static targets = ["duration"]
@@ -7,6 +7,8 @@ export default class extends Controller {
   connect() {
     console.log("coucouBenoitleboulet")
   }
+
+
   updateDuration(event) {
     console.log("coucou1")
     const value = parseFloat(event.target.dataset.value);
@@ -17,30 +19,9 @@ export default class extends Controller {
       this.updateBooking(newDuration);
       console.log("coucou2")
     }
-  }
 
-  updateBooking(newDuration) {
-    console.log("coucou3")
-    const bookingId = this.element.dataset.bookingId;
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    fetch(`/bookings/${bookingId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "X-CSRF-Token": csrfToken
-      },
-      body: JSON.stringify({ duree_recharge: newDuration })
-    }).then(response => {
-      console.log("coucou4")
-      if (!response.ok) {
-        console.error("Une erreur s'est produite lors de la mise à jour de la durée de réservation.");
-      }
-      console.log("coucou5")
-    }).catch(error => {
-      console.error("Erreur lors de la mise à jour de la durée de réservation:", error);
-    });
-  }
+
+    }
 
 
 }
