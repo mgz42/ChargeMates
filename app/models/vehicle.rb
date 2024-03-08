@@ -223,7 +223,8 @@ class Vehicle < ApplicationRecord
 
   def self.all_car_models
     @@car_list.each do |brand, details|
-      models = details["Modeles"]
+      @all_vehicle_models ||= {} 
+      @all_vehicle_models[brand] = details["Modeles"]
     end
   end
 end
