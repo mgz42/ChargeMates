@@ -14,7 +14,7 @@
           <div class="mate-type-user text-end d-flex justify-content-between user-level-placement"> <div><%= mateType %></div> <div><%= current_user.xp / 1000 %></div></div>
           <div class="station-username-level ps-1"></div>
           <% barreColor = current_user.xp < 25000 ? "#CAD82E" : current_user.xp < 50000 ? "#5EA482" : current_user.xp < 75000 ? "#FECD4F" : "#FE9751" %>
-          <% barreLength = (current_user.xp.to_f / 1000) %>
+          <% barreLength = (current_user.xp - ((current_user.xp.to_f / 1000).floor * 1000)) / 10 %>
           <div class="barre-de-niveau-station booking-barre-plusgrande" style="height: 0.6rem; --width-barre: <%= barreLength %>%; --color-barre: <%= barreColor %>;"></div>
         </div>
       </div>

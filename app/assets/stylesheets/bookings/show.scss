@@ -171,6 +171,15 @@ margin-top: 0.3rem;
   margin: 0rem 0.7rem;
   overflow-y: auto;
   border-radius: 4px;
+  position: relative;
+}
+
+.pas-encore-de-message{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 .message-right {

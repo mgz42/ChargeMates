@@ -8,7 +8,11 @@
   <div class="bookingheadpic">
     <!-- Header username du locataire de la borne -->
     <div class="bookingheadusername">
-      <h5 class="card-title"><%= @booking.station.user.username %></h5>
+    <%
+          userLevel = (@booking.station.user.xp.to_f / 1000).floor
+        %>
+       <div class="station-username d-flex align-items-end"><%= @booking.station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
+
       <!-- Header des logos map et waze -->
       <div class="bookingwaze"></div>
     </div>
@@ -51,7 +55,7 @@
   </div>
 
   <!-- recap total heures (calculé avec JavaScript) -->
-  <div class="heureprix d-flex justify-content-around mb-3">
+  <div class="heureprix d-flex justify-content-around mb-4">
     <div class="heuredebutfin">
       <div class="heurededebut d-flex justify-content-around align-items-center">Heure de début <p><%= @booking.date_heure_reservation.strftime("%Hh%M") %> </p></div>
       <% if @booking.duree_recharge.present? %>
@@ -116,6 +120,7 @@
   <!-- Tchatbox -->
   <div class="bookingmessage">
     <div class="zonetext">
+    <div class="pas-encore-de-message <%= "d-none" if @booking.messages.length > 0%>">Pas encore de message</div>
       <% @booking.messages.each do |message| %>
         <% if message.user == current_user %>
           <div id="message-<%= message.id %>" class="message-right">
@@ -124,7 +129,7 @@
         <% end %>
           <div class="message-header">
             <small>
-              <strong><%= message.user.username %></strong>
+              <strong><%= message.user.username.capitalize %></strong>
               <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
             </small>
           </div>
