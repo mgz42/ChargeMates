@@ -51,7 +51,7 @@ option {
   outline: none;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   font-size: 1.4rem;
   padding: 0;
   margin: 0;
@@ -135,19 +135,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-top: -0.2rem;
 }
 
-// .word-until-station {
-//   font-size: 0.7rem;
-// }
-
-// .date-until-station {
-//   font-size: 0.7rem;
-// }
-
-.price-hour-station {
-  color: #249856;
-  margin-top: 0.2rem;
-}
-
 .disponible-station {
   font-size: 0.9rem;
   font-weight: 600;
@@ -161,4 +148,33 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   top: 2.2rem;
   background-color: grey;
+}
+
+.votre-prix-price{
+  font-size: 1.6rem;
+  line-height: 1.1rem;
+}
+
+.votre-prix-modele{
+  font-size: 1.07rem;
+}
+
+.cout-per-hour-station{
+  color: #249856;
+  font-size: 1.4rem;
+  line-height: 1rem;
+}
+
+.cout-fixe-station{
+  color: #249856;
+}
+
+.station-adresse{
+  font-size: 0.9rem;
+    text-align: end;
+    max-width: 12rem;
+}
+
+.bouton-reserver-station{
+  align-items: end;
 }

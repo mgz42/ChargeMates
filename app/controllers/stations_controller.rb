@@ -11,7 +11,8 @@ class StationsController < ApplicationController
     end
 
       if params[:address] && params[:plug] && params[:date_available]
-        @stations = Station.near(params[:address], 10, order: :distance).where('plug = ? AND available = ? AND ( avaibility_end IS NULL OR avaibility_end < ? )', Vehicle.find(params[:plug]).plug, 'true', params[:date_available].to_time)
+        @stations = Station.near(params[:address], 10, order: :distance).where('user_id <> ? AND plug = ? AND available = ? AND ( avaibility_end IS NULL OR avaibility_end < ? )',current_user.id, Vehicle.find(params[:plug]).plug, 'true', params[:date_available].to_time)
+        # @stations = Station.all // for testing purposes only
       else
         @stations = ""
       end

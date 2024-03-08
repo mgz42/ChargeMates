@@ -1,15 +1,23 @@
 <div class="container-sm">
   <div class="station-main-titre mt-2">Recharger ma voiture</div>
   <div class="row">
+
+  <% if params[:address] %>
+  <% params[:address] != "" ? placeholder = params[:address] : placeholder = "Adresse..."%>
+  <% else %>
+  <% placeholder = "Adresse ..." %>
+  <% end %>
+
     <%# Ci dessous formulaire d'envois des parametres de filtre %>
+    <% params[:plug] ? the_selected = params[:plug] : the_selected = "1" %>
   <%= form_with url: stations_path, method: :get, class: "" do |f|%>
-      <div class="d-flex justify-content-start"><%= f.select :plug, @array_of_cars %></div>
+      <div class="d-flex justify-content-start"><%= f.select :plug, options_for_select(@array_of_cars, :selected => the_selected ) %></div>
       <div class="station-main-titre secondaire mt-2">Quand ?</div>
-      <%= f.date_field :date_available, class: 'form-control formulaire' %>
+      <%= f.datetime_field :date_available, class: 'form-control formulaire' %>
         <div class="station-main-titre secondaire mt-2">Ou ?</div>
       <div class="d-flex w-100 form-control justify-content-between mb-2 formulaire">
       <%= f.text_field :address,
-      placeholder: "Adresse...", class: 'barre-de-recherche' %>
+      placeholder: placeholder, class: 'barre-de-recherche' %>
       <%= f.button nil, class: "barre-de-recherche" do %><i class="fa-solid fa-magnifying-glass"></i>
       <% end %>
       </div>
@@ -28,17 +36,37 @@
   <%# espace %>
   <div class="station-break"></div>
 
+  <%# variable price %>
+  <% if params[:plug] %>
+  <% capacite_batterie = Vehicle.car_list[Vehicle.find(params[:plug]).brand]['capacite'] %>
+  <% puissance_maximale = Vehicle.car_list[Vehicle.find(params[:plug]).brand]['Puissance_maximale_recharge'] %>
+  <% if puissance_maximale > capacite_batterie %>
+    <% puissance_maximale = capacite_batterie %>
+  <% end %>
+  <% cout_pour_1_heure = puissance_maximale * 0.22 %>
+  <% end %>
+
   <%# ci dessous affiche les stations ! %>
   <% if @stations != "" %>
-  <div class="mb-4 p-1 <%= "d-none" if params[:address] == ""%>">Stations disponible autour de <strong><%= params[:address] %></strong></div>
+  <div class="mb-4 p-1 <%= "d-none" if params[:address] == ""%>">
+
+
+  <div class="d-flex justify-content-between">
+    <div class="votre-prix"><div class="votre-prix-price">Prix pour</div> <div class="votre-prix-modele">votre modéle</div></div>
+    <div class="d-flex flex-column align-items-end"><div class="cout-per-hour-station"><%= "%.2f" % cout_pour_1_heure %>€ / heure</div><div class="cout-fixe-station">+ 3 € fixe</div></div>
+  </div>
+
+  </div>
     <% @stations.each do |station| %>
     <% barreColor = station.user.xp < 25000 ? "#cad82e" : station.user.xp < 50000 ? "#5ea482" : station.user.xp < 75000 ? "#fecd4f" : "#fe9751"
        mateType = station.user.xp < 25000 ? "Mate Débutant" : station.user.xp < 50000 ? "Mate Avancé" : station.user.xp < 75000 ? "Super Mate" : "Top Mate"
        barreLength = (station.user.xp - ((station.user.xp.to_f / 1000).floor * 1000)) / 10
        userLevel = (station.user.xp.to_f / 1000).floor
+       adresse = station.address.length < 35 ? station.address : station.address[0..35] + "..."
+       codepostal = " " + station.address.scan(/\d{5}/)[0]
     %>
 
-      <div data-controller="station-toggle" class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
+      <div class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
         <div>
           <div class="image-station-index-filter">
           </div>
@@ -48,28 +76,34 @@
               <div class="station-username d-flex align-items-end mt-2"><%= station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
               <div class="mate-type-station"><%= mateType %></div>
               <div class="barre-de-niveau-station" style="--width-barre: <%= barreLength%>%; --color-barre: <%= barreColor%>;"></div>
+
             </div>
             <div class="d-flex flex-column align-items-end">
                 <div class="mt-1 disponible-station">Disponible</div>
                 <div class="mate-type-station bis"><%= params[:date_available].to_time.strftime("%d-%m-%Y") if params[:date_available] != "" %></div>
-                <div class="price-hour-station"><%=('%.2f' % station.consomation_price) + "€ / heure"%></div>
-                <div class="bouton-station-index-carte text-center">En voir plus</div>
-            </div>
-          </div>
 
-          <div>
-            <div class="d-flex flex-column align-items-end">
-              <%= form_with model: [station, @booking] do |f| %>
-                <%= f.datetime_field :date_heure_reservation %>
-                <%= f.number_field :vehicle_id, :value => params[:plug], class: "d-none"%>
-                <%= f.submit "Reserver", class:"bouton-station-index-carte text-center border-none" %>
-              <% end %>
 
             </div>
           </div>
-
-
         </div>
+        <div class="d-flex justify-content-between bouton-reserver-station" data-controller="toggle-address" >
+
+                <div class="d-flex flex-column align-items-end">
+                  <%= form_with model: [station, @booking] do |f| %>
+                  <%= f.datetime_field :date_heure_reservation, :value => params[:date_available].to_time , class:"d-none"%>
+                  <%= f.number_field :vehicle_id, :value => params[:plug], class: "d-none"%>
+                  <%= f.submit "Reserver", class:"bouton-station-index-carte text-center border-none" %>
+                  <% end %>
+                </div>
+
+                <% if station.address.length > 35 %>
+                  <div data-toggle-address-target="smalla" data-action="click->toggle-address#toggle" class="station-adresse"><%= adresse + codepostal %></div>
+                  <div data-toggle-address-target="biga" data-action="click->toggle-address#toggle" class="station-adresse d-none"><%= station.address %></div>
+                  <% else %>
+                  <div class="station-adresse"><%= station.address %></div>
+                <% end %>
+
+            </div>
       </div>
     <% end %>
   <% end %>

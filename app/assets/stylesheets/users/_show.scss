@@ -21,6 +21,7 @@
 .container {
   margin-top: 20px; /* Ajoute une marge de 20px en haut */
 }
+// verifier que ca ne fait pas bugger
 
 .barregrise {
   background-color: #E0E0E0;
@@ -50,7 +51,6 @@
 .policejaune {
   color: #FFC719;
 }
-
 
 .barre-de-niveau-station{
   height: 0.25rem;
@@ -95,6 +95,8 @@ h4 {
   color: #373737;
 }
 
+h4 {
+  color: #373737;
 h5.username-badge {
   color: #5F5F5F;
   font-size: 1rem;
@@ -161,5 +163,6 @@ div.flex-grow-1 {
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.34);
   border: white !important;
   border-radius: 10px !important;
+
 
 }

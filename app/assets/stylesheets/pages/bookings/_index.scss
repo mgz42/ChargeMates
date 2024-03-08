@@ -1,30 +1,34 @@
 .carte-index-booking {
   background-color: white;
-  height: 180px;
   position: relative;
+  margin: 0 !important;
 
   .carte-index-booking-content {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px;
+    align-items: end;
+    justify-content: space-between;
+    padding: 1rem;
+    padding-top: 1.3rem;
+    line-height: 1 !important;
   }
 
   .carte-index-booking-background-image {
-    background-color: grey;
+    background-color: rgb(162, 162, 162);
     object-fit: cover;
     width: 100%;
-    height: 100px;
+    border: none;
+    height: 5.8rem;
   }
 
   .carte-index-booking-avatar {
-    position: absolute;
-    left: 4px;
-    width: 85px;
-    height: 85px;
-    top: 30px;
+    height: 4.7rem;
+    width: 4.7rem;
+    background-color: grey;
+    left: 0.4rem;
+    top: 1.7rem;
     border-radius: 50%;
+    position: absolute;
     margin: 10px;
   }
 
@@ -39,11 +43,26 @@
 }
 
 .container-bookings {
-  background-color: black;
 }
 
+.ligne-grise-bookings{
+  height: 6px;
+  background-color: #e1e1e1;
+  width: 100vw;
+}
 
+.date-absolute-booking{
+  position: absolute;
+  right: 1.3rem;
+  top: 6rem;
+  font-size: 0.9rem;
+}
 
-h4 {
-  margin-top: 0px;
+.badge-car-station-booking{
+  height: 1.5rem;
+    width: 1.5rem;
+    opacity: 0.55;
+    left: 0.8rem;
+    top: 7.6rem;
+    position: absolute;
 }
