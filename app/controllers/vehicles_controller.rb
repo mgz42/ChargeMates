@@ -1,6 +1,7 @@
 class VehiclesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:new, :create]
+  before_action :populate_all_car_models, only: [:create]
   before_action :set_vehicle, only: [:edit, :update, :destroy]
 
   def index
@@ -14,23 +15,41 @@ class VehiclesController < ApplicationController
   end
 
   def create
-    @vehicle = Vehicle.new(vehicle_params)
-    @vehicle.user = @user
-    if @vehicle.save
-      redirect_to user_path(current_user), notice: 'Vehicle was successfully created.'
+    selected_brand = params[:vehicle][:brand]
+    selected_model = params[:vehicle][:model]
+
+    car_details = Vehicle.car_list[selected_brand]
+
+    if car_details && car_details['Modeles'].include?(selected_model)
+      @vehicle = Vehicle.new(vehicle_params)
+      @vehicle.user = @user
+
+      @vehicle.attributes = {
+        brand: selected_brand,
+        model: selected_model,
+        plug: car_details['Type_prise'],
+        max_kW_recharge: car_details['Puissance_maximale_recharge'],
+        # Add other attributes as needed
+      }
+
+      if @vehicle.save
+        redirect_to user_path(current_user), notice: 'Vehicle was successfully created.'
+      else
+        flash.now[:error] = 'Failed to create vehicle. Please check the form.'
+        render :new
+      end
     else
-      flash.now[:error] = 'Failed to create vehicle. Please check the form.'
+      flash[:error] = "Invalid brand or model selected."
       render :new
     end
   end
 
-  def edit
 
+  def edit
     @user = current_user
     #@vehicle = Vehicle.find(params[:id])
     @vehicle_list = Vehicle.car_list # Si vous avez une méthode car_list qui renvoie une liste de marques de véhicules
     @all_vehicle_models = @vehicle_list.values.flat_map { |car| car['Modeles'] }.uniq
-
   end
 
 
@@ -52,6 +71,10 @@ class VehiclesController < ApplicationController
 
   private
 
+  def populate_all_car_models
+    @all_vehicle_models = Vehicle.all_car_models
+  end
+
   def set_user
     @user = current_user
   end
@@ -61,6 +84,6 @@ class VehiclesController < ApplicationController
   end
 
   def vehicle_params
-    params.require(:vehicle).permit(:brand, :model, :model_year, :immatriculation)
+    params.require(:vehicle).permit(:brand, :model, :model_year, :immatriculation, :plug, :max_kW_recharge)
   end
 end
