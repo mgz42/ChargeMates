@@ -62,9 +62,9 @@
               <div class="d-flex align-items-center justify-content-between">
                 <% Vehicle.car_list.each do |key, value| %>
                   <% if vehicle.brand == key %>
-                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3" style="max-width: 3rem; max-height: 3rem;">
+                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3-logo" style="max-width: 3rem; max-height: 3rem;position: relative; right: 1rem;">
                     <p class="mr-3"><strong><%= vehicle.brand %> <%= vehicle.model %></strong></p>
-                    <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-3" style="max-width: 2rem; max-height: 2rem;">
+                    <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-3" style="max-width: 2rem; max-height: 2rem; position: relative; right: -1rem;">
                   <% end %>
                 <% end %>
               </div>
@@ -74,14 +74,15 @@
           <% if current_user.vehicles.empty? %>
             <p class="text-center">Vous n'avez aucun véhicule.</p>
           <% end %>
-        </div>
-        <% if current_user.station.present? %>
-          <div class="d-flex justify-content-center">
-            <%= link_to "Ajouter wallbox", new_station_path, class: "btn btn-primary"%>
           </div>
+          <% unless current_user.station.present? %>
+            <div class="d-flex justify-content-center">
+              <%= link_to "Ajouter wallbox", new_station_path, class: "btn btn-primary"%>
+            </div>
+          <% end %>
           <hr>
           <p><strong><%= current_user.station.brand %> <%= current_user.station.model %> <%= current_user.station.plug %></strong></p>
-        <% end %>
+
       </div>
     </div>
   </div>
@@ -105,8 +106,13 @@
                       <div class="avatar-placeholder rounded-circle me-3"></div> <!-- Avatar Placeholder -->
                       <div class="booking-details flex-grow-1 d-flex justify-content-between align-items-center">
                         <p class="booking-date mb-0"><strong><%= booking.date_heure_reservation.strftime("%d/%m/%Y") %></strong></p> <!-- Date -->
-                        <p class="booking-duration mb-0"><strong><%= booking.duree_recharge %></strong></p> <!-- Durée de recharge -->
-                        <p class="booking-status mb-0">
+                        <% if booking.duree_recharge.present? %>
+                          <p class="booking-duration mb-0"><strong><%= booking.duree_recharge %></strong></p>
+                        <% else %>
+                          <p class="booking-duration mb-0"><strong><i class="fa-regular fa-clock"></i> 0 min</strong></p>
+                        <% end %>
+
+                        <p class="booking-status mb-0" style>
                           <% if booking.status == "en attente" %>
                             <i class="far fa-hourglass-half ms-2"></i>
                           <% elsif booking.status == "acceptée" %>
@@ -132,3 +138,4 @@
     </div>
   </div>
 </div>
+<div class="mb-5 mt-5 fixed-bottom"></div>

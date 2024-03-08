@@ -11,6 +11,9 @@
 
           <div class="btn bouton-creation-voiture">
             <%= f.submit 'Enregistrer les modifications'%>
+            <%= link_to user_path(@vehicle), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer ce véhicule ?' } do %>
+              <i class="fa-solid fa-trash-can"></i> <!-- Utilisez la classe de l'icône font croix -->
+            <% end %>
           </div>
         <% end %>
       </div>
