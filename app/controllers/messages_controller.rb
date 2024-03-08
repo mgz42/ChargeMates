@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
     @message.user = current_user
 
     if @message.save
-      redirect_to booking_path(@booking), notice: 'Message sent successfully.'
+      redirect_to booking_path(@booking)
     else
       flash.now[:alert] = 'Failed to send message.'
       render "bookings/show", status: :unprocessable_entity

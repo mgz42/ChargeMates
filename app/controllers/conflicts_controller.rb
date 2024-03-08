@@ -13,7 +13,7 @@ class ConflictsController < ApplicationController
     @conflict.booking = @booking
 
     if @conflict.save
-      redirect_to @booking, notice: 'Nous avons bien reçu votre signalement.'
+      redirect_to @booking
     else
       render :new, status: :unprocessable_entity
     end
