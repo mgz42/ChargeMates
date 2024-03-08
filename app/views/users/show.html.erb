@@ -1,8 +1,8 @@
 <div class="mobile-scroll-container">
   <div class="container my-profil">
     <div class="row mt-3">
-      <div class="col-md-12 d-flex justify-content-center align-items-start"> <!-- Updated this line -->
-        <div class="d-flex flex-column align-items-center"> <!-- Updated this line -->
+      <div class="col-md-12 d-flex justify-content-center align-items-start">
+        <div class="d-flex flex-column align-items-center">
           <div class="avatar-placeholder rounded-circle"></div>
         </div>
         <div class="flex-grow-1 ml-3 d-flex flex-column justify-content-end align-items-end">
@@ -22,11 +22,10 @@
 
   <div class="barregrise"></div>
 
-  <div class="container leaderboard">
     <div class="text-center">
       <h1><strong>Classement</strong></h1>
       <h2>Top France</h2>
-      <p class="policejaune">Votre rang : <strong><%= @current_user_rank %> / <%= @total_users_count %></strong> - <strong><%= current_user.xp %></strong> XP</p>
+      <p class="policejaune"><strong><%= @current_user_rank %> / <%= @total_users_count %></strong> - <strong><%= current_user.xp %></strong> XP</p>
     </div>
     <div class="d-flex justify-content-center">
       <!-- Première carte -->
@@ -63,9 +62,9 @@
               <div class="d-flex align-items-center justify-content-between">
                 <% Vehicle.car_list.each do |key, value| %>
                   <% if vehicle.brand == key %>
-                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-2" style="max-width: 3rem; max-height: 3rem;">
-                    <p class="mr-2"><strong><%= vehicle.brand %> <%= vehicle.model %></strong></p>
-                    <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-2" style="max-width: 2rem; max-height: 2rem;">
+                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3" style="max-width: 3rem; max-height: 3rem;">
+                    <p class="mr-3"><strong><%= vehicle.brand %> <%= vehicle.model %></strong></p>
+                    <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-3" style="max-width: 2rem; max-height: 2rem;">
                   <% end %>
                 <% end %>
               </div>
@@ -87,29 +86,47 @@
     </div>
   </div>
 
+
   <div class="barregrise"></div>
 
-  <div class="col-md-12">
-    <div class="container mes-bookings d-flex justify-content-center align-items-center space">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="text-center"><strong>Historique</strong></h1>
-          <div class="mt-3">
-            <% if current_user.vehicles.any? %>
-              <% current_user.vehicles.each do |vehicle| %>
-                <% vehicle.bookings.each do |booking| %>
-                  <p><strong><%= booking.station_id %> <%= booking.date_heure_reservation %> <%= booking.duree_recharge %> <%= booking.status %></strong></p>
-                  <hr> <!-- Is this hr needed? -->
-                <% end %>
-              <% end %>
-            <% else %>
-              <div class="row">
-                <div class="col text-center">
-                  <p>Vous n'avez aucune réservation</p>
+  <div class="col-md-12-historique">
+  <div class="container mes-bookings">
+    <div class="row justify-content-center"> <!-- Centrer les cartes -->
+      <div class="col-md-8"> <!-- Taille de la carte -->
+        <h1 class="text-center"><strong>Historique</strong></h1>
+        <div class="mt-3">
+          <% if current_user.vehicles.any? %>
+            <% current_user.vehicles.each do |vehicle| %>
+              <% vehicle.bookings.each do |booking| %>
+                <div class="card mb-3">
+                  <!-- Enveloppez le contenu de chaque réservation dans une balise <a> avec un lien vers la page de détails de la réservation -->
+                  <a href="<%= booking_path(booking) %>" class="text-decoration-none text-reset">
+                    <div class="card-body-historique d-flex align-items-center">
+                      <div class="avatar-placeholder rounded-circle me-3"></div> <!-- Avatar Placeholder -->
+                      <div class="booking-details flex-grow-1 d-flex justify-content-between align-items-center">
+                        <p class="booking-date mb-0"><strong><%= booking.date_heure_reservation.strftime("%d/%m/%Y") %></strong></p> <!-- Date -->
+                        <p class="booking-duration mb-0"><strong><%= booking.duree_recharge %></strong></p> <!-- Durée de recharge -->
+                        <p class="booking-status mb-0">
+                          <% if booking.status == "en attente" %>
+                            <i class="far fa-hourglass-half ms-2"></i>
+                          <% elsif booking.status == "acceptée" %>
+                            <i class="far fa-check-circle ms-2"></i>
+                          <% end %>
+                        </p> <!-- Statut -->
+                        <p class="booking-status-text"><%= booking.status %></p>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-              </div>
+              <% end %>
             <% end %>
-          </div>
+          <% else %>
+            <div class="row">
+              <div class="col text-center">
+                <p>Vous n'avez aucune réservation</p>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

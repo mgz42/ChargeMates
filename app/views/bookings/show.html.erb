@@ -2,34 +2,34 @@
 <div class="bookinghead">
   <!-- Header vignette photo garage -->
   <div class="bookingbackgroud bg-secondary text-white p-5">
-      Aucune photo disponible
+    Aucune photo disponible
   </div>
 
-    <!-- Header photo du locataire de la borne -->
-    <div class="bookingheadpic">
-      <!-- Header username du locataire de la borne -->
-      <div class="bookingheadusername">
-        <h5 class="card-title"><%= @booking.station.user.username %></h5>
-        <!-- Header des logos map et waze -->
-        <div class="bookingwaze">
-
-        </div>
-      </div>
+  <!-- Header photo du locataire de la borne -->
+  <div class="bookingheadpic">
+    <!-- Header username du locataire de la borne -->
+    <div class="bookingheadusername">
+      <h5 class="card-title"><%= @booking.station.user.username %></h5>
+      <!-- Header des logos map et waze -->
+      <div class="bookingwaze"></div>
     </div>
   </div>
 </div>
+
 <div class="barregrise"></div>
+
 <!-- details du contrat entre les deux parties-->
 <div class="bookingdetail">
-  <div class="cardisplay mb-4" >
+  <div class="cardisplay mb-4">
     <div class="brandmodel card-text d-flex justify-content-center align-items-center">
-       <%= image_tag @booking.vehicle.car_list[@booking.vehicle.brand]['Logo_url'], alt: "Vehicle Logo", width: "30px" %>
-    <span class="mx-1"></span><%= @booking.vehicle.brand %> <%= @booking.vehicle.model %>
+      <%= image_tag @booking.vehicle.car_list[@booking.vehicle.brand]['Logo_url'], alt: "Vehicle Logo", width: "30px" %>
+      <span class="mx-1"></span><%= @booking.vehicle.brand %> <%= @booking.vehicle.model %>
     </div>
     <div class="plugtype d-flex justify-content-center align-items-center">
       <%= @booking.vehicle.plug %> <span class="mx-1"></span><%= image_tag @booking.vehicle.car_list[@booking.vehicle.brand]['Logo_prise_url'], alt: "prise Logo", width: "25px" %>
     </div>
   </div>
+
   <!-- rentrer les dates -->
   <div class="datereservation">
     <div class="bookingdateplan">
@@ -39,50 +39,58 @@
     </div>
     <button class="changerdate">Changer</button>
   </div>
-    <!-- Nombre d'heures reservées-->
-    <div class="bookingcapheure">
-      <p class="d-flex justify-content-center align-items-center m-0">Nombre d'heures reservées</p>
-        <div class="d-flex justify-content-center align-items-center">
-          <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="-0.5">-</button>
-            <p data-target="booking.duration" id="bookingduree"><%= @booking.duree_recharge %></p>
-              <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="0.5">+</button>
-        </div>
+
+  <!-- Nombre d'heures reservées-->
+  <div class="bookingcapheure">
+    <p class="d-flex justify-content-center align-items-center m-0">Nombre d'heures reservées</p>
+    <div class="d-flex justify-content-center align-items-center">
+      <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="-0.5">-</button>
+      <p data-target="booking.duration" id="bookingduree"><%= @booking.duree_recharge %></p>
+      <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="0.5">+</button>
     </div>
-    <!-- recap total heures (calculé avec JavaScript) -->
-    <div class="heureprix d-flex justify-content-around mb-3">
-      <div class="heuredebutfin">
-        <div class="heurededebut d-flex justify-content-around align-items-center">Heure de début <p><%= @booking.date_heure_reservation.strftime("%Hh%M") %> </p></div>
-          <% duree_heure = @booking.duree_recharge.floor %>
-            <% duree_minutes = ((@booking.duree_recharge - duree_heure) * 60).round %>
-              <% heure_fin = @booking.date_heure_reservation + duree_heure.hours + duree_minutes.minutes %>
+  </div>
+
+  <!-- recap total heures (calculé avec JavaScript) -->
+  <div class="heureprix d-flex justify-content-around mb-3">
+    <div class="heuredebutfin">
+      <div class="heurededebut d-flex justify-content-around align-items-center">Heure de début <p><%= @booking.date_heure_reservation.strftime("%Hh%M") %> </p></div>
+      <% if @booking.duree_recharge.present? %>
+        <% duree_heure = @booking.duree_recharge.floor %>
+        <% duree_minutes = ((@booking.duree_recharge - duree_heure) * 60).round %>
+        <% heure_fin = @booking.date_heure_reservation + duree_heure.hours + duree_minutes.minutes %>
         <div class="heuredefin d-flex justify-content-around">Heure de fin<p> <%= heure_fin.strftime("%Hh%M") %></p></div>
-      </div>
-      <!-- prix total -->
-      <div class="prixtotal">
-  <p class="prixtitre">TOTAL</p>
-  <% vehicle = @booking.vehicle %>
-  <% puissance_maximale = vehicle.car_list[vehicle.brand]['Puissance_maximale_recharge'] %>
-  <% capacite_batterie = vehicle.car_list[vehicle.brand]['capacite'] %>
-  <% temps_recharge_heures = @booking.duree_recharge.to_f %>
-  <% prix_par_kwh = 0.23 # Prix par kWh en euros %>
-  <% energie_consommee_kwh = puissance_maximale * temps_recharge_heures %>
-
-  <% if energie_consommee_kwh > capacite_batterie %>
-    <% energie_consommee_kwh = capacite_batterie %>
-  <% end %>
-
-  <% prix_total = (energie_consommee_kwh * prix_par_kwh) + 3 %>
-  <p class="prixdisplay"><%= prix_total.round(2) %>€</p>
-</div>
-
-      </div>
+      <% end %>
     </div>
+
+    <!-- prix total -->
+    <div class="prixtotal">
+      <p class="prixtitre">TOTAL</p>
+      <% vehicle = @booking.vehicle %>
+      <% if vehicle.present? %>
+        <% puissance_maximale = vehicle.car_list[vehicle.brand]['Puissance_maximale_recharge'] %>
+        <% capacite_batterie = vehicle.car_list[vehicle.brand]['capacite'] %>
+        <% temps_recharge_heures = @booking.duree_recharge.to_f %>
+        <% prix_par_kwh = 0.23 # Prix par kWh en euros %>
+        <% energie_consommee_kwh = puissance_maximale * temps_recharge_heures %>
+
+        <% if energie_consommee_kwh > capacite_batterie %>
+          <% energie_consommee_kwh = capacite_batterie %>
+        <% end %>
+
+        <% prix_total = (energie_consommee_kwh * prix_par_kwh) + 3 %>
+        <p class="prixdisplay"><%= prix_total.round(2) %>€</p>
+      <% end %>
+    </div>
+  </div>
 </div>
+
 <div class="barregrise"></div>
 
 <!-- Bouton d'action en fonction des utilisateurs -->
 <div class="bookingactionuser">
-    <div class="soumettreoffre d-flex justify-content-center"><%= button_to "Soumettre mon offre", accept_offer_path, method: :post %></div>
+  <div class="soumettreoffre d-flex justify-content-center">
+    <%= button_to "Soumettre mon offre", accept_offer_path, method: :post %>
+  </div>
 
   <!-- Etape 2 : Accepter ou refuser l'offre -->
   <div id="step2" style="display: none;">
@@ -108,24 +116,25 @@
   <!-- Tchatbox -->
   <div class="bookingmessage">
     <div class="zonetext">
-    <% @booking.messages.each do |message| %>
-  <% if message.user == current_user %>
-    <div id="message-<%= message.id %>" class="message-right">
-  <% else %>
-    <div id="message-<%= message.id %>" class="message-left">
-  <% end %>
-    <div class="message-header">
-      <small>
-        <strong><%= message.user.username %></strong>
-        <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-      </small>
+      <% @booking.messages.each do |message| %>
+        <% if message.user == current_user %>
+          <div id="message-<%= message.id %>" class="message-right">
+        <% else %>
+          <div id="message-<%= message.id %>" class="message-left">
+        <% end %>
+          <div class="message-header">
+            <small>
+              <strong><%= message.user.username %></strong>
+              <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+            </small>
+          </div>
+          <div class="message-content">
+            <p><%= message.content %></p>
+          </div>
+        </div>
+      <% end %>
     </div>
-    <div class="message-content">
-      <p><%= message.content %></p>
-    </div>
-  </div>
-<% end %>
-    </div>
+
     <!-- ligne input du message -->
     <div class="bookingwhrite">
       <%= simple_form_for [@booking, @message], html: {class: "d-flex"} do |f| %>
@@ -139,12 +148,12 @@
 <!-- Bouton signaler et paiement du bas de page -->
 <div class="bookingfoot d-flex justify-content-between">
   <!-- Bouton Signaler -->
-  <div class="bookingconflict d-flex justify-content-center align-items-center"><%= button_to "SIGNALER", accept_offer_path, method: :post %></div>
+  <div class="bookingconflict d-flex justify-content-center align-items-center">
+    <%= button_to "SIGNALER", accept_offer_path, method: :post %>
+  </div>
+
   <!-- Bouton paiement -->
-  <div class="bookingpaiement d-flex justify-content-center align-items-center"><%= button_to "VALIDER PAIEMENT", accept_offer_path, method: :post %></div>
-</div>
+  <div class="bookingpaiement d-flex justify-content-center align-items-center">
+    <%= button_to "VALIDER PAIEMENT", accept_offer_path, method: :post %>
   </div>
 </div>
-
-<!-- NAVBAR -->
-<div class="vide"></div>

@@ -1,0 +1,36 @@
+<!-- app/views/stations/new.html.erb -->
+<h1>Nouvelle Station</h1>
+
+<%= form_with(model: @station, local: true) do |form| %>
+  <%= form.label :address %>
+  <%= form.text_field :address %>
+
+  <%= form.label :plug %>
+  <%= form.text_field :plug %>
+
+  <%= form.label :brand %>
+  <%= form.text_field :brand %>
+
+  <%= form.label :model %>
+  <%= form.text_field :model %>
+
+  <%= form.label :parking_price %>
+  <%= form.number_field :parking_price %>
+
+  <%= form.label :consomation_price %>
+  <%= form.number_field :consomation_price %>
+
+  <%= form.label :max_kW_recharge %>
+  <%= form.number_field :max_kW_recharge %>
+
+  <%= form.label :available %>
+  <%= form.check_box :available %>
+
+  <%= form.label :avaibility_end %>
+  <%= form.date_field :avaibility_end %>
+
+  <%= form.label :code_station %>
+  <%= form.number_field :code_station %>
+
+  <%= form.submit "Créer" %>
+<% end %>
