@@ -37,7 +37,7 @@
       <span class="mx-3"></span>
       <%= @booking.date_heure_reservation.strftime("%Hh%M") %>
     </div>
-    <button class="changerdate">Changer</button>
+    <button class="changerdate" data-action="click->booking#showDatePicker">Changer</button>
   </div>
     <!-- Nombre d'heures reservées-->
     <div class="bookingcapheure " data-controller="bookings" data-booking-id="<%= @booking.id%>">
@@ -158,3 +158,5 @@
     <%= button_to "VALIDER PAIEMENT", accept_offer_path, method: :post %>
   </div>
 </div>
+
+<div class=vide> </div>
