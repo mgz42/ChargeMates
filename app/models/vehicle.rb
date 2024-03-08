@@ -227,4 +227,3 @@ class Vehicle < ApplicationRecord
     end
   end
 end
-
