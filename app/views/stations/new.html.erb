@@ -1,3 +1,4 @@
+
 <!-- app/views/stations/new.html.erb -->
 <h1>Nouvelle Station</h1>
 
@@ -18,3 +19,59 @@
     <%= f.button :submit %>
   </div>
 <% end %>
+
+<div class="container-edit-vehicle py-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="bg-white form-creation-vehicle p-3 shadow">
+        <h3>Nouvelle Station</h3>
+
+        <%= form_with(model: @station, local: true) do |form| %>
+          <div class="mb-3">
+            <%= form.label :adress, class: "form-label" %>
+            <%= form.text_field :address, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :plug, class: "form-label" %>
+            <%= form.text_field :plug, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :brand, class: "form-label" %>
+            <%= form.text_field :brand, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :model, class: "form-label" %>
+            <%= form.text_field :model, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :max_kW_recharge, class: "form-label" %>
+            <%= form.number_field :max_kW_recharge, class: "form-control" %>
+          </div>
+
+          <div class="mb-3 form-check">
+            <%= form.check_box :available, class: "form-check-input" %>
+            <%= form.label :available, class: "form-check-label" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :avaibility_end, class: "form-label" %>
+            <%= form.date_field :avaibility_end, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :code_station, class: "form-label" %>
+            <%= form.number_field :code_station, class: "form-control" %>
+          </div>
+
+          <div class="btn bouton-creation-voiture">
+            <%= form.submit "Créer", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

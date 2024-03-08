@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_07_140413) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_164601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,8 +65,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_140413) do
     t.string "plug"
     t.string "brand"
     t.string "model"
-    t.float "parking_price"
-    t.float "consomation_price"
     t.integer "max_kW_recharge"
     t.boolean "available"
     t.date "avaibility_end"

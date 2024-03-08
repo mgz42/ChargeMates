@@ -1,30 +1,38 @@
-/* Style pour le conteneur de défilement sur mobile */
 .mobile-scroll-container {
   max-height: calc(100vh - 100px); /* Réglez la hauteur maximale en fonction de la hauteur de l'écran */
   overflow-y: auto; /* Active le défilement vertical si le contenu dépasse la hauteur du conteneur */
+  margin-top: -2rem;  /* Ajoute une marge de 20px en haut */
 }
 
 .bg-primary {
   background: linear-gradient(#FF6868, #9B0054);
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.34);
+  border: transparent !important;
 }
 
 .custom-card {
   background: linear-gradient(#FFFFFF, #B1B1B1) !important;
   color: black !important;
+  border: transparent !important;
+  border-radius: 10px !important;
 }
 
-.col-md-12, .container {
+.col-md-12,
+.container {
   margin-top: 20px; /* Ajoute une marge de 20px en haut */
 }
+// verifier que ca ne fait pas bugger
+
 .barregrise {
   background-color: #E0E0E0;
   padding-top: 5px;
   margin-bottom: 1rem;
 }
 
-.card-text{
+.card-text {
   font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
 }
 
 .btn-primary {
@@ -36,7 +44,7 @@
 }
 
 .btn-primary:hover { /* Utilisation de :hover au lieu de :hoover */
-  background-color: #D9D9D9;
+  background-color: #ffffff;
   color: #777777;
 }
 
@@ -44,53 +52,156 @@
   color: #FFC719;
 }
 
-.d-flex {
-  justify-content: space-between;
-  margin-block-start: auto;
-}
-
 .barre-de-niveau-station{
   height: 0.25rem;
   background-color: #c8c8c8cd;
-  width: 7rem;
+  width: 8.1rem;
   --color-barre: orange;
   --width-barre: 100%;
+  flex: 1;
 }
-.barre-de-niveau-station::before{
+
+.barre-de-niveau-station::before {
   background-color: var(--color-barre);
   content: "";
   display: block;
   height: 0.25rem;
   width: var(--width-barre);
   background-image: linear-gradient(90deg, #ffffff00, #1f100345);
+  flex: 1;
 }
 
 .my-profil {
   padding: auto;
 }
 
-
-
-.img-fluid {
-  max-width: 100%;
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Ou une autre valeur selon tes besoins */
+.avatar-placeholder {
+  width: 5rem; /* Adjust as needed */
+  height: 5rem; /* Adjust as needed */
+  background-color: #ccc; /* Grey color */
+  border-radius: 50%; /* Rounded shape */
+  border: 4px solid #f5f5f5;
+  margin-top: 0.2rem;
 }
 
 p {
   color: #373737;
 }
 
-h1 {
-  color: #373737;
-}
-
+h1,
 h2 {
   color: #373737;
 }
 
 h4 {
+  color: #373737;
+}
+
+h4 {
+  color: #373737;
+}
+h5.username-badge {
+  color: #5F5F5F;
+  font-size: 1.4rem;
+  margin-bottom: -0.3rem;
+}
+
+.fa-ranking-star {
   color: black;
-  
+  /* Ajout du point-virgule */
+  position: relative;
+  bottom: 0.5rem;
+}
+
+// .row {
+//   margin-bottom: 1rem;
+//   margin-top: 1rem;
+// }
+
+.flex-grow-1-bis {
+  flex-grow: 1;
+}
+
+div.mate-type-user {
+  display: flex;
+}
+
+div.flex-grow-1 {
+  flex-grow: 1;
+  align-items: end;
+}
+// verifier que ca ne fait pas tout bugger
+
+.booking-date {
+  color: #a40753;
+}
+
+.booking-status {
+  font-size: 1.3rem;
+  position: relative;
+  bottom: 0.5rem;
+  right: -4rem;
+}
+
+.booking-status-text {
+  font-size: 0.8rem;
+  position: relative;
+  bottom: -1.5rem;
+  right: 0.3rem;
+}
+
+/* Styles for the content of user vehicles */
+.strong.vehicles-user-card {
+  text-decoration: none;
+}
+
+/* Hover effect for user vehicle content */
+.strong.vehicles-user-card:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+.card-body-historique {
+  padding: 0.5rem;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.34);
+  border: white !important;
+  border-radius: 10px !important;
+}
+
+
+.img.mr-3 {
+  position: relative;
+  right: 1rem;
+}
+
+.fa-hourglass-half, .fa-check-circle {
+  position: relative;
+  right: 1.1rem;
+}
+
+.booking-duration {
+  position: relative;
+  right: -0.7rem;
+
+.booking-barre-plusgrande {
+    width: 14rem;
+}
+
+.booking-barre-plusgrande::before {
+  height: 0.35rem;
+}
+
+.user-level-placement{
+  width: 93%;
+}
+
+.badges-if-any-parent {
+  position: relative;
+}
+
+.badges-if-any{
+  font-size: 0.7rem;
+  position: absolute;
+  top: 0.3rem;
+  right: 1rem;
 }
