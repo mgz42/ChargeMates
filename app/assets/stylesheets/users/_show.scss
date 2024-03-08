@@ -14,9 +14,6 @@
   color: black !important;
 }
 
-.col-md-12, .container {
-  margin-top: 20px; /* Ajoute une marge de 20px en haut */
-}
 .barregrise {
   background-color: #E0E0E0;
   padding-top: 5px;
@@ -42,11 +39,6 @@
 
 .policejaune {
   color: #FFC719;
-}
-
-.d-flex {
-  justify-content: space-between;
-  margin-block-start: auto;
 }
 
 .barre-de-niveau-station{
@@ -91,6 +83,6 @@ h2 {
 }
 
 h4 {
-  color: black;
-  
+  color: #373737;
+
 }

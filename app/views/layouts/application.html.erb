@@ -43,15 +43,21 @@
 
 <div class="navbarre d-flex justify-content-around align-items-center">
   <div class="d-flex flex-column align-items-center justify-content-center pt-2">
+    <%= link_to root_path do %>
     <i class="navbarre-icon fa-solid fa-magnifying-glass" style="font-size: 1.2rem;"></i>
+    <% end %>
     <div>Rechercher</div>
   </div>
   <div class="d-flex flex-column align-items-center justify-content-center pt-2">
+    <%= link_to user_path(current_user) do %>
     <i class="navbarre-icon fa-solid fa-user" style="font-size: 1.2rem;"></i>
+    <% end %>
     <div>Mon profil</div>
   </div>
   <div class="d-flex flex-column align-items-center justify-content-center pt-2">
-   <i class="navbarre-icon fa-solid fa-users" style="font-size: 1.2rem;"></i>
+    <%= link_to bookings_path do %>
+    <i class="navbarre-icon fa-solid fa-users" style="font-size: 1.2rem;"></i>
+    <% end %>
     <div>Mes mates</div>
   </div>
   <div class="d-flex flex-column align-items-center justify-content-center pt-2">
