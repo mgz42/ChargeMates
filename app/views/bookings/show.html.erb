@@ -40,12 +40,12 @@
     <button class="changerdate">Changer</button>
   </div>
     <!-- Nombre d'heures reservées-->
-    <div class="bookingcapheure">
+    <div class="bookingcapheure " data-controller="bookings" data-booking-id="<%= @booking.id%>">
       <p class="d-flex justify-content-center align-items-center m-0">Nombre d'heures reservées</p>
         <div class="d-flex justify-content-center align-items-center">
-          <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="-0.5">-</button>
-            <p data-target="booking.duration" id="bookingduree"><%= @booking.duree_recharge %></p>
-              <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->booking#updateDuration" data-value="0.5">+</button>
+          <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->bookings#updateDuration" data-value="-0.5".to_f>-</button>
+            <p data-target="bookings.duration" class="bookingduree d-flex justify-content-center align-items-center"><%= @booking.duree_recharge.to_f %></p>
+              <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->bookings#updateDuration" data-value="0.5".to_f>+</button>
         </div>
     </div>
     <!-- recap total heures (calculé avec JavaScript) -->
@@ -130,7 +130,7 @@
     <div class="bookingwhrite">
       <%= simple_form_for [@booking, @message], html: {class: "d-flex"} do |f| %>
         <%= f.input :content, label: false, placeholder: "Message pour #{@booking.station.user.username}", wrapper_html: {class: "flex-grow-1"} %>
-        <%= f.submit "envoyer", class: "envoyer btn btn-primary mb-3" %>
+        <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
       <% end %>
     </div>
   </div>
