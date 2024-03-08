@@ -6,6 +6,7 @@ class BookingsController < ApplicationController
     # Pour récupérer les véhicules et la station de l'utilisateur actuel
     user_vehicles = current_user.vehicles
     user_station = current_user.station
+    user_vehicles_ids = Vehicle.where(user_id: params[:user_id]).pluck(:id)
 
     # Pour afficher seulement les bookings reliés aux véhicules et aux stations de l'utilisateur actuel
 
@@ -39,8 +40,10 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
+      
       redirect_to booking_path(@booking)
     else
+
       render :edit
     end
   end

@@ -33,4 +33,8 @@ class StationsController < ApplicationController
 
     @booking = Booking.new
   end
+
+  def new
+    @station = Station.new
+  end
 end
