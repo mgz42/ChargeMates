@@ -15,6 +15,7 @@ class VehiclesController < ApplicationController
   end
 
   def create
+
     selected_brand = params[:vehicle][:brand]
     selected_model = params[:vehicle][:model]
 
@@ -33,17 +34,13 @@ class VehiclesController < ApplicationController
       }
 
       if @vehicle.save
-        redirect_to user_path(current_user), notice: 'Vehicle was successfully created.'
+        redirect_to user_path(current_user)
       else
         flash.now[:error] = 'Failed to create vehicle. Please check the form.'
         render :new
       end
-    else
-      flash[:error] = "Invalid brand or model selected."
-      render :new
-    end
-  end
 
+  end
 
   def edit
     @user = current_user
@@ -52,13 +49,11 @@ class VehiclesController < ApplicationController
     @all_vehicle_models = @vehicle_list.values.flat_map { |car| car['Modeles'] }.uniq
   end
 
-
-
   def update
     #@vehicle = Vehicle.find(params[:id])
     if @vehicle.update(vehicle_params)
       @user = current_user # Assurez-vous que current_user est défini correctement
-      redirect_to user_path(@user), notice: 'Véhicule mis à jour avec succès.'
+      redirect_to user_path(@user)
     else
       render :edit
     end
@@ -66,7 +61,7 @@ class VehiclesController < ApplicationController
 
   def destroy
     @vehicle.destroy
-    redirect_to user_path(@user), notice: "Véhicule supprimé avec succès."
+    redirect_to user_path(current_user)
   end
 
   private

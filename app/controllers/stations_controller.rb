@@ -46,7 +46,7 @@ class StationsController < ApplicationController
 
     respond_to do |format|
       if @station.save
-        format.html { redirect_to user_path(@user), notice: "Flat was successfully created." }
+        format.html { redirect_to user_path(@user) }
         format.json { render :show, status: :created, location: @station }
       else
         format.html { render :new, status: :unprocessable_entity }

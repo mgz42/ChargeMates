@@ -13,4 +13,3 @@ class UpdateBookingsUserId < ActiveRecord::Migration[7.1]
     # sur cette migration à l'avenir.
   end
 end
-
