@@ -168,6 +168,21 @@ div.flex-grow-1 {
   border-radius: 10px !important;
 }
 
+
+.img.mr-3 {
+  position: relative;
+  right: 1rem;
+}
+
+.fa-hourglass-half, .fa-check-circle {
+  position: relative;
+  right: 1.1rem;
+}
+
+.booking-duration {
+  position: relative;
+  right: -0.7rem;
+
 .booking-barre-plusgrande {
     width: 14rem;
 }

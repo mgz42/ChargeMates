@@ -1,36 +1,55 @@
-<!-- app/views/stations/new.html.erb -->
-<h1>Nouvelle Station</h1>
+<div class="container-edit-vehicle py-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="bg-white form-creation-vehicle p-3 shadow">
+        <h3>Nouvelle Station</h3>
 
-<%= form_with(model: @station, local: true) do |form| %>
-  <%= form.label :address %>
-  <%= form.text_field :address %>
+        <%= form_with(model: @station, local: true) do |form| %>
+          <div class="mb-3">
+            <%= form.label :adress, class: "form-label" %>
+            <%= form.text_field :address, class: "form-control" %>
+          </div>
 
-  <%= form.label :plug %>
-  <%= form.text_field :plug %>
+          <div class="mb-3">
+            <%= form.label :plug, class: "form-label" %>
+            <%= form.text_field :plug, class: "form-control" %>
+          </div>
 
-  <%= form.label :brand %>
-  <%= form.text_field :brand %>
+          <div class="mb-3">
+            <%= form.label :brand, class: "form-label" %>
+            <%= form.text_field :brand, class: "form-control" %>
+          </div>
 
-  <%= form.label :model %>
-  <%= form.text_field :model %>
+          <div class="mb-3">
+            <%= form.label :model, class: "form-label" %>
+            <%= form.text_field :model, class: "form-control" %>
+          </div>
 
-  <%= form.label :parking_price %>
-  <%= form.number_field :parking_price %>
+          <div class="mb-3">
+            <%= form.label :max_kW_recharge, class: "form-label" %>
+            <%= form.number_field :max_kW_recharge, class: "form-control" %>
+          </div>
 
-  <%= form.label :consomation_price %>
-  <%= form.number_field :consomation_price %>
+          <div class="mb-3 form-check">
+            <%= form.check_box :available, class: "form-check-input" %>
+            <%= form.label :available, class: "form-check-label" %>
+          </div>
 
-  <%= form.label :max_kW_recharge %>
-  <%= form.number_field :max_kW_recharge %>
+          <div class="mb-3">
+            <%= form.label :avaibility_end, class: "form-label" %>
+            <%= form.date_field :avaibility_end, class: "form-control" %>
+          </div>
 
-  <%= form.label :available %>
-  <%= form.check_box :available %>
+          <div class="mb-3">
+            <%= form.label :code_station, class: "form-label" %>
+            <%= form.number_field :code_station, class: "form-control" %>
+          </div>
 
-  <%= form.label :avaibility_end %>
-  <%= form.date_field :avaibility_end %>
-
-  <%= form.label :code_station %>
-  <%= form.number_field :code_station %>
-
-  <%= form.submit "Créer" %>
-<% end %>
+          <div class="btn bouton-creation-voiture">
+            <%= form.submit "Créer", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
