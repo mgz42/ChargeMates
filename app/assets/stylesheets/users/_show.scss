@@ -131,10 +131,16 @@ div.flex-grow-1 {
 
 .booking-status {
   font-size: 1.3rem;
+  position: relative;
+  bottom: 0.5rem;
+  right: -4rem;
 }
 
 .booking-status-text {
   font-size: 0.8rem;
+  position: relative;
+  bottom: -1.5rem;
+  right: 0.3rem;
 }
 
 /* Styles for the content of user vehicles */
