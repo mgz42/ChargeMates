@@ -6,6 +6,10 @@ class UsersController < ApplicationController
     current_user_rank = @users.order(xp: :desc).pluck(:id).index(current_user.id).to_i + 1
     @current_user_rank = current_user_rank
     @total_users_count = @users.count
+
+    user_vehicles = current_user.vehicles
+    user_station = current_user.station
+    @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id)).order('created_at DESC')
   end
 
   def update

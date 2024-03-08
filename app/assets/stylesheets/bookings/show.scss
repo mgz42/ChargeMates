@@ -18,6 +18,19 @@
   transform: translateY(-50%);
 }
 
+.bouton-signaler {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+  box-shadow: none;
+  outline: none;
+  color: red;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
 .brandmodel.card-text {
   color: black;
   font-weight: 500;

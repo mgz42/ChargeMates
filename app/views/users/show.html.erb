@@ -2,7 +2,7 @@
   <div class="container my-profil">
     <div class="row mt-3">
       <div class="badges-if-any-parent col-md-12 d-flex justify-content-between align-items-center">
-      <div class="badges-if-any"><%= "Pas encore de badge" %></div>
+      <div class="badges-if-any"><%= "Pas encore de badges" %></div>
         <div class="d-flex flex-column align-items-center">
           <div class="avatar-placeholder rounded-circle"></div>
         </div>
@@ -25,33 +25,36 @@
 
     <div class="text-center">
       <h1><strong>Classement</strong></h1>
-      <h2>Top France</h2>
-      <p class="policejaune"><strong><%= @current_user_rank %> / <%= @total_users_count %></strong> - <strong><%= current_user.xp %></strong> XP</p>
+      <h2 class="titre-top-france">Top France</h2>
+      <div class="titre-level-et-xp policejaune d-flex justify-content-center align-items-end">
+      <div id="les-deux-titres-1">nº </div>
+      <div id="les-deux-titres-2"><%=@current_user_rank.to_s %></div>
+      <div id="les-deux-titres-3"> - </div>
+      <div id="les-deux-titres-4"><%= current_user.xp.to_s%></div>
+      <div id="les-deux-titres-5"> XP</div>
+      </div>
     </div>
     <div class="d-flex justify-content-center">
-      <!-- Première carte -->
-      <div class="card text-white bg-primary mb-3 align-items-center mx-2" style="max-width: 7rem;">
-        <div class="card-header text-center">Partagé</div>
-        <div class="card-body">
-          <h5 class="card-title"> <!-- Remplacez ceci par le contenu dynamique si nécessaire --> </h5>
-          <h4 class="card-text text-center"><%= current_user.bookings.count %></h4>
-        </div>
-      </div>
-      <!-- Deuxième carte -->
-      <div class="card text-white bg-primary mb-3 align-items-center mx-2" style="max-width: 7rem;">
-        <div class="card-header text-center">économisé</div>
-        <div class="card-body">
-          <h5 class="card-title"> <!-- Remplacez ceci par le contenu dynamique si nécessaire --> </h5>
-          <h4 class="card-text text-center"><%= current_user.bookings.count * 8.55 %> €</h4>
-        </div>
-      </div>
+
+       <!-- cartes -->
+    <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
+      <div class="economise-partage">Partagé</div>
+      <div class="economise-partage-chiffres"><%= current_user.bookings.count %></div>
+    </div>
+    <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
+      <div class="economise-partage">Economisé</div>
+      <div class="economise-partage-chiffres"><%= "%.2f" % (current_user.bookings.count * 8.55).round(2) %>€</div>
+    </div>
+
+
     </div>
   </div>
+
 
   <div class="barregrise"></div>
 
   <div class="container d-flex justify-content-center my-3">
-    <div class="card text-white bg-primary mb-3 align-items-center custom-card" style="width: 20rem;">
+    <div class="card text-white bg-primary mb-3 align-items-center custom-card mt-3" style="width: 20rem;">
       <div class="card-body">
         <div class="d-flex justify-content-center space-between">
           <%= link_to "Ajouter voiture", new_vehicle_path, class: "btn btn-primary"%>
@@ -63,9 +66,9 @@
               <div class="d-flex align-items-center justify-content-between">
                 <% Vehicle.car_list.each do |key, value| %>
                   <% if vehicle.brand == key %>
-                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3-logo" style="max-width: 3rem; max-height: 3rem;position: relative; right: 1rem;">
-                    <p class="mr-3"><strong><%= vehicle.brand %> <%= vehicle.model %></strong></p>
-                    <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-3" style="max-width: 2rem; max-height: 2rem; position: relative; right: -1rem;">
+                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3-logo" style="max-width: 2rem; position: relative; right: 1rem;">
+                    <div class="nom-de-voiture-dans-user"><%= vehicle.brand %> <%= vehicle.model %></div>
+                    <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-3" style="max-width: 2rem; opacity:0.6; position: relative; right: -1rem;">
                   <% end %>
                 <% end %>
               </div>
@@ -82,8 +85,8 @@
               <%= link_to "Ajouter wallbox", new_station_path, class: "btn btn-primary"%>
             </div>
           <% end %>
-          <hr>
-          <p><strong><%= current_user.station.brand %> <%= current_user.station.model %> <%= current_user.station.plug %></strong></p>
+
+          <div class="d-flex mb-2 justify-content-center"><strong><%= current_user.station.brand %> <%= current_user.station.model %> <%= current_user.station.plug %></strong></div>
 
       </div>
     </div>
@@ -97,37 +100,46 @@
     <div class="row justify-content-center"> <!-- Centrer les cartes -->
       <div class="col-md-8"> <!-- Taille de la carte -->
         <h1 class="text-center"><strong>Historique</strong></h1>
+
+
         <div class="mt-3">
           <% if current_user.vehicles.any? %>
-            <% current_user.vehicles.each do |vehicle| %>
-              <% vehicle.bookings.each do |booking| %>
+              <% @bookings.each do |booking| %>
                 <div class="card mb-3" style="border: none;">
                   <!-- Enveloppez le contenu de chaque réservation dans une balise <a> avec un lien vers la page de détails de la réservation -->
                   <a href="<%= booking_path(booking) %>" class="text-decoration-none text-reset">
                     <div class="card-body-historique d-flex align-items-center">
-                      <div class="avatar-placeholder rounded-circle me-3"></div> <!-- Avatar Placeholder -->
+                      <div class="avatar-placeholder avatar-bisbis rounded-circle me-3"></div> <!-- Avatar Placeholder -->
+
+                      <div class="d-flex flex-column">
+                        <div class="me-3 nom-dans-carte-historique"><%= booking.station.user.username.capitalize %></div>
+                        <div class="booking-date mb-0"><strong><%= booking.date_heure_reservation.strftime("%d/%m/%Y") if booking.date_heure_reservation %></strong></div> <!-- Date -->
+                      </div>
                       <div class="booking-details flex-grow-1 d-flex justify-content-between align-items-center">
-                        <p class="booking-date mb-0"><strong><%= booking.date_heure_reservation.strftime("%d/%m/%Y") %></strong></p> <!-- Date -->
+
                         <% if booking.duree_recharge.present? %>
-                          <p class="booking-duration mb-0"><strong><%= booking.duree_recharge %></strong></p>
+                          <div class="booking-duration mb-0"><%= booking.duree_recharge %>H</div>
                         <% else %>
-                          <p class="booking-duration mb-0"><strong><i class="fa-regular fa-clock"></i> 0 min</strong></p>
+                          <div class="booking-duration mb-0">-H</div>
                         <% end %>
 
-                        <p class="booking-status mb-0" style>
+                        <div class="d-flex flex-column justify-content-center align-item-center">
+
                           <% if booking.status == "en attente" %>
-                            <i class="far fa-hourglass-half ms-2"></i>
-                          <% elsif booking.status == "acceptée" %>
-                            <i class="far fa-check-circle ms-2"></i>
+                            <i style="margin: 0 auto !important; margin-bottom: 0.4rem !important;" class="far fa-hourglass-half ms-2"></i>
+                          <% elsif booking.status == "termine" %>
+                            <i style="margin: 0 auto !important; margin-bottom: 0.4rem !important;" class="far fa-check-circle ms-2"></i>
                           <% end %>
-                        </p> <!-- Statut -->
-                        <p class="booking-status-text"><%= booking.status %></p>
+
+                         <!-- Statut -->
+                        <div class="booking-status-text"><%= booking.status %></div>
+                        </div>
+
                       </div>
                     </div>
                   </a>
                 </div>
               <% end %>
-            <% end %>
           <% else %>
             <div class="row">
               <div class="col text-center">
@@ -136,8 +148,10 @@
             </div>
           <% end %>
         </div>
+
+
       </div>
     </div>
   </div>
 </div>
-<div class="mb-5 mt-5 fixed-bottom" style="padding: 5rem"></div>
+<div class="mt-5 pt-5"></div>

@@ -11,11 +11,11 @@
 
       <%# ci dessous variables PUIS nom, niveau et barre %>
         <%
-          userLevel = (booking.station.user.xp.to_f / 1000).floor
+          userLevel = (booking.vehicle.user.xp.to_f / 1000).floor
         %>
 
         <div class="d-flex flex-column">
-              <div class="station-username d-flex align-items-end mt-2 ms-4 ps-1"><%= booking.station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
+              <div class="station-username d-flex align-items-end mt-2 ms-4 ps-1"><%= booking.vehicle.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
         </div>
 
     </div>
