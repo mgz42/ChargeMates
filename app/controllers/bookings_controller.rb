@@ -9,7 +9,11 @@ class BookingsController < ApplicationController
     user_vehicles_ids = Vehicle.where(user_id: params[:user_id]).pluck(:id)
 
     # Pour afficher seulement les bookings reliés aux véhicules et aux stations de l'utilisateur actuel
-    @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id)).order('created_at DESC')
+    if current_user.station
+      @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id)).order('created_at DESC')
+    else
+      @bookings = Booking.where(vehicle_id: user_vehicles.ids).order('created_at DESC')
+    end
   end
 
   def new

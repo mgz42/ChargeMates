@@ -80,13 +80,14 @@
           <% end %>
 
           </div>
-          <% unless current_user.station.present? %>
+          <% unless current_user.station %>
             <div class="d-flex justify-content-center">
               <%= link_to "Ajouter wallbox", new_station_path, class: "btn btn-primary"%>
             </div>
           <% end %>
-
+          <% if current_user.station %>
           <div class="d-flex mb-2 justify-content-center"><strong><%= current_user.station.brand %> <%= current_user.station.model %> <%= current_user.station.plug %></strong></div>
+          <% end %>
 
       </div>
     </div>
