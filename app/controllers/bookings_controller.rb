@@ -3,7 +3,7 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def index
-    # Pour récupérer les véhicules et la station de l'utilisateur actuel
+    # Pour récupérer les véhicules et la station de l'utilisateur actuela
     user_vehicles = current_user.vehicles
     user_station = current_user.station
     user_vehicles_ids = Vehicle.where(user_id: params[:user_id]).pluck(:id)
@@ -68,6 +68,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:date_heure_reservation, :vehicle_id)
+    params.require(:booking).permit(:date_heure_reservation, :vehicle_id, :station_id, :status, :date_heure_fin_de_reservation)
   end
 end

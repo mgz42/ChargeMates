@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :badges, only: [:create]
 
   post '/start_reservation', to: 'reservations#start_reservation'
+  post '/submit_offer', to: 'reservations#submit_offer', as: :submit_offer
   post '/accept_offer', to: 'reservations#accept_offer'
   post '/reject_offer', to: 'reservations#reject_offer'
   post '/start_charging', to: 'reservations#start_charging'

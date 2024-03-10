@@ -34,11 +34,9 @@ class StationsController < ApplicationController
     @booking = Booking.new
   end
 
-
   def new
     @station = Station.new
   end
-
 
   def create
     @station = Station.new(station_params)
@@ -54,15 +52,15 @@ class StationsController < ApplicationController
       end
     end
   end
-    #if @station.save
+  # if @station.save
 
-    #  redirect_to user_path(@user), notice: "Nous avons ajouté votre station de recharge."
-    #else
-    #  raise
-    #  flash.now[:error] = "Nous n'avons pas pu ajouter votre station de recharge."
-    #  render :new
-    #end
-  #end
+  # redirect_to user_path(@user), notice: "Nous avons ajouté votre station de recharge."
+  #  else
+  #   raise
+  #    flash.now[:error] = "Nous n'avons pas pu ajouter votre station de recharge."
+  #   render :new
+  #  end
+  # end
 
   private
 
