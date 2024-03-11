@@ -1,0 +1,72 @@
+#laroue{
+  width: 100%;
+  height: auto;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+  border-radius: 50%;
+}
+.bouton-start-roue{
+  background-color: #FF6868;
+  padding: 0.1rem;
+  margin-top: 0.6rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-radius: 10px;
+  color: white;
+  width: fit-content;
+  border: none;
+}
+.bouton-start-roue-grey{
+  background-color: #9b9b9b;
+  padding: 0.1rem;
+  margin-top: 0.6rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-radius: 10px;
+  color: white;
+  width: fit-content;
+  border: none;
+}
+.pop-up-roue{
+  background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+    position: absolute;
+    width: 22rem;
+    top: 50%;
+    height: 13rem;
+    left: 50%;
+    transform: translate(-50%, -80%);
+}
+.roue-relative{
+  position: relative;
+}
+.dark-behind{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.267);
+  z-index: 1000;
+}
+.bouton-ok-roue{
+  color: #FF6868 !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+#bonus-popup-roue{
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+#texte-du-popup-roue{
+margin-bottom: 0.5rem;
+}
+.fleche-roue-selection{
+  position: absolute;
+  top: 7.5rem;
+  left: 10.94rem;
+  font-size: 4rem;
+  color: #fa4242;;
+  text-shadow: 0 2px 25px #00000085;
+}

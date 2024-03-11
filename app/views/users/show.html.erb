@@ -1,6 +1,7 @@
 <div class="mobile-scroll-container">
   <div class="container my-profil">
     <div class="row mt-3">
+      <div class="mt-4"></div>
       <div class="badges-if-any-parent col-md-12 d-flex justify-content-between align-items-center">
       <div class="badges-if-any"><%= "Pas encore de badges" %></div>
         <div class="d-flex flex-column align-items-center">
@@ -39,11 +40,11 @@
        <!-- cartes -->
     <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
       <div class="economise-partage">Partagé</div>
-      <div class="economise-partage-chiffres"><%= current_user.bookings.count %></div>
+      <div class="economise-partage-chiffres"><%= current_user.orders ? current_user.orders : 0 %></div>
     </div>
-    <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
+    <div class="d-flex flex-column carte-rose-user align-items-end" style="max-width: 9rem;" >
       <div class="economise-partage">Economisé</div>
-      <div class="economise-partage-chiffres"><%= "%.2f" % (current_user.bookings.count * 8.55).round(2) %>€</div>
+      <div class="economise-partage-chiffres"><%= current_user.orders ? "%.2f" % (current_user.orders * 8.55).round(2) : "%.2f" % 0 %>€</div>
     </div>
 
 
@@ -52,10 +53,11 @@
 
 
   <div class="barregrise"></div>
+  <div class="text-center historique-title-show-user"><strong>Mes véhicules</strong></div>
 
   <div class="container d-flex justify-content-center my-3">
-    <div class="card text-white bg-primary mb-3 align-items-center custom-card mt-3" style="width: 20rem;">
-      <div class="card-body">
+    <div class="card text-white bg-primary mb-3 align-items-center custom-card " style="width: 22.8rem;">
+      <div class="card-body" style="width: 80%;">
         <div class="d-flex justify-content-center space-between">
           <%= link_to "Ajouter voiture", new_vehicle_path, class: "btn btn-primary"%>
         </div>
@@ -86,7 +88,7 @@
             </div>
           <% end %>
           <% if current_user.station %>
-          <div class="d-flex mb-2 justify-content-center"><strong><%= current_user.station.brand %> <%= current_user.station.model %> <%= current_user.station.plug %></strong></div>
+          <div class="d-flex mb-2 justify-content-center user-station-model"><strong><%= current_user.station.brand %> <%= current_user.station.model %> <%= current_user.station.plug %></strong></div>
           <% end %>
 
       </div>
@@ -100,55 +102,110 @@
   <div class="container mes-bookings">
     <div class="row justify-content-center"> <!-- Centrer les cartes -->
       <div class="col-md-8"> <!-- Taille de la carte -->
-        <h1 class="text-center"><strong>Historique</strong></h1>
+        <div class="text-center historique-title-show-user"><strong>Historique</strong></div>
 
 
-        <div class="mt-3">
+
+  <%# A TRANSFORMER EN PARTIALE %>
+        <div data-controller="toggle-historic" class="mt-3">
           <% if current_user.vehicles.any? %>
               <% @bookings.each do |booking| %>
-                <div class="card mb-3" style="border: none;">
-                  <!-- Enveloppez le contenu de chaque réservation dans une balise <a> avec un lien vers la page de détails de la réservation -->
-                  <a href="<%= booking_path(booking) %>" class="text-decoration-none text-reset">
-                    <div class="card-body-historique d-flex align-items-center">
-                      <div class="avatar-placeholder avatar-bisbis rounded-circle me-3"></div> <!-- Avatar Placeholder -->
+                <% if booking.id === @bookings[0].id || booking.id === @bookings[1].id %>
+                  <div class="div-parent-relative card mb-3" style="border: none;">
 
-                      <div class="d-flex flex-column">
-                        <div class="me-3 nom-dans-carte-historique"><%= booking.station.user.username.capitalize %></div>
-                        <div class="booking-date mb-0"><strong><%= booking.date_heure_reservation.strftime("%d/%m/%Y") if booking.date_heure_reservation %></strong></div> <!-- Date -->
-                      </div>
-                      <div class="booking-details flex-grow-1 d-flex justify-content-between align-items-center">
 
-                        <% if booking.duree_recharge.present? %>
-                          <div class="booking-duration mb-0"><%= booking.duree_recharge %>H</div>
-                        <% else %>
-                          <div class="booking-duration mb-0">-H</div>
-                        <% end %>
+                    <%= link_to booking_path(booking), data: {turbo_method: :delete} do %>
+                      <i class=" <%= "d-none" if booking.status != "termine" %> fa-solid fa-xmark petite-croix-historique"></i>
+                    <% end %>
 
-                        <div class="d-flex flex-column justify-content-center align-item-center">
 
-                          <% if booking.status == "en attente" %>
-                            <i style="margin: 0 auto !important; margin-bottom: 0.4rem !important;" class="far fa-hourglass-half ms-2"></i>
-                          <% elsif booking.status == "termine" %>
-                            <i style="margin: 0 auto !important; margin-bottom: 0.4rem !important;" class="far fa-check-circle ms-2"></i>
+                    <!-- Enveloppez le contenu de chaque réservation dans une balise <a> avec un lien vers la page de détails de la réservation -->
+                    <a href="<%= booking_path(booking) %>" class="text-decoration-none text-reset">
+                      <div class="card-body-historique d-flex align-items-center">
+                        <div class="avatar-placeholder avatar-bisbis rounded-circle me-3"></div> <!-- Avatar Placeholder -->
+
+                        <div class="d-flex flex-column" style="<%= "margin-right: 2rem;" unless booking.duree_recharge.present? %>">
+                          <div class="me-3 nom-dans-carte-historique"><%= booking.station.user.username.capitalize %></div>
+                          <div class="booking-date mb-0"><strong><%= booking.date_heure_reservation.strftime("%d/%m/%Y") if booking.date_heure_reservation %></strong></div> <!-- Date -->
+                        </div>
+                        <div class="booking-details flex-grow-1 d-flex justify-content-between align-items-center ">
+
+                          <% if booking.duree_recharge.present? %>
+                            <div class="booking-duration mb-0"><%= booking.duree_recharge %>H</div>
+                            <% else %>
+                            <div> </div>
                           <% end %>
 
-                         <!-- Statut -->
-                        <div class="booking-status-text"><%= booking.status %></div>
-                        </div>
+                          <div class="d-flex flex-column justify-content-center align-item-center groupe-attente">
 
+                            <% if booking.status == "en attente" %>
+                              <i style="margin: 0 auto !important;" class="far fa-hourglass-half ms-2"></i>
+                            <% elsif booking.status == "termine" %>
+                              <i style="margin: 0 auto !important;" class="far fa-check-circle ms-2"></i>
+                            <% end %>
+
+                          <!-- Statut -->
+                          <div class="booking-status-text"><%= booking.status %></div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                </div>
-              <% end %>
+                    </a>
+                  </div>
+                  <% else %>
+                  <div data-toggle-historic-target="ladiv" class="card mb-3 d-none" style="border: none;">
+                    <%= link_to booking_path(booking), data: {turbo_method: :delete} do %>
+                      <i class=" <%= "d-none" if booking.status != "termine" %> fa-solid fa-xmark petite-croix-historique"></i>
+                    <% end %>
+                    <!-- Enveloppez le contenu de chaque réservation dans une balise <a> avec un lien vers la page de détails de la réservation -->
+                    <a href="<%= booking_path(booking) %>" class="text-decoration-none text-reset">
+                      <div class="card-body-historique d-flex align-items-center">
+                        <div class="avatar-placeholder avatar-bisbis rounded-circle me-3"></div> <!-- Avatar Placeholder -->
+
+                        <div class="d-flex flex-column" style="<%= "margin-right: 2rem;" unless booking.duree_recharge.present? %>">
+                          <div class="me-3 nom-dans-carte-historique"><%= booking.station.user.username.capitalize %></div>
+                          <div class="booking-date mb-0"><strong><%= booking.date_heure_reservation.strftime("%d/%m/%Y") if booking.date_heure_reservation %></strong></div> <!-- Date -->
+                        </div>
+                        <div class="booking-details flex-grow-1 d-flex justify-content-between align-items-center">
+
+                          <% if booking.duree_recharge.present? %>
+                            <div class="booking-duration mb-0"><%= booking.duree_recharge %>H</div>
+                            <% else %>
+                            <div><%= "   " %></div>
+                          <% end %>
+
+                          <div class="d-flex flex-column justify-content-center align-item-center groupe-attente">
+
+                            <% if booking.status == "en attente" %>
+                              <i style="margin: 0 auto !important;" class="far fa-hourglass-half ms-2"></i>
+                            <% elsif booking.status == "termine" %>
+                              <i style="margin: 0 auto !important; " class="far fa-check-circle ms-2"></i>
+                            <% end %>
+
+                          <!-- Statut -->
+                          <div class="booking-status-text"><%= booking.status %></div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                <% end %>
+            <% end %>
           <% else %>
             <div class="row">
               <div class="col text-center">
-                <p>Vous n'avez aucune réservation</p>
+                <p>Vous n'avez aucune réservation.</p>
               </div>
             </div>
           <% end %>
+          <div class="chevron-icones d-flex justify-content-center <%= "d-none" if @bookings.length < 3%>">
+            <div data-toggle-historic-target="bouton" data-action="click->toggle-historic#toggle_historic"class=""><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
         </div>
+
+
+
+
 
 
       </div>

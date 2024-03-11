@@ -16,6 +16,7 @@
 .formulaire {
   background-color: #e1e1e1;
   color: rgb(83, 83, 83);
+  border-radius: 10px;
   i{
     font-size: 1.2rem;
     color: #F35A5A;
@@ -33,7 +34,7 @@
   text-indent: 1px;
   text-overflow: '';
   color: white;
-  width: 85%;
+  width: 100%;
 
   option{
     color: rgb(55, 55, 55);
@@ -72,6 +73,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   height: 5rem;
   width: 100%;
   background-color: rgb(165, 165, 165);
+  border-radius: 2px;
 }
 
 .carte-station-index{

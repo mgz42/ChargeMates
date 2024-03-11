@@ -45,7 +45,7 @@
     <!-- Nombre d'heures reservées-->
     <div class="bookingcapheure " data-controller="bookings" data-booking-id="<%= @booking.id%>">
       <p class="d-flex justify-content-center align-items-center m-0">Nombre d'heures reservées</p>
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center ms-3">
           <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->bookings#updateDuration" data-value="-0.5".to_f>-</button>
             <p data-target="bookings.duration" class="bookingduree d-flex justify-content-center align-items-center"><%= @booking.duree_recharge.to_f %></p>
               <button class="plusoumoins btn btn-secondary d-flex justify-content-center align-items-center" data-action="click->bookings#updateDuration" data-value="0.5".to_f>+</button>
@@ -82,7 +82,7 @@
         <% end %>
 
         <% prix_total = (energie_consommee_kwh * prix_par_kwh) + 3 %>
-        <p class="prixdisplay"><%= prix_total.round(2) %>€</p>
+        <p class="prixdisplay"><%= "%.2f" % prix_total.round(2) %>€</p>
       <% end %>
     </div>
   </div>
@@ -143,7 +143,7 @@
     <!-- ligne input du message -->
     <div class="bookingwhrite">
       <%= simple_form_for [@booking, @message], html: {class: "d-flex"} do |f| %>
-        <%= f.input :content, label: false, placeholder: "Message pour #{@booking.station.user.username}", wrapper_html: {class: "flex-grow-1"} %>
+        <%= f.input :content, label: false, placeholder: "Message pour #{@booking.station.user.username}", wrapper_html: {class: "flex-grow-1"}, class: "input-message-pour" %>
         <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
       <% end %>
     </div>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def show
     @users = User.all # ou toute autre logique pour récupérer les utilisateurs
@@ -17,8 +18,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_user
     if @user.update(user_params)
+      # Il faut redirect to user seulement si la requete ne vient pas d'Ajax
       redirect_to @user
     else
       render :show
@@ -32,7 +34,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :xp)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :xp, :wheel)
   end
 
 end
