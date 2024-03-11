@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :conflicts
   has_many :bookings
   has_many :bookings, through: :vehicles
+  has_one_attached :photo
+
 
   validates :email, presence: true, uniqueness: true
   validates :wheel, presence: true

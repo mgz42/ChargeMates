@@ -27,3 +27,4 @@ pin "suggestions" # @1.7.1
 pin "xtend" # @4.0.2
 pin "flatpickr" # @4.6.13
 pin "stimulus-autocomplete" # @3.1.0
+pin "@rails/actioncable", to: "@rails--actioncable.js" # @7.1.3
