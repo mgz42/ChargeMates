@@ -40,5 +40,5 @@ class User < ApplicationRecord
   def est_un_customer?
     self.station.nil?
   end
-  
+
 end

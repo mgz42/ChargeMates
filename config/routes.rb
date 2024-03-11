@@ -29,6 +29,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :vehicles do
+    get 'get_models_by_brand', on: :collection
+  end
+
 
   resources :badges, only: [:create, :destroy]
 

@@ -14,6 +14,12 @@ class VehiclesController < ApplicationController
     @all_car_models = @car_list.values.flat_map { |car| car['Modeles'] }.uniq
   end
 
+  def get_models_by_brand
+    selected_brand = params[:brand]
+    models_for_selected_brand = @all_vehicle_models[selected_brand]['Modeles']
+    render json: models_for_selected_brand
+  end
+
   def create
 
     selected_brand = params[:vehicle][:brand]

@@ -143,21 +143,21 @@
                           <% end %>
 
                           <div class="d-flex flex-column justify-content-center align-item-center groupe-attente">
-
-                            <% if booking.status == "en attente" %>
+                            <% if booking.status != "termine" && booking.status != "annule" %>
                               <i style="margin: 0 auto !important;" class="far fa-hourglass-half ms-2"></i>
                             <% elsif booking.status == "termine" %>
                               <i style="margin: 0 auto !important;" class="far fa-check-circle ms-2"></i>
                             <% end %>
 
                           <!-- Statut -->
-                          <div class="booking-status-text"><%= booking.status %></div>
+                          <div class="booking-status-text"><%= booking.status != "termine" ? "en attente" : "termine"%></div>
                           </div>
                         </div>
                       </div>
                     </a>
                   </div>
-                  <% else %>
+                <% else %>
+
                   <div data-toggle-historic-target="ladiv" class="card mb-3 d-none" style="border: none;">
                     <%= link_to booking_path(booking), data: {turbo_method: :delete} do %>
                       <i class=" <%= "d-none" if booking.status != "termine" %> fa-solid fa-xmark petite-croix-historique"></i>
@@ -181,14 +181,14 @@
 
                           <div class="d-flex flex-column justify-content-center align-item-center groupe-attente">
 
-                            <% if booking.status == "en attente" %>
+                            <% if booking.status != "termine" && booking.status != "annule" %>
                               <i style="margin: 0 auto !important;" class="far fa-hourglass-half ms-2"></i>
                             <% elsif booking.status == "termine" %>
                               <i style="margin: 0 auto !important; " class="far fa-check-circle ms-2"></i>
                             <% end %>
 
                           <!-- Statut -->
-                          <div class="booking-status-text"><%= booking.status %></div>
+                          <div class="booking-status-text"><%= booking.status != "termine" ? "en attente" : "termine"%></div>
                           </div>
 
                         </div>

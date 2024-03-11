@@ -42,7 +42,7 @@ const getcontext = () => {
 }
 
 const hash_of_badges = { "#579b66": "double_xp", "#d3396e": "freeze_week", "#877cc7": "freeze_month", "#f34a47" : "minus_one_euro","#ffc114" : "level_up", "#aea98c" : "none", "#ff983a": "cristal", "#79b0cf": "weekly_special" };
-const hash_de_noms = {"double_xp": "double XP 24 heures", "freeze_week" : "gel de série une semaine", "freeze_month" : "gel de série un mois", "minus_one_euro" : "moins un euro sur votre prochaine commande", "level_up": "plus un niveau", "cristal" : "badge de la semaine", "weekly_special" : "cristal"};
+const hash_de_noms = {"double_xp": "Double XP 24 heures", "freeze_week" : "Gel de série une semaine", "freeze_month" : "Gel de série un mois", "minus_one_euro" : "Moins un euro sur votre prochaine commande", "level_up": "Plus un niveau", "cristal" : "Cristal", "weekly_special" : "Badge de la semaine"};
 
 const give_the_result = (color) => {
   let texte_popup = "Malheuresement, vous n'avez pas gagné de bonus aujourd'huis. Revenez demain !";
@@ -58,18 +58,14 @@ const give_the_result = (color) => {
     document.getElementById("dark-behind").classList.toggle("d-none");
   }, 500);
 
-  const user = {
-    wheel: Date.now
-  }
-
-  const badge = {
-    name: hash_of_badges[color]
-  }
+  let date = new Date();
 
   fetch("/users/1", {
     method: "PATCH",
     headers: { "Accept": "application/json" },
-    body: JSON.stringify({user: user})
+    body: JSON.stringify({user: {
+      wheel: date
+    }})
   })
     .then(response => response.json())
     .then((data) => {
@@ -79,7 +75,7 @@ const give_the_result = (color) => {
   fetch("/badges", {
     method: "POST",
     headers: { "Accept": "application/json" },
-    body: JSON.stringify({badge: badge})
+    body: JSON.stringify({badge: {name: hash_of_badges[color]}})
   })
     .then(response => response.json())
     .then((data) => {
@@ -153,11 +149,11 @@ const draw = () => {
         ctx.lineWidth = 7;
         ctx.strokeStyle = "#f5f4f0";
         ctx.stroke();
-        // ctx.fillStyle = "black";
-        // ctx.rotate(0.5);
-        // ctx.font ="48px sans-serif";
-        // ctx.fillText(hash_of_badges[triangle.color], 600, 490);
-        // ctx.rotate(-0.5);
+        ctx.fillStyle = "black";
+        ctx.rotate(0.2);
+        ctx.font ="48px sans-serif";
+        ctx.fillText(hash_of_badges[triangle.color], 600, 490);
+        ctx.rotate(-0.2);
     })
 
     ctx.beginPath();
@@ -169,12 +165,6 @@ const draw = () => {
     ctx.arc(500, 500, 60, 0, Math.PI * 2)
     ctx.fillStyle = "#f5f4f0";
     ctx.fill();
-
-    // winning spot
-    // ctx.beginPath();
-    // ctx.arc(500, 140, 5, 0, Math.PI * 2)
-    // ctx.fillStyle = "black";
-    // ctx.fill();
 
     //details esthetiques
     ctx.filter = "blur(20px)";

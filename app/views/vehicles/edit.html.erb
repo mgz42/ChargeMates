@@ -2,11 +2,11 @@
 <div class="container-edit-vehicle py-5">
   <div class="row">
     <div class="col-12">
-      <div class="bg-white form-creation-vehicle p-3 shadow m-0">
+      <div class="bg-white form-creation-vehicle p-3 shadow m-0" data-controller="form-update">
         <h3>Modifier mon véhicule</h3>
         <%= simple_form_for [@user, @vehicle] do |f| %>
-          <%= f.input :brand, label: 'Marque', collection: @vehicle_list.keys, prompt: 'Sélectionner une marque' %>
-          <%= f.input :model, label: 'Modèle', collection: @all_vehicle_models, prompt: 'Sélectionner un modèle' %>
+          <%= f.input :brand, label: 'Marque', collection: @vehicle_list.keys, prompt: 'Sélectionner une marque', input_html: { data: { action: 'change->form-update#updateModels' } } %>
+          <%= f.input :model, label: 'Modèle', collection: @all_vehicle_models, prompt: 'Sélectionner un modèle', input_html: { data: { form_update_target: 'modelSelect' } } %>
           <%= f.input :model_year, label: 'Année du modèle', placeholder: 'Année de sortie du modèle' %>
           <%= f.input :immatriculation, label: 'Immatriculation', placeholder: 'Mon immatriculation' %>
 

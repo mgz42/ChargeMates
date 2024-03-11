@@ -19,7 +19,7 @@
   color: white;
   padding: 0.5rem;
   margin-bottom: 1.8rem;
-  
+
 }
 
 .economise-partage{
@@ -146,6 +146,7 @@
   height: 3.5rem; /* Adjust as needed */
   margin-right: 0.3rem !important;
   margin-left: -0.3rem;
+  aspect-ratio: 1 / 1;
 }
 
 p {
@@ -247,7 +248,7 @@ border:none;
 .booking-duration {
   top: 0.67rem;
   position: relative;
-  
+
   right: 2.2rem;
   font-size: 0.8rem;
 }
