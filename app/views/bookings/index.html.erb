@@ -5,8 +5,8 @@
   <% if @bookings.present? %>
     <% @bookings.each do |booking| %>
       <div class="col-12">
-        <div class="ligne-grise-bookings"></div>
-        <div class="carte-index-booking m-1">
+        <div class="p-2"></div>
+        <div class="carte-index-booking m-1 ">
           <% if booking.vehicle.user_id == current_user.id %>
             <% if booking.status == 'en_attente_de_soumission' %>
               <%= render partial: 'card_owner_new', locals: { booking: booking } %>

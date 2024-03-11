@@ -50,19 +50,6 @@
     </div>
   </div><!-- fin date-heure-reservation  -->
 
-
-  <!-- recap total heures (calculé avec JavaScript) -->
-  <div class="heureprix d-flex justify-content-around mb-4">
-    <div class="heuredebutfin">
-      <div class="heurededebut d-flex justify-content-around align-items-center">Heure de début <p><%= @booking.date_heure_reservation.strftime("%Hh%M") %> </p></div>
-      <% if @booking.duree_recharge.present? %>
-        <% duree_heure = @booking.duree_recharge.floor %>
-        <% duree_minutes = ((@booking.duree_recharge - duree_heure) * 60).round %>
-        <% heure_fin = @booking.date_heure_reservation + duree_heure.hours + duree_minutes.minutes %>
-        <div class="heuredefin d-flex justify-content-around">Heure de fin<p> <%= heure_fin.strftime("%Hh%M") %></p></div>
-      <% end %>
-    </div>
-
   <!-- div recap reservation details € kw/h temps % -->
   <div class= "detailscontainer">
 
@@ -91,7 +78,6 @@
       <p><%= @booking.prix_total_recharge %> €</p>
     </div> <!-- fin prix details-reservationcard   -->
  </div><!-- fin reservationcontainer  -->
-
 </div>
 <div class="barregrise"></div>
 
