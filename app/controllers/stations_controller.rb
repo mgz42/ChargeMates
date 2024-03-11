@@ -56,6 +56,11 @@ class StationsController < ApplicationController
     end
   end
 
+  def destroy
+    Station.find(params[:id]).destroy
+    redirect_to user_path(current_user)
+  end
+
   private
 
   def station_params

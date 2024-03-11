@@ -63,9 +63,7 @@ const give_the_result = (color) => {
   fetch("/users/1", {
     method: "PATCH",
     headers: { "Accept": "application/json" },
-    body: JSON.stringify({user: {
-      wheel: date
-    }})
+    body: {"user": {"wheel": 1}}
   })
     .then(response => response.json())
     .then((data) => {
@@ -146,14 +144,17 @@ const draw = () => {
         ctx.lineTo(500,500);
         ctx.fill();
 
-        ctx.lineWidth = 7;
-        ctx.strokeStyle = "#f5f4f0";
-        ctx.stroke();
+        // point au millieu de chaque rayon
         ctx.fillStyle = "black";
-        ctx.rotate(0.2);
-        ctx.font ="48px sans-serif";
-        ctx.fillText(hash_of_badges[triangle.color], 600, 490);
-        ctx.rotate(-0.2);
+        ctx.font = "32px sans-serif"
+        ctx.arc(500, 140, 5, 0, Math.PI * 2)
+        ctx.fillText("Ah lalalalalaal", Math.PI*2*(triangle.angle/360) , Math.PI*2*(triangle.angle/360) + (Math.PI*2*0.125));
+
+
+        // ctx.lineWidth = 7;
+        // ctx.strokeStyle = "#f5f4f0";
+        // ctx.stroke();
+
     })
 
     ctx.beginPath();
