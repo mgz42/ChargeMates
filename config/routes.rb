@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root to: "stations#index"
 
-  resources :stations, only: [:index, :new, :create, :edit, :update, :destroy] do
+  resources :stations, only: [:index, :new, :create, :edit, :update, :destroy, :show] do
     resources :bookings, only: [:create]
   end
-
+  
   resources :users, only: [:show, :update] do
     resources :vehicles, only: [:new, :create, :edit, :update] # Ressources des véhicules
   end
