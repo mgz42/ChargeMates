@@ -48,8 +48,14 @@
       <%= form.number_field :code_station, class: "form-control" %>
     </div>
 
+    <div class="mb-3">
+      <%= simple_form_for(@station) do |f| %>
+      <%= f.input :photo, as: :file %>
+    </div>
+
     <div class="btn bouton-creation-voiture">
       <%= form.submit "Créer", class: "btn btn-primary" %>
     </div>
+  <% end %>
   <% end %>
 </div>
