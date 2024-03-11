@@ -40,6 +40,7 @@
        <!-- cartes -->
     <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
       <div class="economise-partage">Partagé</div>
+
       <div class="economise-partage-chiffres"><%= current_user.orders ? current_user.orders : 0 %></div>
     </div>
     <div class="d-flex flex-column carte-rose-user align-items-end" style="max-width: 9rem;" >
@@ -56,8 +57,10 @@
   <div class="text-center historique-title-show-user"><strong>Mes véhicules</strong></div>
 
   <div class="container d-flex justify-content-center my-3">
+
     <div class="card text-white bg-primary mb-3 align-items-center custom-card " style="width: 22.8rem;">
       <div class="card-body" style="width: 80%;">
+
         <div class="d-flex justify-content-center space-between">
           <%= link_to "Ajouter voiture", new_vehicle_path, class: "btn btn-primary"%>
         </div>
@@ -88,7 +91,9 @@
             </div>
           <% end %>
           <% if current_user.station %>
+
           <div class="d-flex mb-2 justify-content-center user-station-model"><strong><%= current_user.station.brand %> <%= current_user.station.model %> <%= current_user.station.plug %></strong></div>
+
           <% end %>
 
       </div>
@@ -102,6 +107,7 @@
   <div class="container mes-bookings">
     <div class="row justify-content-center"> <!-- Centrer les cartes -->
       <div class="col-md-8"> <!-- Taille de la carte -->
+
         <div class="text-center historique-title-show-user"><strong>Historique</strong></div>
 
 
@@ -202,11 +208,6 @@
             <div data-toggle-historic-target="bouton" data-action="click->toggle-historic#toggle_historic"class=""><i class="fa-solid fa-chevron-down"></i></div>
           </div>
         </div>
-
-
-
-
-
 
       </div>
     </div>

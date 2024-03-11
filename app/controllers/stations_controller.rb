@@ -37,11 +37,9 @@ class StationsController < ApplicationController
     @booking = Booking.new
   end
 
-
   def new
     @station = Station.new
   end
-
 
   def create
     @station = Station.new(station_params)
@@ -57,7 +55,6 @@ class StationsController < ApplicationController
       end
     end
   end
-
 
   private
 

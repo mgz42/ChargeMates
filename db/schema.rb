@@ -9,8 +9,8 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
+ActiveRecord::Schema[7.1].define(version: 2024_03_09_193354) do
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_10_132927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_10_132927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "duree_recharge"
+    t.datetime "date_heure_fin_de_reservation"
     t.index ["station_id"], name: "index_bookings_on_station_id"
     t.index ["vehicle_id"], name: "index_bookings_on_vehicle_id"
   end

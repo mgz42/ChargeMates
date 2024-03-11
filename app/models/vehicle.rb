@@ -217,13 +217,28 @@ class Vehicle < ApplicationRecord
       'Logo_prise_url' => 'https://i.ibb.co/KzVtFBG/type2.png'
     }
   }
-#   def self.car_list
-#     @@car_list
-#   end
+  def self.car_list
+    @@car_list
+  end
+
+  def capacite_batterie
+    info = Vehicle.car_list[brand]&.dig('capacite')
+    info || 0
+  end
+
+  def puissance_maximale_recharge
+    info = Vehicle.car_list[brand]&.dig('Puissance_maximale_recharge')
+    info || 0
+  end
+
+  def specific_model_info
+    Vehicle.car_list[brand]&.fetch('Modeles', [])&.find { |m| m == model }
+  end
 
   def self.all_car_models
     @@car_list.each do |brand, details|
       @all_vehicle_models ||= {} 
+
       @all_vehicle_models[brand] = details["Modeles"]
     end
   end

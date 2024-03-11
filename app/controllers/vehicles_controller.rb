@@ -44,13 +44,13 @@ class VehiclesController < ApplicationController
 
   def edit
     @user = current_user
-    #@vehicle = Vehicle.find(params[:id])
+    # @vehicle = Vehicle.find(params[:id])
     @vehicle_list = Vehicle.car_list # Si vous avez une méthode car_list qui renvoie une liste de marques de véhicules
     @all_vehicle_models = @vehicle_list.values.flat_map { |car| car['Modeles'] }.uniq
   end
 
   def update
-    #@vehicle = Vehicle.find(params[:id])
+    # @vehicle = Vehicle.find(params[:id])
     if @vehicle.update(vehicle_params)
       @user = current_user # Assurez-vous que current_user est défini correctement
       redirect_to user_path(@user)

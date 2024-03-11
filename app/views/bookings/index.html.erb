@@ -2,26 +2,29 @@
 <div class="station-main-titre mt-3 w-100 text-center mb-3">Mes Mates</div>
 
 <div class="container-bookings">
-
-    <% if @bookings.present? %>
-      <% @bookings.each do |booking| %>
-        <div class="carte-arrondi col-12 mb-3">
-          <%# <div class="ligne-grise-bookings"></div> %>
-          <div class="carte-index-booking m-1">
-            <% if booking.vehicle.user_id == current_user.id %>
-              <%= render partial: 'card_owner', locals: { booking: booking } %>
-            <% else %>
-              <%= render partial: 'card_customer', locals: { booking: booking } %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
+  <% if @bookings.present? %>
+    <% @bookings.each do |booking| %>
       <div class="col-12">
-        <p class="ps-3 pe-3">Vous n'avez pas de réservations pour le moment.</p>
+        <div class="ligne-grise-bookings"></div>
+        <div class="carte-index-booking m-1">
+          <% if booking.vehicle.user_id == current_user.id %>
+            <% if booking.status == 'en_attente_de_soumission' %>
+              <%= render partial: 'card_owner_new', locals: { booking: booking } %>
+
+            <% else %>
+              <%= render partial: 'card_owner', locals: { booking: booking } %>
+            <% end %>
+          <% else %>
+            <%= render partial: 'card_customer', locals: { booking: booking } %>
+          <% end %>
+        </div>
       </div>
     <% end %>
-
+  <% else %>
+    <div class="col-12">
+      <p class="ps-3 pe-3">Vous n'avez pas de réservations pour le moment.</p>
+    </div>
+  <% end %>
   <div class="mt-5 pt-5"></div>
 </div>
 </div>

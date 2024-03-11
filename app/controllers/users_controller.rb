@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
+
       # Il faut redirect to user seulement si la requete ne vient pas d'Ajax
       redirect_to @user
     else

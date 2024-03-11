@@ -1,0 +1,39 @@
+<div class="carte-index-booking-background-image" ></div>
+<%# <img src="https://i.ibb.co/vQ5k3GG/Capture-d-cran-2024-02-16-170917.png" alt="" class="carte-index-booking-avatar"> %>
+<div class="carte-index-booking-avatar"></div>
+<%# <i class="fa-brands fa-envira"></i> %>
+<div class="date-absolute-booking"></div>
+
+  <div class="carte-index-booking-content">
+    <div class="carte-index-booking-infos">
+      <img src="https://i.ibb.co/Rj0NcB2/voiture-de-sport-1.png" class="badge-car-station-booking" alt="car">
+      <%# <h4><%= booking.station.user.username.capitalize </h4> %>
+
+        <%# ci dessous variables PUIS nom, niveau et barre %>
+        <%
+          userLevel = (booking.station.user.xp.to_f / 1000).floor
+        %>
+
+        <div class="d-flex flex-column">
+      <div class="station-username d-flex align-items-end mt-2 ms-4 ps-1">
+        <%= booking.station.user.username.capitalize %>
+        <div class="station-username-level ps-1"><%= userLevel %></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  <div class="reservation ">
+    <%= form_with model: booking, url: booking_path(booking), method: :patch, class: "reservation-form" do |form| %>
+      <div class="d-flex flex-column mb-2">
+        <%= form.label :date_heure_reservation, "Début réservation" %>
+        <%= form.datetime_field :date_heure_reservation, class: 'form-control' %>
+
+        <%= form.label :date_heure_fin_de_reservation, "Fin de réservation" %>
+        <%= form.datetime_field :date_heure_fin_de_reservation, class: 'form-control' %>
+      </div>
+
+      <% bouton_texte = booking.status === "termine" || booking.status === "annule" ? "Consulter" : "Reserver" %>
+       <p class="bouton-reserver"><%= form.submit bouton_texte, class: "btn bouton-index-booking" %></p>
+    <% end %>
+  </div>

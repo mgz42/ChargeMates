@@ -1,10 +1,12 @@
 .carte-index-booking {
   background-color: #f5f5f5;
   position: relative;
+
   padding-top: 0.8rem;
   padding-left: 0.8rem;
   padding-right: 0.8rem;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.24);
+
   margin: 0 !important;
   border-radius: 10px;
   overflow: hidden;
@@ -76,4 +78,19 @@
   left: 1rem;
   top: 8rem;
   position: absolute;
+}
+
+.reservation {
+  margin: 1rem 1rem;
+  padding:  0rem 0rem 1rem 0rem;
+
+  input {
+    border-radius: 10px;
+    background-color: #f5f5f5;
+
+  }
+
+  .bouton-reserver{
+    margin: 1rem 0rem 0rem 16.5rem;
+  }
 }
