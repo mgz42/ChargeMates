@@ -21,7 +21,6 @@ class VehiclesController < ApplicationController
   end
 
   def create
-
     selected_brand = params[:vehicle][:brand]
     selected_model = params[:vehicle][:model]
 
