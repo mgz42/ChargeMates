@@ -5,6 +5,7 @@ import "@popperjs/core"
 import "bootstrap"
 import flatpickr from "flatpickr";
 
+
 document.addEventListener("turbo:load", () => {
   flatpickr("#start_date", {
     enableTime: true,
