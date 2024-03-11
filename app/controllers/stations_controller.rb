@@ -43,16 +43,12 @@ class StationsController < ApplicationController
 
   def create
     @station = Station.new(station_params)
-    @station.user = @user
+    @station.user = current_user
 
-    respond_to do |format|
-      if @station.save
-        format.html { redirect_to user_path(@user) }
-        format.json { render :show, status: :created, location: @station }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @station.errors, status: :unprocessable_entity }
-      end
+    if @station.save
+      redirect_to user_path(current_user)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -64,6 +60,7 @@ class StationsController < ApplicationController
   private
 
   def station_params
+
     params.require(:station).permit(:address, :plug, :brand, :model, :max_kW_recharge, :available, :availability_end, :code_station, :latitude, :longitude, :photo)
   end
 

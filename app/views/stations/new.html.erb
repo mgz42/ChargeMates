@@ -9,37 +9,37 @@
 
   <%= form_with(model: @station, local: true) do |form| %>
     <div class="mb-3">
-      <%= form.label :adresse, "Adresse", class: "form-label" %>
+      <%= form.label :address, "Adresse", class: "form-label" %>
       <%= form.text_field :address, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :prise, "Prise", class: "form-label" %>
+      <%= form.label :plug, "Prise", class: "form-label" %>
       <%= form.text_field :plug, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :marque, "Marque", class: "form-label" %>
+      <%= form.label :brand, "Marque", class: "form-label" %>
       <%= form.text_field :brand, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :modèle, "Modèle", class: "form-label" %>
+      <%= form.label :model, "Modèle", class: "form-label" %>
       <%= form.text_field :model, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :puissance_max_kW_recharge, "Puissance Max (kW) de Recharge", class: "form-label" %>
+      <%= form.label :max_kW_recharge, "Puissance Max (kW) de Recharge", class: "form-label" %>
       <%= form.number_field :max_kW_recharge, class: "form-control" %>
     </div>
 
     <div class="mb-3 form-check">
-      <%= form.check_box :disponible, class: "form-check-input" %>
-      <%= form.label :disponible, "Disponible", class: "form-check-label" %>
+      <%= form.check_box :available, class: "form-check-input" %>
+      <%= form.label :available, "Disponible", class: "form-check-label" %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :date_fin_disponibilite, "Date de Fin de Disponibilité", class: "form-label" %>
+      <%= form.label :avaibility_end, "Date de Fin de Disponibilité", class: "form-label" %>
       <%= form.date_field :avaibility_end, class: "form-control" %>
     </div>
 
