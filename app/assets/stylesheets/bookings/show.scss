@@ -14,9 +14,10 @@
   position: absolute;
   display: inline-block;
   left: 1rem;
-  top: 7rem;
+  top: 6rem;
   transform: translateY(-50%);
 }
+
 
 .bookingheadusername h5 {
   font-weight: bold;
@@ -26,6 +27,29 @@
   position: absolute;
   left: 6rem;
   top: 4rem;
+
+.bouton-signaler {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+  box-shadow: none;
+  outline: none;
+  color: red;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+.brandmodel.card-text {
+  color: black;
+  font-weight: 500;
+}
+
+.bookinghead {
+  width: auto;
+  height: 10rem;
+
 }
 
 // barregrise
@@ -125,6 +149,7 @@
   margin-left: 0.5rem;
   border-radius: 10px;
 
+
   min-width: 15.8rem;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.24);
 
@@ -170,9 +195,15 @@
 }
 
 .bookingbackgroud{
-  height: 7.5rem;
+  height: 6.6rem;
   background-color: rgb(146, 146, 146);
 }
+
+.heuredebutfin {
+  box-shadow: 0px 2px 12px rgba(0, 0, 0,0.24);
+  border-radius: 10px;
+  padding: 0.2rem 0.7rem 0.5rem 0.7rem;
+
 
 //bookingactionuser
 .bookingactionuser{
@@ -182,6 +213,17 @@
   align-items: center;
 
 
+.prixtotal {
+  box-shadow: 0px 2px 12px rgba(0, 0, 0,0.24);
+  border-radius: 10px;
+  padding: 0rem 1.7rem 0.5rem 1.7rem;
+}
+.prixtitre {
+font-weight: bold;
+color: #A40753;
+margin-bottom: 0px;
+margin-top: 0.3rem;
+}
 
 }
 //.soumettreoffre {
@@ -254,8 +296,10 @@
   border-radius: 10px;
   font-size: 18px;
   background: linear-gradient(to right, #FF6868, #9B0054);
+
   margin: 1rem 0rem 2rem 0rem;
   color: white;
+
   padding: 0.2rem 5.2rem;
   border: none;
 
@@ -269,13 +313,15 @@
 .zonetext {
   background: linear-gradient(#d5d5d5, #f1f1f1);
   height: 18rem;
-  margin: 0rem 0.7rem;
+  margin: 0rem 1rem;
   overflow-y: auto;
-  border-radius: 4px;
+
+  border-radius: 10px;
   position: relative;
 }
 
-.pas-encore-de-message {
+
+.pas-encore-de-message{
   position: absolute;
   left: 50%;
   top: 50%;
@@ -300,6 +346,11 @@
   flex-direction: column;
   flex-grow: 1;
 }
+#message_content{
+  margin-left: 1rem;
+    border-radius: 10px;
+    padding-right: 1rem;
+}
 
 .message-header {
   margin-bottom: 0.5rem;
@@ -313,6 +364,11 @@
 .bookingwhrite {
   padding-top: 0.4rem;
 }
+
+.bookingwhrite{
+  padding-top: 0.4rem;
+}
+
 
 .message-right p, .message-left p {
   background-color: white;
@@ -348,6 +404,7 @@
 .bouton-signaler {
   border: none;
   background-color: transparent;
+
   color: inherit;
   text-decoration: none;
   cursor: default;

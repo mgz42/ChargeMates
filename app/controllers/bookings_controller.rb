@@ -11,10 +11,12 @@ class BookingsController < ApplicationController
     # mais exclut les réservations "en attente de soumission" faites par d'autres utilisateurs.
     station_bookings = current_user.station.bookings.where.not(status: 'en_attente_de_soumission') if current_user.station.present?
 
-    # Combine les réservations de véhicules et de station tout en s'assurant de ne pas dupliquer
-    # les réservations en attente de soumission pour les véhicules de l'utilisateur.
-    @bookings = vehicle_bookings.or(station_bookings).distinct.order(created_at: :desc) if station_bookings.present?
-    @bookings ||= vehicle_bookings.order(created_at: :desc) # S'il n'y a pas de station, utilise uniquement les réservations de véhicules.
+    # Pour afficher seulement les bookings reliés aux véhicules et aux stations de l'utilisateur actuel
+    if current_user.station
+      @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id)).order('created_at DESC')
+    else
+      @bookings = Booking.where(vehicle_id: user_vehicles.ids).order('created_at DESC')
+    end
   end
 
 
@@ -26,7 +28,10 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.station_id = params[:station_id]
+
     @booking.status = 'en_attente_de_soumission'
+    orders_update = current_user.orders ? current_user.orders + 1 : 1
+    current_user.update(orders: orders_update)
     if @booking.save
       redirect_to bookings_path
     else
@@ -48,7 +53,7 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking.destroy
-    redirect_to bookings_path, notice: 'Réservation supprimée avec succès.'
+    redirect_to user_path(current_user)
   end
 
   # Actions spécifiques liées au workflow de la réservation

@@ -6,7 +6,7 @@ export default class extends Controller {
 
   toggle (){
     this.smallaTarget.classList.toggle("d-none");
-    this.bigaTarget.classList.toggle("d-none")
+    this.bigaTarget.classList.toggle("d-none");
   }
 
 }

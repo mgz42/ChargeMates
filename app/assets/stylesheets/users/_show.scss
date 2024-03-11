@@ -13,12 +13,31 @@
 .carte-rose-user{
   background: linear-gradient(#FF6868, #9B0054);
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.24);
-  border-radius: 4px;
+  border-radius: 10px;
+
   margin: 0.3rem;
   color: white;
   padding: 0.5rem;
   margin-bottom: 1.8rem;
+  
 }
+
+.economise-partage{
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+.economise-partage-chiffres{
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 2.2rem;
+
+}
+.image-logo-vehicule-user{
+  width: 1rem;
+  height: 1rem;
+}
+
 
 .economise-partage{
   margin-right: 0.5rem;
@@ -34,20 +53,22 @@
   width: 1rem;
   height: 1rem;
 }
-
+.nom-de-voiture-dans-user{}
 
 .custom-card {
   background: linear-gradient(#FFFFFF, #B1B1B1) !important;
   color: black !important;
   border: none !important;
   border-radius: 10px !important;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.14);
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.24);
 }
 
-.col-md-12,
-.container {
-  margin-top: 20px; /* Ajoute une marge de 20px en haut */
+.historique-title-show-user{
+  font-size: 1.2rem;
+  padding-bottom: 0.3rem;
+  color: #373737;
 }
+
 // verifier que ca ne fait pas bugger
 
 .barregrise {
@@ -102,13 +123,17 @@
   padding: auto;
 }
 
+.user-station-model{
+  color: #373737;
+}
+
 .avatar-placeholder {
   width: 5rem; /* Adjust as needed */
   height: 5rem; /* Adjust as needed */
   background-color: #ccc; /* Grey color */
   border-radius: 50%; /* Rounded shape */
   border: 4px solid #f5f5f5;
-  margin-top: 0.2rem;
+  margin-top: 0.35rem;
   margin-bottom: 0.2rem;
 }
 
@@ -176,8 +201,12 @@ div.flex-grow-1 {
   font-size: 0.8rem;
 }
 
+
 .booking-details{
   margin-left: 2.4rem;
+}
+
+.booking-status {
 }
 
 
@@ -198,8 +227,8 @@ div.flex-grow-1 {
 
 .card-body-historique {
   padding: 0.5rem;
-  padding-right: 1rem;
   padding-left: 1rem;
+  padding-right: 3rem;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.34);
 border:none;
   border-radius: 10px !important;
@@ -211,10 +240,16 @@ border:none;
   right: 1rem;
 }
 
+.fa-hourglass-half, .fa-check-circle {
+  opacity: 0.6;
+}
 
 .booking-duration {
+  top: 0.67rem;
   position: relative;
-  right: -0.7rem;
+  
+  right: 2.2rem;
+  font-size: 0.8rem;
 }
 
 .booking-barre-plusgrande {
@@ -270,4 +305,26 @@ border:none;
   font-size: 1.5rem;
   margin-bottom: 0.2rem;
   margin-left: 0.3rem;
+}
+
+.chevron-icones{
+  i{
+    font-size: 2rem;
+    color: rgb(170, 170, 170);
+  }
+}
+
+.div-parent-relative{
+  position: relative;
+}
+.petite-croix-historique{
+  position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    font-size: 1.4rem;
+    color: #616161 !important;
+}
+.groupe-attente{
+  margin-right: 0rem;
+  margin-top: 0.2rem;
 }

@@ -1,0 +1,60 @@
+// .preloader{
+//   position: fixed;
+//   height: 100vh;
+//   width: 100vw;
+//   top: 0;
+//   left: 0;
+//   background-color: rgb(255, 255, 255);
+//   z-index: 2000;
+//   font-size: 1.2rem;
+// }
+
+.preloader{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: #F35A5A;
+  background-image: linear-gradient( #FF6868, #9B0054);
+  z-index: 2000;
+  font-size: 1.2rem;
+  color: white;
+}
+
+
+.logo-preolader{
+
+}
+
+.animate{
+  animation: getout 1.2s ease;
+}
+
+@keyframes getout {
+    0% {
+      transform: translate(0,0);
+    } 100% {
+      transform: translate(0,-100%);
+    }
+}
+
+// .logo-center{
+//   background-image: url("https://i.ibb.co/hKbJmyb/logo-copie-4.png");
+//   width: 8.5rem;
+//   height: 10.5rem;
+//   background-size: cover;
+
+// }
+
+
+.logo-center{
+  background-image: url("https://i.ibb.co/NK0ydVw/logo-white-copie.png");
+  width: 8.5rem;
+  height: 11rem;
+  background-size: cover;
+
+}
+
+
+// "https://i.ibb.co/NK0ydVw/logo-white-copie.png

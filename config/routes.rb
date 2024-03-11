@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   get '/leaderboard', to: 'users#leaderboard'
   resources :vehicles, only: [:edit, :update, :destroy, :new, :create]
 
-  resources :bookings, only: [:index, :show, :update] do
+  resources :bookings, only: [:index, :show, :edit, :update, :destroy] do
+
     resources :conflicts, only: [:new, :create]
     resources :messages, only: [:create] # Ressource des messages
     member do
@@ -28,5 +29,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :badges, only: [:create]
+
+  resources :badges, only: [:create, :destroy]
+
+  get '/wheel', to: 'wheels#index'
+
+  post '/start_reservation', to: 'reservations#start_reservation'
+  post '/accept_offer', to: 'reservations#accept_offer'
+  post '/reject_offer', to: 'reservations#reject_offer'
+  post '/start_charging', to: 'reservations#start_charging'
+  post '/stop_charging', to: 'reservations#stop_charging'
+
 end

@@ -135,4 +135,5 @@ class Booking < ApplicationRecord
   def set_default_status
     self.status ||= 'en_attente_de_soumission'
   end
+
 end

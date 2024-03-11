@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :bookings, through: :vehicles
 
   validates :email, presence: true, uniqueness: true
+  validates :wheel, presence: true
   validates :encrypted_password, presence: true
   validates :username, presence: true
   validates :xp, presence: true

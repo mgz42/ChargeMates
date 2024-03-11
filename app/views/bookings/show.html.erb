@@ -1,12 +1,16 @@
 <!-- Header -->
 <div class="bookinghead">
   <!-- Header vignette photo garage -->
+
   <div class="bookingbackgroud text-white"></div>
+
   <!-- Header photo du locataire de la borne -->
   <div class="bookingheadpic">
     <!-- Header username du locataire de la borne -->
     <div class="bookingheadusername">
+
     <%userLevel = (@booking.station.user.xp.to_f / 1000).floor%>
+
        <div class="station-username d-flex align-items-end"><%= @booking.station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
 
       <!-- Header des logos map et waze -->
@@ -42,9 +46,22 @@
     <!-- div date fin de reservation -->
     <div class="date-heure-reservationcard">Date fin de réservation
       <p><%= @booking.date_heure_fin_de_reservation.strftime("%d/%m/%Y") %> à <%=@booking.date_heure_fin_de_reservation.strftime("%H:%M")  %></p>
+
     </div>
   </div><!-- fin date-heure-reservation  -->
 
+
+  <!-- recap total heures (calculé avec JavaScript) -->
+  <div class="heureprix d-flex justify-content-around mb-4">
+    <div class="heuredebutfin">
+      <div class="heurededebut d-flex justify-content-around align-items-center">Heure de début <p><%= @booking.date_heure_reservation.strftime("%Hh%M") %> </p></div>
+      <% if @booking.duree_recharge.present? %>
+        <% duree_heure = @booking.duree_recharge.floor %>
+        <% duree_minutes = ((@booking.duree_recharge - duree_heure) * 60).round %>
+        <% heure_fin = @booking.date_heure_reservation + duree_heure.hours + duree_minutes.minutes %>
+        <div class="heuredefin d-flex justify-content-around">Heure de fin<p> <%= heure_fin.strftime("%Hh%M") %></p></div>
+      <% end %>
+    </div>
 
   <!-- div recap reservation details € kw/h temps % -->
   <div class= "detailscontainer">
@@ -59,6 +76,7 @@
       <p class="titre-reservation-details">Charge</p>
       <p><%= @booking.kw_h_consommes_reservation %>kW/h</p>
     </div> <!-- fin prix details-reservationcard   -->
+
 
     <!-- div % -->
     <div class="details-reservationcard">
@@ -120,6 +138,7 @@
     <!-- ligne input du message -->
     <div class="bookingwhrite">
       <%= simple_form_for [@booking, @message], html: {class: "d-flex"} do |f| %>
+
         <%= f.input :content, label: false, placeholder: "Votre message", wrapper_html: {class: "flex-grow-1"} %>
         <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
       <% end %>
