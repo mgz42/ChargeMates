@@ -100,20 +100,24 @@
 <div class="bookingchatroom">
   <!-- Tchatbox -->
   <div class="bookingmessage">
-    <div class="zonetext">
-    <div class="pas-encore-de-message <%= "d-none" if @booking.messages.length > 0%>">Pas encore de message</div>
-      <% @booking.messages.each do |message| %>
-        <% if message.user == current_user %>
-          <div id="message-<%= message.id %>" class="message-right">
-        <% else %>
-          <div id="message-<%= message.id %>" class="message-left">
-        <% end %>
-          <div class="message-header">
+    <div class="zonetext"
+    data-controller="chatroom-subscription"
+    data-tchatmate-subscription-booking-id-value="<%= @booking.id %>">
+      <div class="messages" data-chatroom-subscription-target="messages">
+        <div class="pas-encore-de-message <%= "d-none" if @booking.messages.length > 0%>">Pas encore de message</div>
+          <% @booking.messages.each do |message| %>
+            <% if message.user == current_user %>
+              <div id="message-<%= message.id %>" class="message-right">
+            <% else %>
+              <div id="message-<%= message.id %>" class="message-left">
+            <% end %>
+              <div class="message-header">
             <small>
               <strong><%= message.user.username.capitalize %></strong>
               <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
             </small>
           </div>
+        </div>
           <div class="message-content">
             <p><%= message.content %></p>
           </div>
