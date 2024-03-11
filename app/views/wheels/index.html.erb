@@ -1,0 +1,30 @@
+<div <%= 'data-controller=roue' if current_user.wheel < Time.now - 60 * 60 * 24 %>>
+<div data-roue-target="popuproue" id="dark-behind" class="dark-behind d-none">
+  <div class="pop-up-roue d-flex flex-column justify-content-center align-items-center p-3">
+  <div id="texte-du-popup-roue" class="text-center" ></div>
+  <div id="bonus-popup-roue" class="text-center"></div>
+
+
+  <div data-action="click->roue#close_popup"><%= link_to "OK", user_path(current_user), class:"bouton-ok-roue" %></div>
+  </div>
+</div>
+<div class="container roue-relative">
+  <div class=" w-100 px-3 mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
+          <div class="station-main-titre mt-2 text-center mt-5 mb-5">Tente ta chance !</div>
+          <% if current_user.wheel < Time.now - 60 * 60 * 24 %>
+            <div>
+            <div class="fleche-roue-selection"><i class="fa-solid fa-caret-down"></i></div>
+            <canvas class="mb-3" id="laroue" height=1000 width=1000></canvas>
+            <div class="d-flex justify-content-around">
+              <div data-roue-target="boutonroue1" data-action="click->roue#lance_roue" id="bouton-roue-1" class="bouton-start-roue">Lancer</div>
+              <div data-roue-target="boutonroue2" id="bouton-roue-2" class="bouton-start-roue-grey d-none">Lancer</div>
+              <div data-roue-target="boutonroue3" data-action="click->roue#stop_roue" id="bouton-roue-3" class="bouton-start-roue d-none">Stop !</div>
+              <div data-roue-target="boutonroue4" id="bouton-roue-4" class="bouton-start-roue-grey">Stop !</div>
+            </div>
+            </div>
+          <% else %>
+                <div class="text-center">Vous avez déja tourné la roue aujourd'huis.</div>
+         <% end %>
+  </div>
+</div>
+</div>

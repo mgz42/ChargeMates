@@ -39,7 +39,7 @@ class VehiclesController < ApplicationController
         flash.now[:error] = 'Failed to create vehicle. Please check the form.'
         render :new
       end
-
+    end
   end
 
   def edit

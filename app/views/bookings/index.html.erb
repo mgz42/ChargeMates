@@ -1,12 +1,12 @@
+<div class="container">
 <div class="station-main-titre mt-3 w-100 text-center mb-3">Mes Mates</div>
-
 
 <div class="container-bookings">
 
     <% if @bookings.present? %>
       <% @bookings.each do |booking| %>
-        <div class="col-12">
-          <div class="ligne-grise-bookings"></div>
+        <div class="carte-arrondi col-12 mb-3">
+          <%# <div class="ligne-grise-bookings"></div> %>
           <div class="carte-index-booking m-1">
             <% if booking.vehicle.user_id == current_user.id %>
               <%= render partial: 'card_owner', locals: { booking: booking } %>
@@ -23,4 +23,5 @@
     <% end %>
 
   <div class="mt-5 pt-5"></div>
+</div>
 </div>

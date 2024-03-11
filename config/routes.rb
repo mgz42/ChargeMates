@@ -22,12 +22,14 @@ Rails.application.routes.draw do
 
   resources :vehicles, only: [:edit, :update, :destroy, :new, :create]
 
-  resources :bookings, only: [:index, :show, :edit, :update] do
+  resources :bookings, only: [:index, :show, :edit, :update, :destroy] do
     resources :conflicts, only: [:new, :create]
     resources :messages, only: [:create] # Ressource des messages
   end
 
-  resources :badges, only: [:create]
+  resources :badges, only: [:create, :destroy]
+
+  get '/wheel', to: 'wheels#index'
 
   post '/start_reservation', to: 'reservations#start_reservation'
   post '/accept_offer', to: 'reservations#accept_offer'

@@ -25,6 +25,8 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.station_id = params[:station_id]
     @booking.status = "en attente"
+    orders_update = current_user.orders ? current_user.orders + 1 : 1
+    current_user.update(orders: orders_update)
     if @booking.save
       redirect_to bookings_path
     else
@@ -52,7 +54,7 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking.destroy
-    redirect_to root_path
+    redirect_to user_path(current_user)
   end
 
   private

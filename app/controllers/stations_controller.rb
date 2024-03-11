@@ -1,5 +1,8 @@
 class StationsController < ApplicationController
   def index
+
+    redirect_to new_vehicle_path if current_user.vehicles.length < 1
+
     @vehicles = current_user.vehicles
 
     @array_of_cars = []
@@ -54,15 +57,7 @@ class StationsController < ApplicationController
       end
     end
   end
-    #if @station.save
 
-    #  redirect_to user_path(@user), notice: "Nous avons ajouté votre station de recharge."
-    #else
-    #  raise
-    #  flash.now[:error] = "Nous n'avons pas pu ajouter votre station de recharge."
-    #  render :new
-    #end
-  #end
 
   private
 
