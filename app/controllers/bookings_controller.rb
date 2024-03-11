@@ -1,20 +1,22 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_booking, only: [:show, :update, :destroy, :submit_offer, :accept_offer, :reject_offer, :start_charge, :stop_charge, :validate_payment]
+
 
   def index
-    # Pour récupérer les véhicules et la station de l'utilisateur actuela
-    user_vehicles = current_user.vehicles
-    user_station = current_user.station
-    user_vehicles_ids = Vehicle.where(user_id: params[:user_id]).pluck(:id)
+    # Récupération des réservations liées aux véhicules de l'utilisateur.
+    vehicle_bookings = Booking.where(vehicle_id: current_user.vehicles.ids)
 
-    # Pour afficher seulement les bookings reliés aux véhicules et aux stations de l'utilisateur actuel
-    if current_user.station
-      @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id)).order('created_at DESC')
-    else
-      @bookings = Booking.where(vehicle_id: user_vehicles.ids).order('created_at DESC')
-    end
+    # Si l'utilisateur possède une station, récupère aussi les réservations liées à cette station,
+    # mais exclut les réservations "en attente de soumission" faites par d'autres utilisateurs.
+    station_bookings = current_user.station.bookings.where.not(status: 'en_attente_de_soumission') if current_user.station.present?
+
+    # Combine les réservations de véhicules et de station tout en s'assurant de ne pas dupliquer
+    # les réservations en attente de soumission pour les véhicules de l'utilisateur.
+    @bookings = vehicle_bookings.or(station_bookings).distinct.order(created_at: :desc) if station_bookings.present?
+    @bookings ||= vehicle_bookings.order(created_at: :desc) # S'il n'y a pas de station, utilise uniquement les réservations de véhicules.
   end
+
 
   def new
     @station = Station.find(params[:station_id])
@@ -24,7 +26,7 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.station_id = params[:station_id]
-    @booking.status = "en attente"
+    @booking.status = 'en_attente_de_soumission'
     if @booking.save
       redirect_to bookings_path
     else
@@ -36,38 +38,62 @@ class BookingsController < ApplicationController
     @message = Message.new
   end
 
-  def edit
-
-  end
-
   def update
     if @booking.update(booking_params)
-
-      redirect_to booking_path(@booking)
+      redirect_to booking_path(@booking), notice: 'Réservation mise à jour avec succès.'
     else
-
       render :edit
     end
   end
 
   def destroy
     @booking.destroy
-    redirect_to root_path
+    redirect_to bookings_path, notice: 'Réservation supprimée avec succès.'
   end
 
+  # Actions spécifiques liées au workflow de la réservation
+
+  def submit_offer
+    @booking = Booking.find(params[:id])
+    @booking.soumettre_offre!
+    redirect_to booking_path(@booking)
+  end
+
+  def accept_offer
+    @booking.accepter_offre!
+    redirect_to booking_path(@booking), notice: 'Offre acceptée.'
+  end
+
+  def reject_offer
+    @booking.refuser_offre!
+    redirect_to booking_path(@booking), notice: 'Offre rejetée.'
+  end
+
+  def start_charge
+    @booking.commencer_charge!
+    redirect_to booking_path(@booking), notice: 'Charge démarrée.'
+  end
+
+  def stop_charge
+    @booking.terminer_charge!
+    redirect_to booking_path(@booking), notice: 'Charge terminée.'
+  end
+
+  def validate_payment
+    @booking = Booking.find(params[:id])
+  @booking.valider_paiement!
+  redirect_to booking_path(@booking), notice: 'Paiement validé.'
+rescue ActiveRecord::RecordNotFound
+  redirect_to root_path, alert: "Réservation introuvable."
+end
   private
 
-  def update_duration
-    booking = Booking.find(params[:id])
-    booking.update(duree_recharge: params[:duree_recharge].to_f)
-    render json: { success: true }
-  end
 
   def set_booking
     @booking = Booking.find(params[:id])
   end
 
   def booking_params
-    params.require(:booking).permit(:date_heure_reservation, :vehicle_id, :station_id, :status, :date_heure_fin_de_reservation)
+    params.require(:booking).permit(:vehicle_id, :station_id, :date_heure_reservation, :date_heure_fin_de_reservation)
   end
 end

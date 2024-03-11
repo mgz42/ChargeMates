@@ -31,17 +31,17 @@
   </div>
 
   <!-- div reservationcontainer -->
-    <h4 class="titre-votre-reservation d-flex justify-content-center">Détails de la réservation</h4>
-  <div class="reservationcontainer d-flex flex-wrap mb-4">
+    <h5 class="titre-votre-reservation d-flex justify-content-center">Détails de la réservation</h5>
+  <div class="reservationcontainer d-flex flex-wrap justify-content-center mb-4">
   <!-- div date-heure-reservation -->
   <div class="date-heure-reservation">
     <!-- div date debut de reservation -->
     <div class="date-heure-reservationcard">Date début de réservation
-      <p><%= @booking.date_heure_reservation %></p>
+      <p><%= @booking.date_heure_reservation.strftime("%d/%m/%Y") %> à <%= @booking.date_heure_reservation.strftime("%H:%M")%> </p>
     </div>
     <!-- div date fin de reservation -->
     <div class="date-heure-reservationcard">Date fin de réservation
-      <p><%= @booking.date_heure_fin_de_reservation %></p>
+      <p><%= @booking.date_heure_fin_de_reservation.strftime("%d/%m/%Y") %> à <%=@booking.date_heure_fin_de_reservation.strftime("%H:%M")  %></p>
     </div>
   </div><!-- fin date-heure-reservation  -->
 
@@ -56,20 +56,20 @@
     </div> <!-- fin prix details-reservationcard   -->
     <!-- div kw/h -->
     <div class="details-reservationcard">
-      <p class="titre-reservation-details">kw/h</p>
-      <p><%= @booking.kw_h_consommes %>kW/h</p>
+      <p class="titre-reservation-details">Charge</p>
+      <p><%= @booking.kw_h_consommes_reservation %>kW/h</p>
     </div> <!-- fin prix details-reservationcard   -->
 
     <!-- div % -->
     <div class="details-reservationcard">
-      <p class="titre-reservation-details">charge</p>
-      <p>+<%= @booking.pourcentage_batterie %>%</p>
+      <p class="titre-reservation-details">Batterie</p>
+      <p>+<%= @booking.pourcentage_batterie_reservation %>%</p>
     </div> <!-- fin prix details-reservationcard   -->
 
 
     <!-- div prix % -->
     <div class="details-reservationcard">
-      <p class="titre-reservation-details">TOTAL</p>
+      <p class="titre-reservation-details">Total</p>
       <p><%= @booking.prix_total_recharge %> €</p>
     </div> <!-- fin prix details-reservationcard   -->
  </div><!-- fin reservationcontainer  -->
@@ -79,14 +79,20 @@
 
 <!-- Bouton d'action en fonction des utilisateurs -->
   <!-- Booking action user debut -->
-<div class="bookingactionuser">                       <!-- Booking action user debut-->
-
+<div class="bookingactionuser">
+  <% if current_user == @booking.vehicle.user %>
+    <%= render 'owner_bookingactions', booking: @booking %>
+  <% elsif current_user == @booking.station.user %>
+    <%= render 'customer_bookingactions', booking: @booking %>
+  <% else %>
+  <p>Aucune action disponible.</p>
+  <% end %>
 
 
 </div>                                                 <!-- Booking action user fin -->
 
-<div class="barregrise"></div>
 <!-- TCHAT -->
+
 <div class="bookingchatroom">
   <!-- Tchatbox -->
   <div class="bookingmessage">
@@ -114,7 +120,7 @@
     <!-- ligne input du message -->
     <div class="bookingwhrite">
       <%= simple_form_for [@booking, @message], html: {class: "d-flex"} do |f| %>
-        <%= f.input :content, label: false, placeholder: "Message pour #{@booking.station.user.username}", wrapper_html: {class: "flex-grow-1"} %>
+        <%= f.input :content, label: false, placeholder: "Votre message", wrapper_html: {class: "flex-grow-1"} %>
         <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
       <% end %>
     </div>
@@ -128,10 +134,8 @@
   <%= link_to "SIGNALER", new_booking_conflict_path(@booking), class: "bouton-signaler" %>
   </div>
 
-  <!-- Bouton paiement -->
-  <div class="bookingpaiement d-flex justify-content-center align-items-center">
-    <%= button_to "VALIDER PAIEMENT", accept_offer_path, method: :post %>
-  </div>
+
+
 </div>
 
 <div class=navbarspace></div>

@@ -1,0 +1,12 @@
+
+<% if @booking.en_attente_de_validation? %>
+  <%= button_to 'Accepter offre', accept_offer_booking_path(@booking), method: :patch, class: 'accepter btn btn-success' %>
+  <%= button_to 'Refuser offre', reject_offer_booking_path(@booking), method: :patch, class: 'refuser btn btn-danger' %>
+<% elsif @booking.en_attente_de_paiement? %>
+  <p>En attente de paiement de <%= @booking.vehicle.user.username %>.</p>
+<% elsif @booking.en_attente_de_charge?  %>
+  <p class="date-heure-reservationcard p-2"> Pour assurer un accès fluide à votre place de parking, veuillez fournir autant de détails que possible à <%= @booking.vehicle.user.username %>.  </p>
+<% elsif @booking.en_charge?  %>
+  <p>en cours de charge</p>
+<% elsif @booking.termine?  %>
+<% end %>
