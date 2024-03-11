@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_10_132927) do
     t.string "username"
     t.integer "xp"
     t.integer "orders"
-    t.datetime "wheel", default: Time.now - 60 * 60 *24, null: false
+    t.datetime "wheel"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
