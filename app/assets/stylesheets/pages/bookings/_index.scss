@@ -1,10 +1,6 @@
 .carte-index-booking {
   background-color: #f5f5f5;
   position: relative;
-
-  padding-top: 0.8rem;
-  padding-left: 0.8rem;
-  padding-right: 0.8rem;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.24);
 
   margin: 0 !important;
@@ -16,10 +12,9 @@
     flex-direction: row;
     align-items: end;
     justify-content: space-between;
-    padding: 1rem;
-    margin-top: 0.1rem;
-    padding-right: 0.1rem;
-    padding-top: 1.3rem;
+    padding: 1rem 1rem 1rem 1rem;
+    margin-top: 1.5rem;
+    margin-left: 0.8rem;
     line-height: 1 !important;
   }
 
@@ -55,7 +50,8 @@
   }
 }
 
-.container-bookings {
+.station-username-owner{
+  margin: 0rem;
 }
 
 .ligne-grise-bookings{
@@ -71,12 +67,21 @@
   font-size: 0.9rem;
 }
 
-.badge-car-station-booking{
+.badge-car-station-booking-prise{
+  height: 1.7rem;
+  width: 1.7rem;
+  opacity: 0.55;
+  left: 1rem;
+  top: 8.2rem;
+  position: absolute;
+}
+
+.badge-car-station-booking {
   height: 1.5rem;
   width: 1.5rem;
   opacity: 0.55;
   left: 1rem;
-  top: 8rem;
+  top: 8.2rem;
   position: absolute;
 }
 
@@ -91,6 +96,6 @@
   }
 
   .bouton-reserver{
-    margin: 1rem 0rem 0rem 16.5rem;
+    margin: 1rem 0rem 0rem 15rem;
   }
 }

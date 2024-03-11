@@ -15,7 +15,7 @@
         %>
 
         <div class="d-flex flex-column">
-      <div class="station-username d-flex align-items-end mt-2 ms-4 ps-1">
+      <div class="station-username d-flex align-items-end ms-3 ps-1">
         <%= booking.station.user.username.capitalize %>
         <div class="station-username-level ps-1"><%= userLevel %></div>
       </div>
@@ -27,10 +27,10 @@
     <%= form_with model: booking, url: booking_path(booking), method: :patch, class: "reservation-form" do |form| %>
       <div class="d-flex flex-column mb-2">
         <%= form.label :date_heure_reservation, "Début réservation" %>
-        <%= form.datetime_field :date_heure_reservation, class: 'form-control' %>
+        <%= form.datetime_field :date_heure_reservation, class: 'form-control', required: true  %>
 
         <%= form.label :date_heure_fin_de_reservation, "Fin de réservation" %>
-        <%= form.datetime_field :date_heure_fin_de_reservation, class: 'form-control' %>
+        <%= form.datetime_field :date_heure_fin_de_reservation, class: 'form-control', required: true  %>
       </div>
 
       <% bouton_texte = booking.status === "termine" || booking.status === "annule" ? "Consulter" : "Reserver" %>

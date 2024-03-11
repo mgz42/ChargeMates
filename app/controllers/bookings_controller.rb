@@ -4,13 +4,11 @@ class BookingsController < ApplicationController
 
 
   def index
-    # Récupération des réservations liées aux véhicules de l'utilisateur.
-    vehicle_bookings = Booking.where(vehicle_id: current_user.vehicles.ids)
-
-    # Si l'utilisateur possède une station, récupère aussi les réservations liées à cette station,
-    # mais exclut les réservations "en attente de soumission" faites par d'autres utilisateurs.
+    # Pour récupérer les véhicules et la station de l'utilisateur actuel
+    user_vehicles = current_user.vehicles
+    user_station = current_user.station
+    user_vehicles_ids = Vehicle.where(user_id: params[:user_id]).pluck(:id)
     station_bookings = current_user.station.bookings.where.not(status: 'en_attente_de_soumission') if current_user.station.present?
-
     # Pour afficher seulement les bookings reliés aux véhicules et aux stations de l'utilisateur actuel
     if current_user.station
       @bookings = Booking.where(vehicle_id: user_vehicles.ids).or(Booking.where(station_id: user_station.id)).order('created_at DESC')
@@ -18,7 +16,6 @@ class BookingsController < ApplicationController
       @bookings = Booking.where(vehicle_id: user_vehicles.ids).order('created_at DESC')
     end
   end
-
 
   def new
     @station = Station.find(params[:station_id])
