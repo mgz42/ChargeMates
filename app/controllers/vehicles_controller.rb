@@ -1,7 +1,7 @@
 class VehiclesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:new, :create]
-  before_action :populate_all_car_models, only: [:create]
+  before_action :populate_all_car_models, only: [:create, :get_models_by_brand]
   before_action :set_vehicle, only: [:edit, :update, :destroy]
 
   def index
