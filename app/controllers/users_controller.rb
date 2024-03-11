@@ -19,11 +19,20 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+    # if @user.update(user_params)
+    #   # Il faut redirect to user seulement si la requete ne vient pas d'Ajax
+
+    #   redirect_to @user
+    # else
+    #   render :show
+    # end
+
     if @user.update(user_params)
-      # Il faut redirect to user seulement si la requete ne vient pas d'Ajax
-      redirect_to @user
+      format.html { redirect_to user_path(@user) }
+      format.json # Follows the classic Rails flow and look for a create.json view
     else
-      render :show
+      format.html { render :show }
+      format.json # Follows the classic Rails flow and look for a create.json view
     end
   end
 

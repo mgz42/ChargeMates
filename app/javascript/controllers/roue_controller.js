@@ -42,7 +42,7 @@ const getcontext = () => {
 }
 
 const hash_of_badges = { "#579b66": "double_xp", "#d3396e": "freeze_week", "#877cc7": "freeze_month", "#f34a47" : "minus_one_euro","#ffc114" : "level_up", "#aea98c" : "none", "#ff983a": "cristal", "#79b0cf": "weekly_special" };
-const hash_de_noms = {"double_xp": "double XP 24 heures", "freeze_week" : "gel de série une semaine", "freeze_month" : "gel de série un mois", "minus_one_euro" : "moins un euro sur votre prochaine commande", "level_up": "plus un niveau", "cristal" : "badge de la semaine", "weekly_special" : "cristal"};
+const hash_de_noms = {"double_xp": "Double XP 24 heures", "freeze_week" : "Gel de série une semaine", "freeze_month" : "Gel de série un mois", "minus_one_euro" : "Moins un euro sur votre prochaine commande", "level_up": "Plus un niveau", "cristal" : "Badge de la semaine", "weekly_special" : "Cristal"};
 
 const give_the_result = (color) => {
   let texte_popup = "Malheuresement, vous n'avez pas gagné de bonus aujourd'huis. Revenez demain !";
@@ -66,10 +66,13 @@ const give_the_result = (color) => {
     name: hash_of_badges[color]
   }
 
+
   fetch("/users/1", {
     method: "PATCH",
     headers: { "Accept": "application/json" },
-    body: JSON.stringify({user: user})
+    body: JSON.stringify({user: {
+      wheel: Date.getTime()
+    }})
   })
     .then(response => response.json())
     .then((data) => {
@@ -79,7 +82,7 @@ const give_the_result = (color) => {
   fetch("/badges", {
     method: "POST",
     headers: { "Accept": "application/json" },
-    body: JSON.stringify({badge: badge})
+    body: JSON.stringify({badge: {name: hash_of_badges[color]}})
   })
     .then(response => response.json())
     .then((data) => {
@@ -153,11 +156,12 @@ const draw = () => {
         ctx.lineWidth = 7;
         ctx.strokeStyle = "#f5f4f0";
         ctx.stroke();
+
         // ctx.fillStyle = "black";
-        // ctx.rotate(0.5);
+        // ctx.rotate(Math.PI);
         // ctx.font ="48px sans-serif";
         // ctx.fillText(hash_of_badges[triangle.color], 600, 490);
-        // ctx.rotate(-0.5);
+        // ctx.rotate(-Math.PI);
     })
 
     ctx.beginPath();
@@ -177,11 +181,11 @@ const draw = () => {
     // ctx.fill();
 
     //details esthetiques
-    ctx.filter = "blur(20px)";
+    ctx.filter = "blur(25px)";
     ctx.beginPath();
     ctx.arc(500, 500, 460, 0, Math.PI * 2)
-    ctx.strokeStyle = "rgba(0,0,0,0.2)";
-    ctx.lineWidth = 28;
+    ctx.strokeStyle = "rgba(84, 0, 43, 0.3)";
+    ctx.lineWidth = 35;
     ctx.stroke();
     ctx.filter = "blur(0px)";
 

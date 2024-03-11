@@ -69,4 +69,15 @@ margin-bottom: 0.5rem;
   font-size: 4rem;
   color: #fa4242;;
   text-shadow: 0 2px 25px #00000085;
+  animation: updow 1.4s ease infinite;
+}
+@keyframes updow {
+  0%{
+    transform: translate(0,0);
+  } 50% {
+    transform: translate(0,-10%);
+  } 100% {
+    transform: translate(0,0);
+
+  }
 }
