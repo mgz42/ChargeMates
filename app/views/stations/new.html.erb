@@ -1,24 +1,5 @@
 <div class="container">
 <!-- app/views/stations/new.html.erb -->
-<h1>Nouvelle Station</h1>
-
-
-
-<%= simple_form_for(@station) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <div class="form-inputs">
-    <%= f.input :address,
-      input_html: {data: {address_autocomplete_target: "address"}, class: ""},
-      wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["pk.eyJ1IjoiaGZhdXJlIiwiYSI6ImNsdDVqYW15eTAxNzgybXF1bHl0YzQzNm4ifQ.nT027uNPDtBuq2AK0mEcNA"]}}
-    %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
 
 <div class="container-edit-vehicle py-5">
   <div class="row">
@@ -26,53 +7,49 @@
       <div class="bg-white form-creation-vehicle p-3 shadow">
         <h3>Nouvelle Station</h3>
 
-        <%= form_with(model: @station, local: true) do |form| %>
-          <div class="mb-3">
-            <%= form.label :adress, class: "form-label" %>
-            <%= form.text_field :address, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :plug, class: "form-label" %>
-            <%= form.text_field :plug, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :brand, class: "form-label" %>
-            <%= form.text_field :brand, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :model, class: "form-label" %>
-            <%= form.text_field :model, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :max_kW_recharge, class: "form-label" %>
-            <%= form.number_field :max_kW_recharge, class: "form-control" %>
-          </div>
-
-          <div class="mb-3 form-check">
-            <%= form.check_box :available, class: "form-check-input" %>
-            <%= form.label :available, class: "form-check-label" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :avaibility_end, class: "form-label" %>
-            <%= form.date_field :avaibility_end, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :code_station, class: "form-label" %>
-            <%= form.number_field :code_station, class: "form-control" %>
-          </div>
-
-          <div class="btn bouton-creation-voiture">
-            <%= form.submit "Créer", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-      </div>
+  <%= form_with(model: @station, local: true) do |form| %>
+    <div class="mb-3">
+      <%= form.label :adresse, "Adresse", class: "form-label" %>
+      <%= form.text_field :address, class: "form-control" %>
     </div>
-  </div>
-</div>
+
+    <div class="mb-3">
+      <%= form.label :prise, "Prise", class: "form-label" %>
+      <%= form.text_field :plug, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :marque, "Marque", class: "form-label" %>
+      <%= form.text_field :brand, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :modèle, "Modèle", class: "form-label" %>
+      <%= form.text_field :model, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :puissance_max_kW_recharge, "Puissance Max (kW) de Recharge", class: "form-label" %>
+      <%= form.number_field :max_kW_recharge, class: "form-control" %>
+    </div>
+
+    <div class="mb-3 form-check">
+      <%= form.check_box :disponible, class: "form-check-input" %>
+      <%= form.label :disponible, "Disponible", class: "form-check-label" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :date_fin_disponibilite, "Date de Fin de Disponibilité", class: "form-label" %>
+      <%= form.date_field :avaibility_end, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :code_station, "Code de la Station", class: "form-label" %>
+      <%= form.number_field :code_station, class: "form-control" %>
+    </div>
+
+    <div class="btn bouton-creation-voiture">
+      <%= form.submit "Créer", class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </div>
