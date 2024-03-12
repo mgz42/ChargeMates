@@ -1,8 +1,6 @@
-<% if message.user == current_user %>
-  <div id="message-<%= message.id %>" class="message-right">
-<% else %>
-  <div id="message-<%= message.id %>" class="message-left">
-<% end %>
+<div class="cont-<%= message.user.id %>">
+  <div class="message-box msg-<%= message.user.id %> " >
+
   <div class="message-header">
     <small>
       <strong><%= message.user.username.capitalize %></strong>
@@ -12,4 +10,5 @@
   <div class="message-content">
     <p><%= message.content %></p>
   </div>
+</div>
 </div>
