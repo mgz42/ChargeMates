@@ -1,59 +1,42 @@
-<div class="container-sm">
-  <div class="station-main-titre mt-2">Recharger ma voiture</div>
-  <div class="row">
-
-  <% if params[:address] %>
-  <% params[:address] != "" ? placeholder = params[:address] : placeholder = "Adresse..."%>
-  <% else %>
-  <% placeholder = "Adresse ..." %>
-  <% end %>
-
-    <%# Ci dessous formulaire d'envois des parametres de filtre %>
-    <% params[:plug] ? the_selected = params[:plug] : the_selected = "1" %>
-  <%= form_with url: stations_path, method: :get, class: "" do |f|%>
-      <div class="d-flex justify-content-start"><%= f.select :plug, options_for_select(@array_of_cars, :selected => the_selected ) %></div>
-      <div class="station-main-titre secondaire mt-2">Quand ?</div>
-      <%= f.datetime_field :date_available, class: 'form-control formulaire' %>
-        <div class="station-main-titre secondaire mt-2">Ou ?</div>
-      <div class="d-flex w-100 form-control justify-content-between mb-2 formulaire">
-      <%= f.text_field :address,
-      placeholder: placeholder, class: 'barre-de-recherche' %>
-      <%= f.button nil, class: "barre-de-recherche" do %><i class="fa-solid fa-magnifying-glass"></i>
+ <div class="container-sm">
+    <div class="station-main-titre mt-2">Recharger ma voiture</div>
+    <div class="row">
+      <% if params[:address] %>
+        <% params[:address] != "" ? placeholder = params[:address] : placeholder = "Adresse..." %>
+      <% else %>
+        <% placeholder = "Adresse ..." %>
       <% end %>
-      </div>
-    <% end %>
 
-  </div>
-  <%# ci dessous MapBox %>
-  <div  class="mt-2 carte-radius-border" style="width: 100%; aspect-ratio: 1/1;"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json %>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+      <%# Ci-dessous formulaire d'envoi des paramètres de filtre %>
+      <%# Vérification pour définir la valeur sélectionnée dans la liste déroulante %>
+      <% params[:plug] ? the_selected = params[:plug] : the_selected = "1" %>
 
-  <%# ligne de coupure grise %>
+      <%= form_with url: stations_path, method: :get, class: "" do |f| %>
+        <div class="d-flex justify-content-start">
+          <%= f.select :plug, options_for_select(@array_of_cars, selected: the_selected) %>
+        </div>
 
+        <div class="station-main-titre secondaire mt-2">Quand ?</div>
+        <%= f.datetime_field :date_available, class: 'form-control formulaire' %>
 
-  <%# espace %>
-  <div class="station-break"></div>
+        <div class="station-main-titre secondaire mt-2">Où ?</div>
+        <div class="d-flex w-100 form-control justify-content-between mb-2 formulaire">
+          <%= f.text_field :address, class: 'barre-de-recherche', id: "user_input_autocomplete_address", placeholder: placeholder %>
+          <%= f.button nil, class: "barre-de-recherche" do %>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          <% end %>
+        </div>
 
-  <%# variable price %>
-  <% if params[:plug] %>
-  <% capacite_batterie = Vehicle.car_list[Vehicle.find(params[:plug]).brand]['capacite'] %>
-  <% puissance_maximale = Vehicle.car_list[Vehicle.find(params[:plug]).brand]['Puissance_maximale_recharge'] %>
-  <% if puissance_maximale > capacite_batterie %>
-    <% puissance_maximale = capacite_batterie %>
-  <% end %>
-  <% cout_pour_1_heure = puissance_maximale * 0.22 %>
-  <% end %>
+        <!-- Champs cachés -->
+        <input type="hidden" id="street_number" name="street_number">
+        <input type="hidden" id="route" name="route">
+        <input type="hidden" id="locality" name="locality">
+        <input type="hidden" id="country" name="country">
+      <% end %>
 
-  <%# ci dessous affiche les stations ! %>
-  <% if @stations != "" %>
-  <div class="mb-4 p-1 <%= "d-none" if params[:address] == ""%>">
+      <!-- ... Reste du code ... -->
 
-
-  <div class="d-flex justify-content-between">
-    <div class="votre-prix"><div class="votre-prix-price">Prix pour</div> <div class="votre-prix-modele">votre modéle</div></div>
-    <div class="d-flex flex-column align-items-end"><div class="cout-per-hour-station"><%= "%.2f" % cout_pour_1_heure %>€ / heure</div><div class="cout-fixe-station">+ 3 € parking</div></div>
+    </div>
   </div>
 
   </div>
@@ -63,14 +46,14 @@
        barreLength = (station.user.xp - ((station.user.xp.to_f / 1000).floor * 1000)) / 10
        userLevel = (station.user.xp.to_f / 1000).floor
        adresse = station.address.length < 35 ? station.address : station.address[0..35] + "..."
-       codepostal = " " + station.address.scan(/\d{5}/)[0]
+       codepostal = " " + station.address.scan(/\d{5}/)[0] if station.address.scan(/\d{5}/)[0]
     %>
 
       <div class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
         <div>
-          <div class="image-station-index-filter">
+          <div class="image-station-index-filter" <% if station.photo.attached? %> style="background-image: url('<%= cl_image_path(station.photo.key, crop: :fill) %>')"<% end %>>
           </div>
-          <div class="station-avatar-rond"></div>
+          <div class="station-avatar-rond" <% if station.user.photo.attached? %> style="background-image: url('<%= cl_image_path(station.user.photo.key, crop: :fill) %>')"<% end %>></div>
           <div class="d-flex justify-content-between">
             <div class="d-flex flex-column">
               <div class="station-username d-flex align-items-end mt-2"><%= station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
@@ -110,6 +93,56 @@
             </div>
       </div>
     <% end %>
+
+  <!-- ... Code de la carte MapBox ... -->
+
+  <!-- ... Lignes de coupure, espace, variable price, etc. ... -->
+
+  <%# ci dessous affiche les stations ! %>
+  <% if @stations.present? %>
+    <div class="mb-4 p-1 <%= "d-none" if params[:address].blank? %>">
+      <!-- ... Reste du code pour afficher les stations ... -->
+    </div>
+
   <% end %>
+
   <div class="mt-5 pt-5"></div>
-</div>
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>"></script>
+  <script>
+    // Votre script JavaScript pour l'autocomplétion
+    function initializeAutocomplete(id) {
+      var element = document.getElementById(id);
+
+      if (element) {
+        var autocomplete = new google.maps.places.Autocomplete(element, { types: ['geocode'] });
+        google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
+      }
+    }
+
+    function onPlaceChanged() {
+      var place = this.getPlace();
+
+      // Mettre à jour les champs cachés avec les données de l'adresse sélectionnée
+      document.getElementById('street_number').value = getAddressComponent(place, 'street_number');
+      document.getElementById('route').value = getAddressComponent(place, 'route');
+      document.getElementById('locality').value = getAddressComponent(place, 'locality');
+      document.getElementById('country').value = getAddressComponent(place, 'country');
+    }
+
+    function getAddressComponent(place, componentType) {
+      for (var i in place.address_components) {
+        var component = place.address_components[i];
+        for (var j in component.types) {
+          if (component.types[j] === componentType) {
+            return component.long_name;
+          }
+        }
+      }
+      return '';
+    }
+
+    // Appel de la fonction initializeAutocomplete avec l'ID de l'élément input
+    initializeAutocomplete('user_input_autocomplete_address');
+  </script>
+*

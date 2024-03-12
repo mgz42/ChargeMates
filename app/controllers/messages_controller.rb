@@ -9,7 +9,9 @@ class MessagesController < ApplicationController
     if @message.save
       TchatMateChannel.broadcast_to(
         @booking,
-        ApplicationController.renderer.render(partial: "messages/message", locals: { message: @message, current_user: current_user }, formats: [:html])
+        render_to_string(partial: "messages/messagelist", locals: {booking: @booking })
+        # ApplicationController.renderer.render(partial: "messages/message", locals: { message: @message, user: current_user }, formats: [:html]),
+
       )
       head :ok
     else

@@ -7,61 +7,24 @@
       <div class="bg-white form-creation-vehicle p-3 shadow">
         <h3>Nouvelle Station</h3>
 
-  <%= form_with(model: @station, local: true) do |form| %>
-    <div class="mb-3">
-      <%= form.label :address, "Adresse", class: "form-label" %>
-      <%= form.text_field :address, class: "form-control" %>
-    </div>
+        <%= simple_form_for [@user, @station] do |f| %>
+          <%= f.input :address, label: 'Adresse' %>
+          <%= f.input :comment_supply, label: "Complément d'adresse" %>
+          <%= f.input :plug, label: 'Type de prise', collection: ["Type 2", "CSS Combo"] %>
+          <%= f.input :brand, label: "Marque" %>
+          <%= f.input :model, label: "Modèle" %>
+          <%= f.input :max_kW_recharge, label: "Puissance Max (kW) de Recharge"%>
+          <%= f.input :available, as: :boolean, label: 'Disponible' %>
+          <%= f.input :avaibility_end, as: :date, label: "Date de Fin de Disponibilité" %>
+          <%= f.input :code_station, label: "Code de la Station" %>
+          <%= f.input :photo, as: :file, label: "Photo" %>
 
-    <div class="mb-3">
-      <%= form.label :comment_supply, "Complément d'adresse", class: "form-label" %>
-      <%= form.text_field :comment_supply, class: "form-control" %>
-    </div>
+          <div class="btn bouton-creation-voiture">
+            <%= f.submit 'Ajouter ma voiture'%>
+          </div>
 
-    <div class="mb-3">
-      <%= simple_form_for(@station) do |f| %>
-        <%= f.input :plug, label: 'Type de prise', collection: ["CCS Combo", "Type 2"] %>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-
-    <div class="mb-3">
-      <%= form.label :brand, "Marque", class: "form-label" %>
-      <%= form.text_field :brand, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :model, "Modèle", class: "form-label" %>
-      <%= form.text_field :model, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :max_kW_recharge, "Puissance Max (kW) de Recharge", class: "form-label" %>
-      <%= form.number_field :max_kW_recharge, class: "form-control" %>
-    </div>
-
-    <div class="mb-3 form-check">
-      <%= form.check_box :available, class: "form-check-input" %>
-      <%= form.label :available, "Disponible", class: "form-check-label" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :avaibility_end, "Date de Fin de Disponibilité", class: "form-label" %>
-      <%= form.date_field :avaibility_end, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :code_station, "Code de la Station", class: "form-label" %>
-      <%= form.number_field :code_station, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= simple_form_for(@station) do |f| %>
-      <%= f.input :photo, as: :file %>
-    </div>
-
-    <div class="btn bouton-creation-voiture">
-      <%= form.submit "Créer", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-  <% end %>
+  </div>
 </div>

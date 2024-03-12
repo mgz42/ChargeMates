@@ -22,6 +22,7 @@
     color: #F35A5A;
   }
 }
+   
 #plug{
   background-image: linear-gradient(to right, #FF6868, #9B0054);
   padding-left: 1rem !important;
@@ -193,4 +194,8 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   top: 0.3rem;
   border: 2px solid white;
   right: 1rem;
+}
+
+.pac-logo::after{
+  display: none;
 }
