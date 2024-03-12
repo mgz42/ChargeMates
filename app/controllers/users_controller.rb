@@ -19,10 +19,11 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update(user_params)
+    # date = user_params[:wheel].to_time
+    if @user.update(wheel: Time.now)
 
       # Il faut redirect to user seulement si la requete ne vient pas d'Ajax
-      redirect_to @user
+      # redirect_to @user
     else
       render :show
     end
