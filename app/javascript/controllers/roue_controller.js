@@ -58,7 +58,7 @@ const hash_image = {"#579b66": cristal, "#d3396e": freeze, "#877cc7": freezem, "
 
 const give_the_result = (color) => {
 
-  let texte_popup = "Malheuresement, vous n'avez pas gagné de bonus aujourd'huis. Revenez demain !";
+  let texte_popup = "Malheuresement, vous n'avez pas gagné de bonus aujourd'hui. Revenez demain !";
 
   if (hash_of_badges[color] !== "none"){
     texte_popup = "Félicitation, vous avec gagné un bonus:";
