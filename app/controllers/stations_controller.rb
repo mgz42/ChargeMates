@@ -15,7 +15,7 @@ class StationsController < ApplicationController
 
       if params[:address] && params[:plug] && params[:date_available]
         @stations = Station.near(params[:address], 10, order: :distance).where('user_id <> ? AND plug = ? AND available = ? AND ( avaibility_end IS NULL OR avaibility_end < ? )',current_user.id, Vehicle.find(params[:plug]).plug, 'true', params[:date_available].to_time)
-        # @stations = Station.all // for testing purposes only
+        # @stations = Station.all
       else
         @stations = ""
       end
@@ -25,11 +25,16 @@ class StationsController < ApplicationController
         {
           lat: station.latitude,
           lng: station.longitude,
-          marker_html: render_to_string(partial: "marker")
+          niv: station.user.xp,
+          marker_html: render_to_string(partial: "marker"),
+          marker_html_2: render_to_string(partial: "marker_2"),
+          marker_html_3: render_to_string(partial: "marker_3"),
+          marker_html_4: render_to_string(partial: "marker_4"),
+          info_window_html: render_to_string(partial: "info_window", locals: {station: station})
         }
       end
       location = Geocoder.search(params[:address])[0]
-      @markers.push({lat: location.latitude, lng: location.longitude}) if location
+      @markers.push({lat: location.latitude, lng: location.longitude, bs: "true", marker_html_5: render_to_string(partial: "marker_5") }) if location
     else
       @markers = [];
     end

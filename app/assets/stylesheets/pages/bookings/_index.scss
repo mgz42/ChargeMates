@@ -19,12 +19,14 @@
   }
 
   .carte-index-booking-background-image {
+  background-size: cover;
     background-color: rgb(162, 162, 162);
     object-fit: cover;
     width: 100%;
     border: none;
     height: 5.8rem;
     border-radius: 2px;
+    background-size: cover;
   }
 
 
@@ -38,6 +40,7 @@
     border-radius: 50%;
     position: absolute;
     margin: 10px;
+  background-size: cover;
   }
 
   .carte-index-booking-infos {
@@ -98,4 +101,22 @@
   .bouton-reserver{
     margin: 1rem 0rem 0rem 15rem;
   }
+}
+
+// .mapboxgl-popup {
+//   max-width: 200px;
+// }
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  box-shadow: 0 1px 10px rgba(0,0,0,.24) !important;
+  padding-bottom: 0.7rem !important;
+  border-radius: 10px !important;
+}
+.mapboxgl-popup-close-button{
+  display: none;
+}
+.the-popup-map{
+  font-size: 1.3rem;
 }

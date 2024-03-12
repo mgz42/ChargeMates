@@ -78,7 +78,7 @@
               <div class="d-flex align-items-center justify-content-between">
                 <% Vehicle.car_list.each do |key, value| %>
                   <% if vehicle.brand == key %>
-                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3-logo" style="max-width: 2rem; position: relative; right: 1rem;">
+                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3-logo" style="max-width: 3rem; max-height: 2rem; position: relative; right: 1rem;">
                     <div class="nom-de-voiture-dans-user"><%= vehicle.brand %> <%= vehicle.model %></div>
                     <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-3" style="max-width: 2rem; opacity:0.6; position: relative; right: -1rem;">
                   <% end %>

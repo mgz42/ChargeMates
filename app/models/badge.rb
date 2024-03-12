@@ -2,7 +2,7 @@ class Badge < ApplicationRecord
   belongs_to :user
 
   # Liste de tout les badges
-  cattr_reader :badge_list, :badge_img, :f
+  cattr_reader :badge_list, :badge_img, :f, :m
   @@badge_list = [
     {name: "niveau_un", xp: 25000, level: 25},
     {name: "niveau_deux", xp: 50000, level: 50},
@@ -29,4 +29,6 @@ class Badge < ApplicationRecord
   @@f = ["https://i.ibb.co/y4SfF2r/lv-1.png", "https://i.ibb.co/TPT4p6Y/lv2.png", "https://i.ibb.co/ygm2Yds/lv-3.png",
     "https://i.ibb.co/GTSzwnn/lv-4.png"]
 
+  @@m = ["https://i.ibb.co/YZZ338N/feuille-lv-1.png","https://i.ibb.co/cLD0sj5/feuille-lv-2.png","https://i.ibb.co/9NdHDMj/feuille-lv-3.png",
+  "https://i.ibb.co/g38pxhM/feuille-lv-4-copie.png","https://i.ibb.co/QXb0254/Sans-titre-1.png"]
 end
