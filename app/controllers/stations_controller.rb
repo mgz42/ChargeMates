@@ -64,4 +64,6 @@ class StationsController < ApplicationController
     params.require(:station).permit(:address, :plug, :brand, :model, :max_kW_recharge, :available, :availability_end, :code_station, :latitude, :longitude, :photo)
   end
 
+  
+
 end

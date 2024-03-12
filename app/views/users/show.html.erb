@@ -37,12 +37,12 @@
 
     <div class="text-center">
       <h1><strong>Classement</strong></h1>
-      <h2 class="titre-top-france">Top France</h2>
+      <h2 class="titre-top-france">Top France </h2>
       <div class="titre-level-et-xp policejaune d-flex justify-content-center align-items-end">
-      <div id="les-deux-titres-1">nº </div>
+      <div id="les-deux-titres-1"></i>nº </div>
       <div id="les-deux-titres-2"><%=@current_user_rank.to_s %></div>
       <div id="les-deux-titres-3"> - </div>
-      <div id="les-deux-titres-4"><%= current_user.xp.to_s%></div>
+      <div class="num" id="les-deux-titres-4"><%= current_user.xp.to_s%></div>
       <div id="les-deux-titres-5"> XP</div>
       </div>
     </div>
@@ -229,3 +229,9 @@
   </div>
 </div>
 <div class="mt-5 pt-5"></div>
+<script>  $(document).ready(function(){
+    $('.num').counterUp({
+      time: 1200
+    });
+  });
+</script>

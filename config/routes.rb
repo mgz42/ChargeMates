@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   get "up" => "rails/health#show", as: :rails_health_check
-  root to: "stations#index"
+  root "stations#index"
 
   resources :stations, only: [:index, :new, :create, :edit, :update, :destroy, :show] do
+    root 'station#index'
     resources :bookings, only: [:create]
   end
-  
+
   resources :users, only: [:show, :update] do
     resources :vehicles, only: [:new, :create, :edit, :update] # Ressources des véhicules
   end
