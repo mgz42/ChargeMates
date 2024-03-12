@@ -3,10 +3,11 @@ class BadgesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
+    duree = ""
     Badge.badge_list.each do |badge|
-      if badge["name"] == badge_params[:name]
-        if badge["duree"]
-          duree = badge["duree"]
+      if badge[:name] == badge_params[:name]
+        if badge[:duree]
+          duree = badge[:duree]
         else
           duree = 0
         end
@@ -24,14 +25,14 @@ class BadgesController < ApplicationController
         duration = Time.now + 60 * 60 * 24 * 30
       end
     else
-      duration = Time.now
+      duration = ""
     end
 
     @user = current_user
     @badge = Badge.new(badge_params)
     @badge.user_id = @user.id
-    @bagde.duration = duration
-    @badge.image = Badge.badge_list[]
+    @badge.duration = duration
+    # @badge.image = Badge.badge_list[] // supprimer la colone
     @badge.save
   end
 

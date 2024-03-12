@@ -11,6 +11,9 @@
 
     <%userLevel = (@booking.station.user.xp.to_f / 1000).floor%>
 
+            <% feuille_user = @booking.station.user.xp < 25000 ? Badge.f[0] : @booking.station.user.xp < 50000 ? Badge.f[1] : @booking.station.user.xp < 75000 ? Badge.f[2] : Badge.f[3] %>
+            <div class="feuille-bookings-show-profile" style="background-image: url('<%= feuille_user%>');"></div>
+
        <div class="station-username d-flex align-items-end"><%= @booking.station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
 
       <!-- Header des logos map et waze -->
