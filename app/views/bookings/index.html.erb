@@ -15,7 +15,9 @@
               <%= render partial: 'card_owner', locals: { booking: booking } %>
             <% end %>
           <% else %>
-            <%= render partial: 'card_customer', locals: { booking: booking } %>
+            <% if !booking.status == 'en_attente_de_soumission'%>
+              <%= render partial: 'card_customer', locals: { booking: booking } %>
+            <% end %>
           <% end %>
         </div>
       </div>

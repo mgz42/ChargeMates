@@ -27,8 +27,7 @@ class BookingsController < ApplicationController
     @booking.station_id = params[:station_id]
 
     @booking.status = 'en_attente_de_soumission'
-    orders_update = current_user.orders ? current_user.orders + 1 : 1
-    current_user.update(orders: orders_update)
+
     if @booking.save
       redirect_to bookings_path
     else
