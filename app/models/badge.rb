@@ -13,13 +13,13 @@ class Badge < ApplicationRecord
 
     {name: "freeze_week", duree: "two weeks"}, # freeze la serie pendant deux semaines
     {name: "freeze_month", duree: "month"}, # freeze la serie pendant un mois
-    {name: "minus_one_euro"},             # 1 euro de reduction sur la place parking pour la prochaine commande
+    {name: "minus_one_euro", duree: "year"},             # 1 euro de reduction sur la place parking pour la prochaine commande
     {name: "double_xp", duree: "day"}, # double l'XP gagné pendant un jour
-    {name: "level_up"},# ajoute de l'XP a l'user pour lui faire gagner un level (donc arrondi de l'xp user au multiple de 1000 suivant)
+    {name: "level_up", duree: "day"},# ajoute de l'XP a l'user pour lui faire gagner un level (donc arrondi de l'xp user au multiple de 1000 suivant)
 
     # ci dessous badges purement esthetique(badge feuille de cristal et badge esthetique de la semaine)
 
-    {name: "cristal", duree: "day"},
+    {name: "cristal", duree: "2day"},
     {name: "weekly_special", duree: "week"},
   ]
   @@badge_img = { "freeze_week" => "https://i.ibb.co/4TZ6ZHC/freeze.png", "freeze_month" => "https://i.ibb.co/x6D3pWX/freeze-month.png",

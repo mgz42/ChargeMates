@@ -12,7 +12,6 @@ class User < ApplicationRecord
   has_many :bookings, through: :vehicles
   has_one_attached :photo
 
-
   validates :email, presence: true, uniqueness: true
   validates :wheel, presence: true
   validates :encrypted_password, presence: true

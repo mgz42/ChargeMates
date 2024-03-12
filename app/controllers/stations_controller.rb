@@ -1,4 +1,13 @@
 class StationsController < ApplicationController
+  before_action do
+    current_user.badges.each do |badge|
+      if badge.duration < Time.now
+        badge.destroy
+      end
+    end
+  end
+
+
   def index
 
     redirect_to new_vehicle_path if current_user.vehicles.length < 1
