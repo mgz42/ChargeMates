@@ -359,6 +359,26 @@ margin-top: 0.3rem;
   padding-top: 0.4rem;
 }
 
+.message-box {
+  display: flex;
+  flex-direction: column;
+
+  .message-header{
+    margin-bottom: 0.5rem;
+    margin-right: 0.4rem;
+    margin-left: 0.3rem;
+  }
+  .p {
+      width: fit-content;
+      background-color: white;
+      border-radius: 15px;
+      padding: 8px 12px;
+      margin-top: 5px;
+      margin-bottom: 0rem;
+      margin-left: 0.3rem;
+      margin-right: 0.3rem;
+    }
+}
 
 
 
