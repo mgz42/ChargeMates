@@ -98,39 +98,27 @@
 <!-- TCHAT -->
 
 <div class="bookingchatroom">
+
+
   <!-- Tchatbox -->
-  <div class="bookingmessage">
-    <div class="zonetext"
-    data-controller="chatroom-subscription"
-    data-tchatmate-subscription-booking-id-value="<%= @booking.id %>">
-      <div class="messages" data-chatroom-subscription-target="messages">
-        <div class="pas-encore-de-message <%= "d-none" if @booking.messages.length > 0%>">Pas encore de message</div>
+  <div class="bookingmessage"
+  data-controller="tchatmate-subscription"
+  data-tchatmate-subscription-booking-id-value="<%= @booking.id %>">
+    <div class="zonetext">
+
+      <div class="pas-encore-de-message <%= "d-none" if @booking.messages.length > 0%>">Pas encore de message</div>
+        <div data-tchatmate-subscription-target="messages">
           <% @booking.messages.each do |message| %>
-            <% if message.user == current_user %>
-              <div id="message-<%= message.id %>" class="message-right">
-            <% else %>
-              <div id="message-<%= message.id %>" class="message-left">
-            <% end %>
-              <div class="message-header">
-            <small>
-              <strong><%= message.user.username.capitalize %></strong>
-              <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-            </small>
-          </div>
-        </div>
-          <div class="message-content">
-            <p><%= message.content %></p>
-          </div>
-        </div>
-      <% end %>
+            <%= render "messages/message", message: message %>
+        <% end %>
+      </div>
     </div>
 
     <!-- ligne input du message -->
     <div class="bookingwhrite">
-      <%= simple_form_for [@booking, @message], html: {class: "d-flex"} do |f| %>
-
-        <%= f.input :content, label: false, placeholder: "Votre message", wrapper_html: {class: "flex-grow-1"} %>
-        <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
+      <%= simple_form_for [@booking, @message], html: { data: { action: "turbo:submit-end->tchatmate-subscription#resetForm" }, class: "d-flex" } do |f| %>
+      <%= f.input :content, label: false, placeholder: "Votre message", wrapper_html: {class: "flex-grow-1"} %>
+      <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
       <% end %>
     </div>
   </div>
@@ -140,11 +128,8 @@
 <div class="bookingfoot d-flex justify-content-between">
   <!-- Bouton Signaler -->
   <div class="bookingsignalement d-flex justify-content-center align-items-center">
-  <%= link_to "SIGNALER", new_booking_conflict_path(@booking), class: "bouton-signaler" %>
+    <%= link_to "SIGNALER", new_booking_conflict_path(@booking), class: "bouton-signaler" %>
   </div>
-
-
-
 </div>
 
 <div class=navbarspace></div>
