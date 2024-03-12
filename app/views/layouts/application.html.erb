@@ -11,6 +11,26 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+
+    
+    <style>
+      <%= ".msg-#{current_user&.id}" %> {
+      background-color: #007bff !important;
+      padding: 10px;
+        
+      }
+      <%= ".cont-#{current_user&.id}" %> {
+      display: flex;
+      justify-content: flex-end
+      }
+    </style>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+
+
   </head>
 
 
@@ -60,7 +80,9 @@
   <%= link_to '/wheel' do %>
     <i class="navbarre-icon fa-solid fa-dice" style="font-size: 1.2rem;"></i>
     <% end %>
+    <% if current_user %>
     <div class="notification-red d-flex justify-content-center align-items-center <%= "d-none" if current_user.wheel > Time.now - 60 * 60 * 24%>">1</div>
+    <% end %>
     <div>Tente ta chance</div>
   </div>
 </div>
