@@ -10,7 +10,6 @@
           <% if booking.vehicle.user_id == current_user.id %>
             <% if booking.status == 'en_attente_de_soumission' %>
               <%= render partial: 'card_owner_new', locals: { booking: booking } %>
-
             <% else %>
               <%= render partial: 'card_owner', locals: { booking: booking } %>
             <% end %>
