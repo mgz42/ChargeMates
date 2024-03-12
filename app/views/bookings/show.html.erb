@@ -105,27 +105,35 @@
 
   <!-- Tchatbox -->
   <div class="bookingmessage"
-  data-controller="tchatmate-subscription"
-  data-tchatmate-subscription-booking-id-value="<%= @booking.id %>">
-    <div class="zonetext">
+    data-controller="tchatmate-subscription"
+    data-tchatmate-subscription-booking-id-value="<%= @booking.id %>">
 
+    <div class="zonetext"
+    data-tchatmate-subscription-target="zonetext">
       <div class="pas-encore-de-message <%= "d-none" if @booking.messages.length > 0%>">Pas encore de message</div>
         <div data-tchatmate-subscription-target="messages">
-          <% @booking.messages.each do |message| %>
-            <%= render "messages/message", message: message %>
-        <% end %>
-      </div>
-    </div>
+          <%= render "messages/messagelist", booking: @booking %>
+        </div><!-- fin de ma data target messages -->
+    </div><!-- fin de zonetext -->
 
-    <!-- ligne input du message -->
-    <div class="bookingwhrite">
-      <%= simple_form_for [@booking, @message], html: { data: { action: "turbo:submit-end->tchatmate-subscription#resetForm" }, class: "d-flex" } do |f| %>
-      <%= f.input :content, label: false, placeholder: "Votre message", wrapper_html: {class: "flex-grow-1"} %>
-      <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
-      <% end %>
-    </div>
-  </div>
-</div>
+
+
+          <!-- ligne input du message -->
+          <div class="bookingwhrite">
+            <%= simple_form_for [@booking, @message], html: { data: { action: "turbo:submit-end->tchatmate-subscription#resetForm" }, class: "d-flex" } do |f| %>
+            <%= f.input :content, label: false, placeholder: "Votre message", wrapper_html: {class: "flex-grow-1"} %>
+            <%= f.submit "Envoyer", class: "envoyer btn btn-primary mb-3" %>
+            <% end %>
+          </div>
+
+
+
+
+
+
+
+  </div><!-- fin de bookingmessage -->
+</div><!-- fin de bookingchatroom -->
 
 <!-- Bouton signaler et paiement du bas de page -->
 <div class="bookingfoot d-flex justify-content-between">

@@ -5,7 +5,7 @@ export default class extends Controller {
   static values = {
     bookingId: Number
   }
-  static targets = ["messages"]
+  static targets = ["messages", "zonetext"]
 
   connect() {
     console.log("Connected to the Stimulus controller.");
@@ -21,8 +21,7 @@ export default class extends Controller {
   }
   #insertMessageAndScrollDown(data) {
     this.messagesTarget.insertAdjacentHTML("beforeend", data);
-    const lastMessage = this.messagesTarget.lastElementChild;
-    setTimeout(() => lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' }), 100);
+    this.zonetextTarget.scrollTo(0, this.zonetextTarget.scrollHeight)
   }
 
 
