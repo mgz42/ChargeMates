@@ -2,6 +2,19 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to user_path(@user)
+    else
+      render :new
+    end
+  end
+
   def show
     @users = User.all # ou toute autre logique pour récupérer les utilisateurs
     current_user_rank = @users.order(xp: :desc).pluck(:id).index(current_user.id).to_i + 1
@@ -21,9 +34,6 @@ class UsersController < ApplicationController
     @user = current_user
     # date = user_params[:wheel].to_time
     if @user.update(wheel: Time.now)
-
-      # Il faut redirect to user seulement si la requete ne vient pas d'Ajax
-      # redirect_to @user
     else
       render :show
     end

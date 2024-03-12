@@ -39,6 +39,61 @@
     </div>
   </div>
 
+  </div>
+    <% @stations.each do |station| %>
+    <% barreColor = station.user.xp < 25000 ? "#cad82e" : station.user.xp < 50000 ? "#5ea482" : station.user.xp < 75000 ? "#fecd4f" : "#fe9751"
+       mateType = station.user.xp < 25000 ? "Mate Débutant" : station.user.xp < 50000 ? "Mate Avancé" : station.user.xp < 75000 ? "Super Mate" : "Top Mate"
+       barreLength = (station.user.xp - ((station.user.xp.to_f / 1000).floor * 1000)) / 10
+       userLevel = (station.user.xp.to_f / 1000).floor
+       adresse = station.address.length < 35 ? station.address : station.address[0..35] + "..."
+       codepostal = " " + station.address.scan(/\d{5}/)[0] if station.address.scan(/\d{5}/)[0]
+    %>
+
+      <div class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
+        <div>
+          <div class="image-station-index-filter" <% if station.photo.attached? %> style="background-image: url('<%= cl_image_path(station.photo.key, crop: :fill) %>')"<% end %>>
+          </div>
+          <div class="station-avatar-rond" <% if station.user.photo.attached? %> style="background-image: url('<%= cl_image_path(station.user.photo.key, crop: :fill) %>')"<% end %>></div>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column">
+              <div class="station-username d-flex align-items-end mt-2"><%= station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
+              <div class="mate-type-station"><%= mateType %></div>
+
+               <% feuille_user = station.user.xp < 25000 ? Badge.f[0] : station.user.xp < 50000 ? Badge.f[1] : station.user.xp < 75000 ? Badge.f[2] : Badge.f[3] %>
+              <div class="feuille-stations-show" style="background-image: url('<%= feuille_user%>');"></div>
+
+              <div class="barre-de-niveau-station" style="--width-barre: <%= barreLength%>%; --color-barre: <%= barreColor%>;"></div>
+
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="mt-1 disponible-station">Disponible</div>
+                <div class="mate-type-station bis"><%= params[:date_available].to_time.strftime("%d-%m-%Y") if params[:date_available] != "" %></div>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between bouton-reserver-station" data-controller="toggle-address" >
+
+                <div class="d-flex flex-column align-items-end">
+                  <%= form_with model: [station, @booking] do |f| %>
+                  <%= f.datetime_field :date_heure_reservation, :value => params[:date_available].to_time , class:"d-none"%>
+                  <%= f.number_field :vehicle_id, :value => params[:plug], class: "d-none"%>
+                  <%= f.submit "Reserver", class:"bouton-station-index-carte text-center border-none" %>
+                  <% end %>
+                </div>
+
+                <% if station.address.length > 35 %>
+                  <div data-toggle-address-target="smalla" data-action="click->toggle-address#toggle" class="station-adresse"><%= adresse + codepostal %></div>
+                  <div data-toggle-address-target="biga" data-action="click->toggle-address#toggle" class="station-adresse d-none"><%= station.address %></div>
+                  <% else %>
+                  <div class="station-adresse"><%= station.address %></div>
+                <% end %>
+
+            </div>
+      </div>
+    <% end %>
+
   <!-- ... Code de la carte MapBox ... -->
 
   <!-- ... Lignes de coupure, espace, variable price, etc. ... -->
@@ -48,6 +103,7 @@
     <div class="mb-4 p-1 <%= "d-none" if params[:address].blank? %>">
       <!-- ... Reste du code pour afficher les stations ... -->
     </div>
+
   <% end %>
 
   <div class="mt-5 pt-5"></div>
