@@ -17,6 +17,19 @@
   <body>
 
 
+
+<%# images pre chargees %>
+<img id="2xp" src="https://i.ibb.co/vmLBNRb/2xp.png" alt="" class="d-none">
+<img id="cristal" src="https://i.ibb.co/ySR293h/cristal.png" alt="" class="d-none">
+<img id="freeze" src="https://i.ibb.co/4TZ6ZHC/freeze.png" alt="" class="d-none">
+<img id="freezem" src="https://i.ibb.co/x6D3pWX/freeze-month.png" alt="" class="d-none">
+<img id="lv1" src="https://i.ibb.co/BBmhSgS/lv1.png" alt="" class="d-none">
+<img id="bonuse" src="https://i.ibb.co/GsJnyG0/moin-euro.png" alt="" class="d-none">
+<img id="sp_week" src="https://i.ibb.co/HTW0v1G/weekly-sp.png" alt="" class="d-none">
+<img id="noneb" src="https://i.ibb.co/whmjwTt/fail.png" alt="" class="d-none">
+
+
+
 <div data-controller="preloader" data-preloader-target="introscreen" data-action="click->preloader#getout" class="preloader d-flex flex-column justify-content-center align-items-center">
 <div class="logo-center"></div>
 <div>ChargeMates</div></div>
@@ -47,6 +60,7 @@
   <%= link_to '/wheel' do %>
     <i class="navbarre-icon fa-solid fa-dice" style="font-size: 1.2rem;"></i>
     <% end %>
+    <div class="notification-red d-flex justify-content-center align-items-center <%= "d-none" if current_user.wheel > Time.now - 60 * 60 * 24%>">1</div>
     <div>Tente ta chance</div>
   </div>
 </div>

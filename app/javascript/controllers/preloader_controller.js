@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["introscreen"];
   connect() {
     if (document.readyState !== "interactive" ){
-      console.log(document.readyState);
       this.introscreenTarget.classList.add("d-none");
     }
   }

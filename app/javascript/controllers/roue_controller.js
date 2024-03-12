@@ -8,6 +8,9 @@ export default class extends Controller {
   connect() {
     getcontext();
     init();
+    if(!this.popuproueTarget.classList.contains("d-none")){
+      this.popuproueTarget.classList.add("d-none");
+      }
   }
 
   lance_roue(){
@@ -25,9 +28,9 @@ export default class extends Controller {
     mafonction();
   }
 
-  close_popup(){
-    this.popuproueTarget.classList.toggle("d-none");
-  };
+  // close_popup(){
+  //   this.popuproueTarget.classList.add("d-none");
+  // };
 
   disconnect(){
     console.log("goodbye")
@@ -35,16 +38,26 @@ export default class extends Controller {
 }
 
 // general content
+let lv1 = document.getElementById("lv1");
+let xp2 = document.getElementById("2xp");
+let cristal = document.getElementById("cristal");
+let week_special = document.getElementById("sp_week");
+let bonuse = document.getElementById("bonuse");
+let freezem = document.getElementById("freezem");
+let freeze = document.getElementById("freeze");
+let none = document.getElementById("noneb");
 
 let ctx = "";
 const getcontext = () => {
   ctx = document.querySelector("#laroue").getContext("2d");
 }
 
-const hash_of_badges = { "#579b66": "double_xp", "#d3396e": "freeze_week", "#877cc7": "freeze_month", "#f34a47" : "minus_one_euro","#ffc114" : "level_up", "#aea98c" : "none", "#ff983a": "cristal", "#79b0cf": "weekly_special" };
-const hash_de_noms = {"double_xp": "Double XP 24 heures", "freeze_week" : "Gel de série une semaine", "freeze_month" : "Gel de série un mois", "minus_one_euro" : "Moins un euro sur votre prochaine commande", "level_up": "Plus un niveau", "cristal" : "Cristal", "weekly_special" : "Badge de la semaine"};
+const hash_of_badges = { "#579b66": "cristal", "#d3396e": "freeze_week", "#877cc7": "freeze_month", "#f34a47" : "minus_one_euro","#ffc114" : "level_up", "#aea98c" : "none", "#ff983a": "double_xp", "#79b0cf": "weekly_special" };
+const hash_de_noms = {"double_xp": "Double XP 24 heures", "freeze_week" : "Gel de série deux semaine", "freeze_month" : "Gel de série un mois", "minus_one_euro" : "Moins un euro sur votre prochaine commande", "level_up": "Plus un niveau", "cristal" : "Cristal", "weekly_special" : "Badge de la semaine"};
+const hash_image = {"#579b66": cristal, "#d3396e": freeze, "#877cc7": freezem, "#f34a47" : bonuse,"#ffc114" : lv1, "#ff983a": xp2, "#79b0cf": week_special}
 
 const give_the_result = (color) => {
+
   let texte_popup = "Malheuresement, vous n'avez pas gagné de bonus aujourd'huis. Revenez demain !";
 
   if (hash_of_badges[color] !== "none"){
@@ -59,26 +72,26 @@ const give_the_result = (color) => {
   }, 500);
 
   let date = new Date();
+  let thebody = new FormData();
+
+  thebody.append("user[wheel]", date);
 
   fetch("/users/1", {
     method: "PATCH",
-    headers: { "Accept": "application/json" },
-    body: {"user": {"wheel": 1}}
+    headers: { "Accept": "application/json" }
   })
-    .then(response => response.json())
-    .then((data) => {
-      console.log(data)
-    })
 
+  let thebody2 = new FormData();
+
+  thebody2.append("badge[name]", hash_of_badges[color])
+
+  if (hash_of_badges[color] !== "none"){
   fetch("/badges", {
     method: "POST",
     headers: { "Accept": "application/json" },
-    body: JSON.stringify({badge: {name: hash_of_badges[color]}})
+    body: thebody2
   })
-    .then(response => response.json())
-    .then((data) => {
-      console.log(data)
-    })
+  }
 
     // indique le badge gagné
     console.log(hash_of_badges[color]);
@@ -129,7 +142,7 @@ const draw = () => {
         // ctx.lineTo(500, 500);
         // ctx.stroke();
 
-        // let angle_end = triangle.angle + 45 > 360 ? triangle.angle + 45 - 360 : triangle.angle + 45;
+        let angle_end = triangle.angle + 45 > 360 ? triangle.angle + 45 - 360 : triangle.angle + 45;
 
         // ctx.beginPath();
         // ctx.moveTo(500 + 500 * Math.cos(-angle_end*Math.PI/180), 500 + 500 * Math.sin(-angle_end*Math.PI/180));
@@ -145,12 +158,18 @@ const draw = () => {
         ctx.fill();
 
         // point au millieu de chaque rayon
-        ctx.fillStyle = "black";
-        ctx.font = "32px sans-serif"
+        ctx.fillStyle = "white";
+        ctx.font = "24px sans-serif"
         ctx.arc(500, 140, 5, 0, Math.PI * 2)
-        ctx.fillText("Ah lalalalalaal", Math.PI*2*(triangle.angle/360) , Math.PI*2*(triangle.angle/360) + (Math.PI*2*0.125));
+        let x = 450 + 350 * Math.cos(((triangle.angle*Math.PI/180) + (angle_end*Math.PI/180)) / 2 );
+        let y = 450 + 350 * Math.sin(((triangle.angle*Math.PI/180) + (angle_end*Math.PI/180)) / 2 );
+        // ctx.fillText(hash_of_badges[triangle.color], x, y );
 
-
+        if (triangle.color != "#aea98c"){
+          ctx.drawImage(hash_image[triangle.color], x, y, 100, 100) ;
+        } else {
+          ctx.drawImage(none, x, y, 100, 100) ;
+        }
         // ctx.lineWidth = 7;
         // ctx.strokeStyle = "#f5f4f0";
         // ctx.stroke();
@@ -189,6 +208,7 @@ const draw = () => {
         let angle_end = triangle.angle + 45 > 360 ? triangle.angle + 45 - 360 : triangle.angle + 45;
             if (500 + 500 * Math.cos(-triangle.angle*Math.PI/180) <= 500 && 500 + 500 * Math.cos(-angle_end*Math.PI/180) >= 500 && 500 + 500 * Math.sin(-triangle.angle*Math.PI/180) > 500){
                 give_the_result(triangle.color);
+                start = false;
             }
         })
     }

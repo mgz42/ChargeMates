@@ -1,6 +1,11 @@
 <div class="carte-index-booking-background-image" ></div>
 <%# <img src="https://i.ibb.co/vQ5k3GG/Capture-d-cran-2024-02-16-170917.png" alt="" class="carte-index-booking-avatar"> %>
 <div class="carte-index-booking-avatar"></div>
+
+      <% feuille_user = booking.vehicle.user.xp < 25000 ? Badge.f[0] : booking.vehicle.user.xp < 50000 ? Badge.f[1] : booking.vehicle.user.xp < 75000 ? Badge.f[2] : Badge.f[3] %>
+      <div class="feuille-bookings-show" style="background-image: url('<%= feuille_user%>');"></div>
+
+
 <div class="date-absolute-booking"><%= booking.created_at.strftime("%d-%m-%Y") %></div>
 
 <%# <i class="fa-brands fa-envira"></i> %>
