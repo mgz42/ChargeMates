@@ -29,16 +29,30 @@ class BadgesController < ApplicationController
     end
 
     @user = current_user
-    @badge = Badge.new(badge_params)
-    @badge.user_id = @user.id
-    @badge.duration = duration
 
-    # @user. VERIFICATIOn
+    isnew = true
+    @user.badges.each do |badge|
+      if badge.name == badge_params[:name]
+        if badge.update(duration: duration)
+          xps = ((@user.xp.to_f + 1) / 1000).ceil * 1000 if badge_params[:name] == "level_up"
+          xps = @user.xp + 500 if badge_params[:name] == "cristal"
+          @user.update(xp: xps) if (badge_params[:name] == "cristal" || badge_params[:name] == "level_up")
+        end
+        isnew = false
+      end
+    end
 
-    if @badge.save
-      xps = ((@user.xp.to_f + 1) / 1000).ceil * 1000 if badge_params[:name] == "level_up"
-      xps = @user.xp + 500 if badge_params[:name] == "cristal"
-      @user.update(xp: xps) if (badge_params[:name] == "cristal" || badge_params[:name] == "level_up")
+    if isnew == true
+      @badge = Badge.new(badge_params)
+      @badge.user_id = @user.id
+      @badge.duration = duration
+
+      if @badge.save
+        xps = ((@user.xp.to_f + 1) / 1000).ceil * 1000 if badge_params[:name] == "level_up"
+        xps = @user.xp + 500 if badge_params[:name] == "cristal"
+        @user.update(xp: xps) if (badge_params[:name] == "cristal" || badge_params[:name] == "level_up")
+      end
+
     end
   end
 
