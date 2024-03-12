@@ -52,7 +52,7 @@
 
   <div class="mt-5 pt-5"></div>
 
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAxYZZfCL6C_oS4xhChAkKElHBDKSmj5lI"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>"></script>
   <script>
     // Votre script JavaScript pour l'autocomplétion
     function initializeAutocomplete(id) {
@@ -89,3 +89,4 @@
     // Appel de la fonction initializeAutocomplete avec l'ID de l'élément input
     initializeAutocomplete('user_input_autocomplete_address');
   </script>
+*
