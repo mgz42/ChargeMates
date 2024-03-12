@@ -1,113 +1,67 @@
+<div class="container pb-5 mb-5">
 <!-- app/views/stations/new.html.erb -->
 
-<div class="container pb-5 mb-5">
-  <div class="container-edit-vehicle py-5">
-    <div class="row">
-      <div class="col-12">
-        <div class="bg-white form-creation-vehicle p-3 shadow">
-          <h3>Nouvelle Station</h3>
+<div class="container-edit-vehicle py-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="bg-white form-creation-vehicle p-3 shadow">
+        <h3>Nouvelle Station</h3>
 
-          <%= form_with(model: @station, local: true) do |form| %>
-            <div class="mb-3">
-              <%= form.text_field :address, class: 'barre-de-recherche', id: 'user_input_autocomplete_address', placeholder: "Votre adresse" %>
-              <%= form.button nil, class: 'barre-de-recherche' do %>
-                <i class="fa-solid fa-magnifying-glass"></i>
-              <% end %>
-            </div>
-
-            <!-- Champs cachés -->
-            <input type="hidden" id="street_number" name="street_number">
-            <input type="hidden" id="route" name="route">
-            <input type="hidden" id="locality" name="locality">
-            <input type="hidden" id="country" name="country">
-          <% end %>
-
-          <div class="mb-3">
-            <%= form.label :comment_supply, "Complément d'adresse", class: "form-label" %>
-            <%= form.text_field :comment_supply, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= simple_form_for(@station) do |f| %>
-              <%= f.input :plug, label: 'Type de prise', collection: ["CCS Combo", "Type 2"] %>
-            <% end %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :brand, "Marque", class: "form-label" %>
-            <%= form.text_field :brand, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :model, "Modèle", class: "form-label" %>
-            <%= form.text_field :model, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :max_kW_recharge, "Puissance Max (kW) de Recharge", class: "form-label" %>
-            <%= form.number_field :max_kW_recharge, class: "form-control" %>
-          </div>
-
-          <div class="mb-3 form-check">
-            <%= form.check_box :available, class: "form-check-input" %>
-            <%= form.label :available, "Disponible", class: "form-check-label" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :avaibility_end, "Date de Fin de Disponibilité", class: "form-label" %>
-            <%= form.date_field :avaibility_end, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= form.label :code_station, "Code de la Station", class: "form-label" %>
-            <%= form.number_field :code_station, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
-            <%= simple_form_for(@station) do |f| %>
-              <%= f.input :photo, as: :file %>
-          </div>
-
-          <div class="btn bouton-creation-voiture">
-            <%= form.submit "Créer", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-      </div>
+  <%= form_with(model: @station, local: true) do |form| %>
+    <div class="mb-3">
+      <%= form.label :address, "Adresse", class: "form-label" %>
+      <%= form.text_field :address, class: "form-control" %>
     </div>
-  </div>
 
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>"></script>
-  <script>
-    function initializeAutocomplete(id) {
-      var element = document.getElementById(id);
+    <div class="mb-3">
+      <%= form.label :comment_supply, "Complément d'adresse", class: "form-label" %>
+      <%= form.text_field :comment_supply, class: "form-control" %>
+    </div>
 
-      if (element) {
-        var autocomplete = new google.maps.places.Autocomplete(element, { types: ['geocode'] });
-        google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
-      }
-    }
+    <div class="mb-3">
+      <%= simple_form_for(@station) do |f| %>
+        <%= f.input :plug, label: 'Type de prise', collection: ["CCS Combo", "Type 2"] %>
+      <% end %>
+    </div>
 
-    function onPlaceChanged() {
-      var place = this.getPlace();
+    <div class="mb-3">
+      <%= form.label :brand, "Marque", class: "form-label" %>
+      <%= form.text_field :brand, class: "form-control" %>
+    </div>
 
-      document.getElementById('street_number').value = getAddressComponent(place, 'street_number');
-      document.getElementById('route').value = getAddressComponent(place, 'route');
-      document.getElementById('locality').value = getAddressComponent(place, 'locality');
-      document.getElementById('country').value = getAddressComponent(place, 'country');
-    }
+    <div class="mb-3">
+      <%= form.label :model, "Modèle", class: "form-label" %>
+      <%= form.text_field :model, class: "form-control" %>
+    </div>
 
-    function getAddressComponent(place, componentType) {
-      for (var i in place.address_components) {
-        var component = place.address_components[i];
-        for (var j in component.types) {
-          if (component.types[j] === componentType) {
-            return component.long_name;
-          }
-        }
-      }
-      return '';
-    }
+    <div class="mb-3">
+      <%= form.label :max_kW_recharge, "Puissance Max (kW) de Recharge", class: "form-label" %>
+      <%= form.number_field :max_kW_recharge, class: "form-control" %>
+    </div>
 
-    initializeAutocomplete('user_input_autocomplete_address');
-  </script>
+    <div class="mb-3 form-check">
+      <%= form.check_box :available, class: "form-check-input" %>
+      <%= form.label :available, "Disponible", class: "form-check-label" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :avaibility_end, "Date de Fin de Disponibilité", class: "form-label" %>
+      <%= form.date_field :avaibility_end, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :code_station, "Code de la Station", class: "form-label" %>
+      <%= form.number_field :code_station, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= simple_form_for(@station) do |f| %>
+      <%= f.input :photo, as: :file %>
+    </div>
+
+    <div class="btn bouton-creation-voiture">
+      <%= form.submit "Créer", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <% end %>
 </div>
