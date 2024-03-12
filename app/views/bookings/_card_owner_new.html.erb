@@ -1,9 +1,14 @@
 <div class="carte-index-booking-background-image" <% if booking.station.photo.attached? %> style="background-image: url('<%= cl_image_path(booking.station.photo.key, crop: :fill) %>')"<% end %>></div>
 <%# <img src="https://i.ibb.co/vQ5k3GG/Capture-d-cran-2024-02-16-170917.png" alt="" class="carte-index-booking-avatar"> %>
+
 <div class="carte-index-booking-avatar" <% if booking.station.user.photo.attached? %>
   style="background-image: url('<%= cl_image_path(booking.station.user.photo.key, height: 300, crop: :fill) %>')"
 <% end %>>
 </div>
+
+<% feuille_user = booking.station.user.xp < 25000 ? Badge.f[0] : booking.station.user.xp < 50000 ? Badge.f[1] : booking.station.user.xp < 75000 ? Badge.f[2] : Badge.f[3] %>
+      <div class="feuille-bookings-show" style="background-image: url('<%= feuille_user%>');"></div>
+
 <%# <i class="fa-brands fa-envira"></i> %>
 <div class="date-absolute-booking"></div>
 
@@ -28,11 +33,11 @@
 </div>
   <div class="reservation ">
     <%= form_with model: booking, url: booking_path(booking), method: :patch, class: "reservation-form" do |form| %>
-      <div class="d-flex flex-column mb-2">
-        <%= form.label :date_heure_reservation, "Début réservation" %>
+      <div class="d-flex flex-column mb-2 text-secondary">
+        <%= form.label :date_heure_reservation, "Début réservation", class: "ms-2" %>
         <%= form.datetime_field :date_heure_reservation, class: 'form-control', required: true  %>
 
-        <%= form.label :date_heure_fin_de_reservation, "Fin de réservation" %>
+        <%= form.label :date_heure_fin_de_reservation, "Fin de réservation", class: "ms-2" %>
         <%= form.datetime_field :date_heure_fin_de_reservation, class: 'form-control', required: true  %>
       </div>
 

@@ -336,3 +336,51 @@ border:none;
   position: relative;
   right: -0.5rem;
 }
+.image-de-badges{
+  background-size: cover;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.44);
+}
+.div-des-badges{
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+}
+
+// CSS DES FEUILLES
+
+.feuille-profile-show{
+  position: absolute;
+  top: 3.1rem;
+  left: 5.7rem;
+  height: 2rem;
+  width: 2rem;
+  background-size: cover;
+}
+.feuille-bookings-show{
+  position: absolute;
+  top: 6.2rem;
+  left: 6.3rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-size: cover;
+}
+.feuille-bookings-show-profile{
+  position: absolute;
+  top: 0rem;
+  left: -2rem;
+  height: 2rem;
+  width: 2rem;
+  background-size: cover;
+}
+.feuille-stations-show{
+  position: absolute;
+  top: 6.8rem;
+  left: 9rem;
+  height: 1.3rem;
+  width: 1.3rem;
+  background-size: cover;
+}

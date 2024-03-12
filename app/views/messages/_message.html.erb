@@ -1,0 +1,15 @@
+<% if message.user == current_user %>
+  <div id="message-<%= message.id %>" class="message-right">
+<% else %>
+  <div id="message-<%= message.id %>" class="message-left">
+<% end %>
+  <div class="message-header">
+    <small>
+      <strong><%= message.user.username.capitalize %></strong>
+      <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+    </small>
+  </div>
+  <div class="message-content">
+    <p><%= message.content %></p>
+  </div>
+</div>

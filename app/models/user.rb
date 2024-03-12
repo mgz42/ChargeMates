@@ -31,14 +31,6 @@ class User < ApplicationRecord
     vehicle_reservations.or(station_reservations)
   end
 
-  def avatar_url
-    # Assurez-vous que vous avez une colonne ou une méthode `avatar_url` dans votre modèle User.
-    # Cette implémentation suppose que `avatar_url` est une méthode ou une colonne de sauvegarde.
-    # Si `avatar_url` n'est pas directement stocké mais doit être calculé ou récupéré d'une autre manière,
-    # ajustez cette méthode en conséquence.
-    super || "https://via.placeholder.com/150?text=No+Avatar&bg=CCCCCC&fg=000000"
-  end
-
   def est_un_customer?
     self.station.nil?
   end

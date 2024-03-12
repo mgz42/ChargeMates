@@ -75,6 +75,10 @@
             <div class="d-flex flex-column">
               <div class="station-username d-flex align-items-end mt-2"><%= station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
               <div class="mate-type-station"><%= mateType %></div>
+
+               <% feuille_user = station.user.xp < 25000 ? Badge.f[0] : station.user.xp < 50000 ? Badge.f[1] : station.user.xp < 75000 ? Badge.f[2] : Badge.f[3] %>
+              <div class="feuille-stations-show" style="background-image: url('<%= feuille_user%>');"></div>
+
               <div class="barre-de-niveau-station" style="--width-barre: <%= barreLength%>%; --color-barre: <%= barreColor%>;"></div>
 
             </div>

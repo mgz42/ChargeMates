@@ -30,18 +30,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    raise
-    @user = current_user
-  end
-
   def update
-    raise
-    if @user.update(user_params)
-      @user = current_user
-      redirect_to user_path(@user)
+    @user = current_user
+    # date = user_params[:wheel].to_time
+    if @user.update(wheel: Time.now)
     else
-      render :edit
+      render :show
     end
   end
 

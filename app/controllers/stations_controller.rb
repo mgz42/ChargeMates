@@ -19,13 +19,13 @@ class StationsController < ApplicationController
       else
         @stations = ""
       end
-
     # wip ci dessous
     if @stations != ""
       @markers = @stations.geocoded.map do |station|
         {
           lat: station.latitude,
-          lng: station.longitude
+          lng: station.longitude,
+          marker_html: render_to_string(partial: "marker")
         }
       end
       location = Geocoder.search(params[:address])[0]

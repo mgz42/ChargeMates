@@ -3,7 +3,14 @@
     <div class="row mt-3">
       <div class="mt-4"></div>
       <div class="badges-if-any-parent col-md-12 d-flex justify-content-between align-items-center">
-      <div class="badges-if-any"><%= "Pas encore de badges" %></div>
+      <div class="badges-if-any <%= "d-none" if current_user.badges.length > 0 %>">Pas encore de badges</div>
+      <div class="div-des-badges d-flex justify-content-end">
+      <% if current_user.badges.length > 0 %>
+        <% current_user.badges.each do |badge| %>
+          <div class="image-de-badges" style="background-image: url('<%= Badge.badge_img[badge.name]%>');"></div>
+        <% end %>
+      <% end %>
+      </div>
         <div class="d-flex flex-column align-items-center">
           <div class="avatar-placeholder rounded-circle"<% if current_user.photo.attached? %> style="background-image: url('<%= cl_image_path(current_user.photo.key, height: 300, crop: :fill) %>')" <% end %>></div>
         </div>
@@ -11,6 +18,10 @@
           <div class="station-username d-flex align-items-end mt-2 text-end">
             <h5 class="username-badge"><%= current_user.username.capitalize %></h5>
           </div>
+
+              <% feuille_user = current_user.xp < 25000 ? Badge.f[0] : current_user.xp < 50000 ? Badge.f[1] : current_user.xp < 75000 ? Badge.f[2] : Badge.f[3] %>
+            <div class="feuille-profile-show" style="background-image: url('<%= feuille_user%>');"></div>
+
           <% mateType = current_user.xp < 25000 ? "Mate Débutant" : current_user.xp < 50000 ? "Mate Avancé" : current_user.xp < 75000 ? "Super Mate" : "Top Mate" %>
           <div class="mate-type-user text-end d-flex justify-content-between user-level-placement"> <div><%= mateType %></div> <div><%= current_user.xp / 1000 %></div></div>
           <div class="station-username-level ps-1"></div>
