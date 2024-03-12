@@ -20,7 +20,7 @@ export default class extends Controller {
     );
   }
   #insertMessageAndScrollDown(data) {
-    this.messagesTarget.insertAdjacentHTML("beforeend", data);
+    this.messagesTarget.innerHTML = data;
     this.zonetextTarget.scrollTo(0, this.zonetextTarget.scrollHeight)
   }
 
