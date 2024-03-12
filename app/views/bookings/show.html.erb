@@ -2,10 +2,30 @@
 <div class="bookinghead">
   <!-- Header vignette photo garage -->
 
-  <div class="bookingbackgroud text-white"></div>
+   <div class="bookingbackgroud text-white" <% if @booking.station.photo.attached? %> style="background-image: url('<%= cl_image_path(@booking.station.photo.key, crop: :fill) %>')" <% end %>></div>
 
+
+
+
+
+
+<% if @booking.station.user_id == current_user.id %>
   <!-- Header photo du locataire de la borne -->
-  <div class="bookingheadpic">
+  <div class="bookingheadpic" <% if @booking.vehicle.user.photo.attached? %> style="background-image: url('<%= cl_image_path(@booking.vehicle.user.photo.key, crop: :fill) %>')" <% end %>>
+    <!-- Header username du locataire de la borne -->
+    <div class="bookingheadusername">
+
+    <%userLevel = (@booking.vehicle.user.xp.to_f / 1000).floor%>
+
+       <div class="station-username d-flex align-items-end"><%= @booking.vehicle.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
+
+      <!-- Header des logos map et waze -->
+      <div class="bookingwaze"></div>
+    </div>
+  </div>
+<% else %>
+ <!-- Header photo du locataire de la borne -->
+  <div class="bookingheadpic" <% if @booking.station.user.photo.attached? %> style="background-image: url('<%= cl_image_path(@booking.station.user.photo.key, crop: :fill) %>')" <% end %>>
     <!-- Header username du locataire de la borne -->
     <div class="bookingheadusername">
 
@@ -17,6 +37,15 @@
       <div class="bookingwaze"></div>
     </div>
   </div>
+<% end %>
+
+
+
+
+
+
+
+
 </div>
 
 <div class="barregrise"></div>

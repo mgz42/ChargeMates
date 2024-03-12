@@ -1,6 +1,6 @@
-<div class="carte-index-booking-background-image" ></div>
-<%# <img src="https://i.ibb.co/vQ5k3GG/Capture-d-cran-2024-02-16-170917.png" alt="" class="carte-index-booking-avatar"> %>
-<div class="carte-index-booking-avatar"></div>
+<div class="carte-index-booking-background-image" <% if booking.station.photo.attached? %> style="background-image: url('<%= cl_image_path(booking.station.photo.key, crop: :fill) %>')"></div>
+<% end %><%# <img src="https://i.ibb.co/vQ5k3GG/Capture-d-cran-2024-02-16-170917.png" alt="" class="carte-index-booking-avatar"> %>
+<div class="carte-index-booking-avatar" <% if booking.vehicle.user.photo.attached? %> style="background-image: url('<%= cl_image_path(booking.vehicle.user.photo.key, crop: :fill) %>')" <% if @user.station.photo.attached? %>> </div>
 <div class="date-absolute-booking"><%= booking.created_at.strftime("%d-%m-%Y") %></div>
 
 <%# <i class="fa-brands fa-envira"></i> %>

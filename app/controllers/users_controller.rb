@@ -2,6 +2,19 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to user_path(@user)
+    else
+      render :new
+    end
+  end
+
   def show
     @users = User.all # ou toute autre logique pour récupérer les utilisateurs
     current_user_rank = @users.order(xp: :desc).pluck(:id).index(current_user.id).to_i + 1
@@ -17,14 +30,18 @@ class UsersController < ApplicationController
     end
   end
 
-  def update
+  def edit
+    raise
     @user = current_user
-    if @user.update(user_params)
+  end
 
-      # Il faut redirect to user seulement si la requete ne vient pas d'Ajax
-      redirect_to @user
+  def update
+    raise
+    if @user.update(user_params)
+      @user = current_user
+      redirect_to user_path(@user)
     else
-      render :show
+      render :edit
     end
   end
 

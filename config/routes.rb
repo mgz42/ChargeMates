@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :stations, only: [:index, :new, :create, :edit, :update, :destroy, :show] do
     resources :bookings, only: [:create]
   end
-  
+
   resources :users, only: [:show, :update] do
     resources :vehicles, only: [:new, :create, :edit, :update] # Ressources des véhicules
   end

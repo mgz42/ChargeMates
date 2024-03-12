@@ -63,14 +63,14 @@
        barreLength = (station.user.xp - ((station.user.xp.to_f / 1000).floor * 1000)) / 10
        userLevel = (station.user.xp.to_f / 1000).floor
        adresse = station.address.length < 35 ? station.address : station.address[0..35] + "..."
-       codepostal = " " + station.address.scan(/\d{5}/)[0]
+       codepostal = " " + station.address.scan(/\d{5}/)[0] if station.address.scan(/\d{5}/)[0]
     %>
 
       <div class="carte-station-index container-sm mt-3 d-flex flex-column justify-content-center mb-1">
         <div>
-          <div class="image-station-index-filter">
+          <div class="image-station-index-filter" <% if station.photo.attached? %> style="background-image: url('<%= cl_image_path(station.photo.key, crop: :fill) %>')"<% end %>>
           </div>
-          <div class="station-avatar-rond"></div>
+          <div class="station-avatar-rond" <% if station.user.photo.attached? %> style="background-image: url('<%= cl_image_path(station.user.photo.key, crop: :fill) %>')"<% end %>></div>
           <div class="d-flex justify-content-between">
             <div class="d-flex flex-column">
               <div class="station-username d-flex align-items-end mt-2"><%= station.user.username.capitalize %> <div class="station-username-level ps-1"><%= userLevel %></div></div>
