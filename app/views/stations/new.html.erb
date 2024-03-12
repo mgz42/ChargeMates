@@ -14,8 +14,14 @@
     </div>
 
     <div class="mb-3">
-      <%= form.label :plug, "Prise", class: "form-label" %>
-      <%= form.text_field :plug, class: "form-control" %>
+      <%= form.label :comment_supply, "Complément d'adresse", class: "form-label" %>
+      <%= form.text_field :comment_supply, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= simple_form_for(@station) do |f| %>
+        <%= f.input :plug, label: 'Type de prise', collection: ["CCS Combo", "Type 2"] %>
+      <% end %>
     </div>
 
     <div class="mb-3">
