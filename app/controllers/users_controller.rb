@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
+  before_action do
+    current_user.badges.each do |badge|
+      if badge.duration < Time.now
+        badge.destroy
+      end
+    end
+  end
 
   def new
     @user = User.new
