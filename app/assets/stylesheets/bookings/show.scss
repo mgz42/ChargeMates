@@ -344,22 +344,13 @@ margin-top: 0.3rem;
   align-items: flex-start;
 }
 
-.message-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
 #message_content{
   margin-left: 1rem;
     border-radius: 10px;
     padding-right: 1rem;
 }
 
-.message-header {
-  margin-bottom: 0.5rem;
-  margin-right: 0.4rem;
-  margin-left: 0.3rem;
-}
+
 .bookingwhrite {
   padding-top: 0.4rem;
 }
@@ -368,18 +359,28 @@ margin-top: 0.3rem;
   padding-top: 0.4rem;
 }
 
+.message-box {
+  display: flex;
+  flex-direction: column;
 
-.message-right p, .message-left p {
-  background-color: white;
-  border-radius: 15px;
-  padding: 8px 12px;
-  margin-top: 5px;
-  margin-bottom: 0rem;
-  display: inline-block;
-  margin-left: 0.3rem;
-  margin-right: 0.3rem;
-
+  .message-header{
+    margin-bottom: 0.5rem;
+    margin-right: 0.4rem;
+    margin-left: 0.3rem;
+  }
+  .p {
+      width: fit-content;
+      background-color: white;
+      border-radius: 15px;
+      padding: 8px 12px;
+      margin-top: 5px;
+      margin-bottom: 0rem;
+      margin-left: 0.3rem;
+      margin-right: 0.3rem;
+    }
 }
+
+
 .envoyer.btn.btn-primary {
   background: linear-gradient(to right, #FF6868, #9B0054);
   color: white;
