@@ -1,4 +1,5 @@
-<div class="carte-index-booking-background-image" <% if booking.station.photo.attached? %> style="background-image: url('<%= cl_image_path(booking.station.photo.key, crop: :fill) %>')" <% end %>></div>
+
+<div class="carte-index-booking-background-image" <% if booking.station.photo.attached? %> style="background-image: url('<%= cl_image_path(booking.station.photo.key, crop: :fill) %>')"<% end %>> </div>
 
 <div class="carte-index-booking-avatar" <% if booking.vehicle.user.photo.attached? %> style="background-image: url('<%= cl_image_path(booking.vehicle.user.photo.key, crop: :fill) %>')" <% end %>> </div>
 
