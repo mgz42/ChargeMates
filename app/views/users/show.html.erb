@@ -33,7 +33,8 @@
     </div>
   </div>
 
-  <div class="barregrise mt-2"></div>
+  <%# <div class="barregrise mt-2"></div> %>
+  <div class="nouvelle-div-de-container">
 
     <div class="text-center">
       <h1><strong>Classement</strong></h1>
@@ -48,6 +49,7 @@
     </div>
     <div class="d-flex justify-content-center">
 
+
          <!-- cartes -->
       <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
       <div class="economise-partage">Partagé</div>
@@ -58,12 +60,22 @@
       <div class="economise-partage-chiffres"><%= current_user.orders ? "%.2f" % (current_user.orders * 8.55).round(2) : "%.2f" % 0 %>€</div>
     </div>
       </div>
+
+    <% if (current_user.seriecurrent - current_user.seriestart) < 60 * 60 * 24 %>
+      <div class="text-center mb-3">Vous n'avez pas encore de série.</div>
+    <% else %>
+    <div class="d-flex justify-content-center">
+      <div class="serie-de-semaines text-center mb-4">🔥 Série <%= (( current_user.seriecurrent - current_user.seriestart ) / (60 * 60 * 24 * 7)).ceil %> semaine<%= "s" if (( current_user.seriecurrent - current_user.seriestart ) / (60 * 60 * 24 * 7)).ceil > 1%> ! 🔥</div>
+    </div>
+    <% end %>
+    </div>
+
     </div>
   </div>
 
 
-  <div class="barregrise"></div>
-  <div class="text-center historique-title-show-user"><strong>Mes véhicules</strong></div>
+  <%# <div class="barregrise"></div> %>
+  <div class="text-center historique-title-show-user mt-2"><strong>Mes véhicules</strong></div>
 
   <div class="container d-flex justify-content-center my-3">
     <div class="card text-white bg-primary mb-3 align-items-center custom-card " style="width: 22.8rem;">
@@ -78,7 +90,7 @@
               <div class="d-flex align-items-center justify-content-between">
                 <% Vehicle.car_list.each do |key, value| %>
                   <% if vehicle.brand == key %>
-                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3-logo" style="max-width: 2rem; position: relative; right: 1rem;">
+                    <img src="<%= value["Logo_url"] %>" alt="<%= vehicle.brand %> logo" class="mr-3-logo" style="max-width: 3rem; max-height: 2rem; position: relative; right: 1rem;">
                     <div class="nom-de-voiture-dans-user"><%= vehicle.brand %> <%= vehicle.model %></div>
                     <img src="<%= value["Logo_prise_url"] %>" alt="<%= value["Type_prise"] %> logo" class="ml-3" style="max-width: 2rem; opacity:0.6; position: relative; right: -1rem;">
                   <% end %>

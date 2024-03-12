@@ -7,7 +7,7 @@ class Booking < ApplicationRecord
   has_one :user, through: :vehicle
   has_one :station_owner, through: :station, source: :user
 
-  
+
 
   enum status: {
     en_attente_de_soumission: 'en_attente_de_soumission',

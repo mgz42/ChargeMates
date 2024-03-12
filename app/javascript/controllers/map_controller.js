@@ -26,11 +26,31 @@ export default class extends Controller {
       this.markersValue.forEach((marker) => {
 
         const customMarker = document.createElement("div");
-        customMarker.innerHTML = marker.marker_html;
+        if(marker.bs === "true") {
+          customMarker.innerHTML = marker.marker_html_5;
+        }else if(marker.niv < 25000){
+          customMarker.innerHTML = marker.marker_html;
+        }else if(marker.niv < 50000){
+          customMarker.innerHTML = marker.marker_html_2;
+        }else if(marker.niv < 75000){
+          customMarker.innerHTML = marker.marker_html_3;
+        }else if(marker.niv >= 75000){
+          customMarker.innerHTML = marker.marker_html_4;
+        }
 
-        new mapboxgl.Marker(customMarker)
+        const popup = new mapboxgl.Popup().setHTML(marker.info_window_html)
+
+        if (marker.info_window_html){
+          new mapboxgl.Marker(customMarker)
+          .setLngLat([ marker.lng, marker.lat ])
+          .setPopup(popup)
+          .addTo(this.map)
+        } else{
+          new mapboxgl.Marker(customMarker)
           .setLngLat([ marker.lng, marker.lat ])
           .addTo(this.map)
+        }
+
       })
     }
   }

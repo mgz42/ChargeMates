@@ -16,6 +16,7 @@
   left: 1rem;
   top: 6rem;
   transform: translateY(-50%);
+  background-size: cover;
 }
 
 
@@ -119,6 +120,19 @@
     margin:0rem;
   }
 }
+
+.rose-case{
+  background-color: #dd3f65 !important;
+  box-shadow: none;
+  .titre-reservation-details {
+    font-weight: bold;
+    color: white !important;
+  }
+  p {
+    color: white;
+  }
+}
+
 .titre-reservation-details {
   font-weight: bold;
   color: #A40753;

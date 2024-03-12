@@ -86,7 +86,8 @@
     <i class="navbarre-icon fa-solid fa-dice" style="font-size: 1.2rem;"></i>
     <% end %>
     <% if current_user %>
-    <div class="notification-red d-flex justify-content-center align-items-center <%= "d-none" if current_user.wheel > Time.now - 60 * 60 * 24%>">1</div>
+      <div class="notification-red d-flex justify-content-center align-items-center <%= "d-none" if current_user.wheel > Time.now - 60 * 60 * 24%>">1</div>
+
     <% end %>
     <div>Tente ta chance</div>
   </div>
