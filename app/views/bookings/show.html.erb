@@ -114,21 +114,15 @@
 <div class="barregrise"></div>
 
 <!-- Bouton d'action en fonction des utilisateurs -->
-  <!-- Booking action user debut -->
-<div class="bookingactionuser">
-  <% if current_user == @booking.vehicle.user %>
-    <%= render 'owner_bookingactions', booking: @booking %>
-  <% elsif current_user == @booking.station.user %>
-    <%= render 'customer_bookingactions', booking: @booking %>
-  <% else %>
-  <p>Aucune action disponible.</p>
-  <% end %>
-
-
-</div>                                                 <!-- Booking action user fin -->
-
+<!-- Booking action user debut -->
+<div class="bookingactionuser"
+  data-controller="action-booking"
+  data-action-booking-booking-id-value="<%= @booking.id %>"
+  data-action-booking-is-owner-value="<%= current_user.id == @booking.vehicle.user.id ? "owner" : "customer" %>"
+  data-action-booking-target = "action">
+  <%= render "bookings/action_choice", booking: @booking, is_owner: @is_owner %>
+</div>                   <!-- Booking action user fin -->
 <!-- TCHAT -->
-
 <div class="bookingchatroom">
 
 
@@ -164,7 +158,7 @@
   </div><!-- fin de bookingmessage -->
 </div><!-- fin de bookingchatroom -->
 
-<!-- Bouton signaler et paiement du bas de page -->
+<!-- Bouton signaler du bas de page -->
 <div class="bookingfoot d-flex justify-content-between">
   <!-- Bouton Signaler -->
   <div class="bookingsignalement d-flex justify-content-center align-items-center">
