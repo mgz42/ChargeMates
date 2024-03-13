@@ -51,11 +51,11 @@
 
 
          <!-- cartes -->
-      <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
+      <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: fit-content;" >
       <div class="economise-partage">Partagé</div>
       <div class="economise-partage-chiffres"><%= current_user.orders ? current_user.orders : 0 %></div>
     </div>
-    <div class="d-flex flex-column carte-rose-user align-items-end" style="max-width: 9rem;" >
+    <div class="d-flex flex-column carte-rose-user align-items-end" style="max-width: fit-content;" >
       <div class="economise-partage">Economisé</div>
       <div class="economise-partage-chiffres"><%= current_user.orders ? "%.2f" % (current_user.orders * 8.55).round(2) : "%.2f" % 0 %>€</div>
     </div>
@@ -246,10 +246,6 @@
             <div data-toggle-historic-target="bouton" data-action="click->toggle-historic#toggle_historic"class=""><i class="fa-solid fa-chevron-down"></i></div>
           </div>
         </div>
-
-
-
-
 
 
       </div>
