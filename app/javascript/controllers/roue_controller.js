@@ -79,7 +79,7 @@ const give_the_result = (color) => {
     document.getElementById("dark-behind").classList.toggle("d-none");
     setTimeout(() => {
       document.querySelector(".pop-up-roue").classList.add("scaled")
-    }, 10);
+    }, 15);
   }, 500);
 
   let date = new Date();

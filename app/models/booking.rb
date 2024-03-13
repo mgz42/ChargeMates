@@ -61,8 +61,6 @@ class Booking < ApplicationRecord
     update(status: :en_attente_de_charge)
     messages.create(content: "🤖 Message automatique: ✅ Paiement effectué le #{Time.zone.now.strftime('%d/%m/%Y à %H:%M')}",user: vehicle.user)
     messages.create(content: "🤖 Message automatique: Mon adresse est #{station.address}", user: station.user)
-
-
   end
 
   def commencer_charge!
