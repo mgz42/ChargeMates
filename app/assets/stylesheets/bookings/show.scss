@@ -378,9 +378,10 @@ margin-top: 0.3rem;
   flex-direction: column;
 
   .message-header{
-    margin-bottom: 0.5rem;
-    margin-right: 0.4rem;
-    margin-left: 0.3rem;
+    margin-bottom: -0.3rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
   }
   .p {
       width: fit-content;
@@ -389,8 +390,8 @@ margin-top: 0.3rem;
       padding: 8px 12px;
       margin-top: 5px;
       margin-bottom: 0rem;
-      margin-left: 0.3rem;
-      margin-right: 0.3rem;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
     }
 }
 

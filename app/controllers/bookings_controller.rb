@@ -1,7 +1,13 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_booking, only: [:show, :update, :destroy, :submit_offer, :accept_offer, :reject_offer, :start_charge, :stop_charge, :validate_payment]
-
+  before_action do
+    current_user.badges.each do |badge|
+      if badge.duration < Time.now
+        badge.destroy
+      end
+    end
+  end
 
   def index
     # Pour récupérer les véhicules et la station de l'utilisateur actuel

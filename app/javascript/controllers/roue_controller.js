@@ -8,6 +8,7 @@ export default class extends Controller {
   connect() {
     getcontext();
     init();
+    document.getElementsByClassName("notification-red")[0].classList.add("d-none");
     if(!this.popuproueTarget.classList.contains("d-none")){
       this.popuproueTarget.classList.add("d-none");
       }
@@ -28,16 +29,14 @@ export default class extends Controller {
     mafonction();
   }
 
-  // close_popup(){
-  //   this.popuproueTarget.classList.add("d-none");
-  // };
-
   disconnect(){
     console.log("goodbye")
   }
 }
 
-// general content
+// CANVAS CODE
+
+// Important variables
 let lv1 = document.getElementById("lv1");
 let xp2 = document.getElementById("2xp");
 let cristal = document.getElementById("cristal");
@@ -46,8 +45,14 @@ let bonuse = document.getElementById("bonuse");
 let freezem = document.getElementById("freezem");
 let freeze = document.getElementById("freeze");
 let none = document.getElementById("noneb");
-
 let ctx = "";
+
+let speed = 1;
+let accelerate = true;
+let stopper = false;
+let randomslow = 0.02;
+let start = false;
+
 const getcontext = () => {
   ctx = document.querySelector("#laroue").getContext("2d");
 }
@@ -55,7 +60,10 @@ const getcontext = () => {
 const hash_of_badges = { "#579b66": "cristal", "#d3396e": "freeze_week", "#877cc7": "freeze_month", "#f34a47" : "minus_one_euro","#ffc114" : "level_up", "#aea98c" : "none", "#ff983a": "double_xp", "#79b0cf": "weekly_special" };
 const hash_de_noms = {"double_xp": "Double XP 24 heures", "freeze_week" : "Gel de série deux semaine", "freeze_month" : "Gel de série un mois", "minus_one_euro" : "Moins un euro sur votre prochaine commande", "level_up": "Plus un niveau", "cristal" : "Cristal", "weekly_special" : "Badge de la semaine"};
 const hash_image = {"#579b66": cristal, "#d3396e": freeze, "#877cc7": freezem, "#f34a47" : bonuse,"#ffc114" : lv1, "#ff983a": xp2, "#79b0cf": week_special}
+const array_color = ["#579b66", "#f34a47", "#79b0cf", "#877cc7", "#d3396e","#ffc114", "#aea98c", "#ff983a"]
+let array_triangles = [];
 
+// fonction finale
 const give_the_result = (color) => {
 
   let texte_popup = "Malheuresement, vous n'avez pas gagné de bonus aujourd'hui. Revenez demain !";
@@ -69,11 +77,13 @@ const give_the_result = (color) => {
 
   setTimeout(() => {
     document.getElementById("dark-behind").classList.toggle("d-none");
+    setTimeout(() => {
+      document.querySelector(".pop-up-roue").classList.add("scaled")
+    }, 10);
   }, 500);
 
   let date = new Date();
   let thebody = new FormData();
-
   thebody.append("user[wheel]", date);
 
   fetch("/users/1", {
@@ -82,7 +92,6 @@ const give_the_result = (color) => {
   })
 
   let thebody2 = new FormData();
-
   thebody2.append("badge[name]", hash_of_badges[color])
 
   if (hash_of_badges[color] !== "none"){
@@ -92,23 +101,14 @@ const give_the_result = (color) => {
     body: thebody2
   })
   }
-
-    // indique le badge gagné
-    console.log(hash_of_badges[color]);
 }
 
+// creer la roue statique
 const init = () => {
     window.requestAnimationFrame(draw);
 }
 
-let speed = 1;
-let accelerate = true;
-let stopper = false;
-let randomslow = 0.02;
-let start = false;
-// au dessus variable tout le monde.
-
-
+// animation
 const draw = () => {
 
     ctx.clearRect(0, 0, 1000, 1000);
@@ -136,19 +136,7 @@ const draw = () => {
             triangle.angle = array_triangles[0].angle + (45 * triangle.numero);
         }
 
-        // ctx.strokeStyle = triangle.color;
-        // ctx.beginPath();
-        // ctx.moveTo(500 + 500 * Math.cos(-triangle.angle*Math.PI/180), 500 + 500 * Math.sin(-triangle.angle*Math.PI/180));
-        // ctx.lineTo(500, 500);
-        // ctx.stroke();
-
         let angle_end = triangle.angle + 45 > 360 ? triangle.angle + 45 - 360 : triangle.angle + 45;
-
-        // ctx.beginPath();
-        // ctx.moveTo(500 + 500 * Math.cos(-angle_end*Math.PI/180), 500 + 500 * Math.sin(-angle_end*Math.PI/180));
-        // ctx.lineTo(500, 500);
-        // ctx.stroke();
-
 
         ctx.fillStyle = triangle.color;
         ctx.beginPath();
@@ -157,23 +145,16 @@ const draw = () => {
         ctx.lineTo(500,500);
         ctx.fill();
 
-        // point au millieu de chaque rayon
         ctx.fillStyle = "white";
-        ctx.font = "24px sans-serif"
         ctx.arc(500, 140, 5, 0, Math.PI * 2)
         let x = 450 + 350 * Math.cos(((triangle.angle*Math.PI/180) + (angle_end*Math.PI/180)) / 2 );
         let y = 450 + 350 * Math.sin(((triangle.angle*Math.PI/180) + (angle_end*Math.PI/180)) / 2 );
-        // ctx.fillText(hash_of_badges[triangle.color], x, y );
 
         if (triangle.color != "#aea98c"){
           ctx.drawImage(hash_image[triangle.color], x, y, 100, 100) ;
         } else {
           ctx.drawImage(none, x, y, 100, 100) ;
         }
-        // ctx.lineWidth = 7;
-        // ctx.strokeStyle = "#f5f4f0";
-        // ctx.stroke();
-
     })
 
     ctx.beginPath();
@@ -186,7 +167,6 @@ const draw = () => {
     ctx.fillStyle = "#f5f4f0";
     ctx.fill();
 
-    //details esthetiques
     ctx.filter = "blur(20px)";
     ctx.beginPath();
     ctx.arc(500, 500, 460, 0, Math.PI * 2)
@@ -194,7 +174,6 @@ const draw = () => {
     ctx.lineWidth = 28;
     ctx.stroke();
     ctx.filter = "blur(0px)";
-
 
     ctx.beginPath();
     ctx.arc(500, 500, 488, 0, Math.PI * 2)
@@ -214,6 +193,7 @@ const draw = () => {
     }
 }
 
+// class initialisation
 class Triangle{
     constructor(numero, angle, color){
         this.numero = numero;
@@ -222,14 +202,11 @@ class Triangle{
     }
 }
 
-const array_color = ["#579b66", "#f34a47", "#79b0cf", "#877cc7", "#d3396e","#ffc114", "#aea98c", "#ff983a"]
-let array_triangles = [];
-
+//instances of class
 for(let i = 1; i < 9; i += 1){
     let a_s = 360;
     array_triangles.push(new Triangle( i - 1, a_s, array_color[i - 1]))
 }
-
 
 const mafonction = () => {
     randomslow = Math.random() * (0.03 - 0.012) + 0.012;
