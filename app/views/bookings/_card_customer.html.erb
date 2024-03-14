@@ -26,7 +26,7 @@
         </div>
 
     </div>
-    <% bouton_texte = booking.status != "en_attente_de_soumission" ? "Consulter" : "Reserver" %>
+    <% bouton_texte = booking.status != "en_attente_de_soumission" && booking.status != "en_attente_de_confirmation" ? "Consulter" : "Reserver" %>
     <%# à remplacer par booking_path(@booking) %>
     <%= link_to bouton_texte, booking_path(booking), class: "btn bouton-index-booking" %>
   </div>
