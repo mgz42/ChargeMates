@@ -1,4 +1,4 @@
-<% if booking.en_attente_de_confirmation? %>
+<% if booking.en_attente_de_soumission? %>
   <p><%= button_to 'Soumettre offre', booking_path(booking), method: :patch, class: 'soumettreoffre btn btn-primary' %></p>
 <% elsif booking.en_attente_de_validation? %>
   <p>En attente d'acceptation de <%= booking.station.user.username %>.</p>

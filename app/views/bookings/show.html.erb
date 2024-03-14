@@ -114,14 +114,15 @@
 <div class="barregrise"></div>
 
 <!-- Bouton d'action en fonction des utilisateurs -->
-<!-- Booking action user debut -->
+                                                      <!-- Booking action user debut -->
 <div class="bookingactionuser"
   data-controller="action-booking"
   data-action-booking-booking-id-value="<%= @booking.id %>"
   data-action-booking-is-owner-value="<%= current_user.id == @booking.vehicle.user.id ? "owner" : "customer" %>"
   data-action-booking-target = "action">
   <%= render "bookings/action_choice", booking: @booking, is_owner: @is_owner %>
-</div>                   <!-- Booking action user fin -->
+</div>                                                  <!-- Booking action user fin -->
+
 <!-- TCHAT -->
 <div class="bookingchatroom">
 
