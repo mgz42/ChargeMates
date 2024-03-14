@@ -41,7 +41,7 @@
         <%= form.datetime_field :date_heure_fin_de_reservation, class: 'form-control', required: true  %>
       </div>
 
-      <% bouton_texte = booking.status != "en_attente_de_soumission" ? "Consulter" : "Reserver" %>
+      <% bouton_texte = booking.status != "en_attente_de_soumission" && booking.status != "en_attente_de_confirmation" ? "Consulter" : "Reserver" %>
       <p class="bouton-reserver"><%= form.submit bouton_texte, class: "btn bouton-index-booking" %></p>
     <% end %>
   </div>
