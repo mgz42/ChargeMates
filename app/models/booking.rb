@@ -11,6 +11,7 @@ class Booking < ApplicationRecord
 
   enum status: {
     en_attente_de_soumission: 'en_attente_de_soumission',
+    en_attente_de_confirmation: 'en_attente_de_confirmation',
     en_attente_de_validation: 'en_attente_de_validation',
     en_attente_de_paiement: 'en_attente_de_paiement',
     en_attente_de_charge: 'en_attente_de_charge',
@@ -42,9 +43,18 @@ class Booking < ApplicationRecord
     status == 'termine'
   end
 
+  def initier_offre!
+    update(status: :en_attente_de_confirmation)
+  end
+
+
   def soumettre_offre!
     update(status: :en_attente_de_validation)
     messages.create(content: "🤖 Message automatique: Bonjour👋, je souhaite venir recharger ma voiture le #{date_heure_reservation.strftime("%d/%m/%Y")} à #{date_heure_reservation.strftime("%H:%M")}.", user: vehicle.user)
+  end
+
+  def en_attente_de_confirmation?
+    status == 'en_attente_de_confirmation'
   end
 
   def accepter_offre!

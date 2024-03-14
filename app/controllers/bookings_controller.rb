@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_booking, only: [:show, :update, :destroy, :submit_offer, :accept_offer, :reject_offer, :start_charge, :stop_charge, :validate_payment]
+  before_action :set_booking, only: [:show, :update, :destroy]
+#   before_action :set_booking, only: [:show, :update, :destroy, :submit_offer, :accept_offer, :reject_offer, :start_charge, :stop_charge, :validate_payment]
   before_action do
     current_user.badges.each do |badge|
       if badge.duration < Time.now
@@ -43,14 +44,23 @@ class BookingsController < ApplicationController
 
   def show
     @message = Message.new
+    @is_owner = (current_user == @booking.vehicle.user)
   end
 
   def update
-    if @booking.update(booking_params)
-      redirect_to booking_path(@booking), notice: 'Réservation mise à jour avec succès.'
-    else
-      render :edit
+    @is_owner = (current_user == @booking.vehicle.user)
+    check_and_return(@booking)
+    case @booking.status
+      when "en_attente_de_confirmation" then submit_offer
+      when "en_attente_de_validation" then accept_offer
+      when "en_attente_de_paiement" then validate_payment
+      when "en_attente_de_charge" then start_charge
+      when "en_charge" then stop_charge
     end
+    ActionBookingChannel.broadcast_to(
+      @booking,
+      render_to_string(partial: "bookings/action_choice", locals: { booking: @booking, is_owner: @is_owner } ),
+    )
   end
 
   def destroy
@@ -58,43 +68,42 @@ class BookingsController < ApplicationController
     redirect_to user_path(current_user)
   end
 
-  # Actions spécifiques liées au workflow de la réservation
+  private
+
+  def check_and_return(booking)
+    if booking.status == "en_attente_de_soumission"
+      booking.update(booking_params)
+      booking.initier_offre!
+      redirect_to booking_path(booking), notice: 'Réservation mise à jour avec succès.'
+      return
+    end
+  end
 
   def submit_offer
-    @booking = Booking.find(params[:id])
     @booking.soumettre_offre!
-    redirect_to booking_path(@booking)
   end
 
   def accept_offer
     @booking.accepter_offre!
-    redirect_to booking_path(@booking), notice: 'Offre acceptée.'
   end
 
   def reject_offer
     @booking.refuser_offre!
-    redirect_to booking_path(@booking), notice: 'Offre rejetée.'
   end
 
   def start_charge
     @booking.commencer_charge!
-    redirect_to booking_path(@booking), notice: 'Charge démarrée.'
   end
 
   def stop_charge
     @booking.terminer_charge!
-    redirect_to booking_path(@booking), notice: 'Charge terminée.'
   end
 
   def validate_payment
     @booking = Booking.find(params[:id])
   @booking.valider_paiement!
-  redirect_to booking_path(@booking), notice: 'Paiement validé.'
-rescue ActiveRecord::RecordNotFound
-  redirect_to root_path, alert: "Réservation introuvable."
-end
-  private
-
+  rescue ActiveRecord::RecordNotFound
+  end
 
   def set_booking
     @booking = Booking.find(params[:id])

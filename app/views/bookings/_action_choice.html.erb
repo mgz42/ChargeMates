@@ -1,0 +1,7 @@
+<div >
+<% if is_owner == true %>
+  <%= render 'owner_bookingactions', booking: booking %>
+<% else %>
+  <%= render 'customer_bookingactions', booking: booking %>
+<% end %>
+</div>
