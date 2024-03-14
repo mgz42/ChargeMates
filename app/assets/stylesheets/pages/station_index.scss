@@ -185,6 +185,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 .bouton-reserver-station{
   align-items: end;
+
 }
 .notification-red{
   background-color: #ff4444;
@@ -195,6 +196,17 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   top: 0.3rem;
   border: 2px solid white;
   right: 1rem;
+}
+.notification-blue{
+  background-color: #ff4444;
+  height: 1.4rem;
+  width: 1.4rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.3rem;
+  border: 2px solid white;
+  color: white!important;
+  right: 7.5rem;
 }
 
 .pac-logo::after{

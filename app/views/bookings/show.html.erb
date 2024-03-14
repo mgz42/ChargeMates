@@ -109,10 +109,11 @@
     <!-- div prix % -->
     <div class="details-reservationcard rose-case">
       <p class="titre-reservation-details">Total</p>
-      <p><%= @booking.prix_total_recharge %> €</p>
+      <p><%= @booking.vehicle.user == current_user && (current_user.badges.find_by_name("minus_one_euro") && current_user.badges.find_by_name("minus_one_euro").created_at != Time.new(2000/01/01) ) ? @booking.prix_total_recharge.to_s + " -1€" : @booking.prix_total_recharge.to_s + " €" %> </p>
     </div> <!-- fin prix details-reservationcard   -->
  </div><!-- fin reservationcontainer  -->
 </div>
+<div id="mon_xp">Commande terminée !</div>
 <div class="barregrise"></div>
 
 <!-- Bouton d'action en fonction des utilisateurs -->
@@ -122,7 +123,7 @@
   data-action-booking-booking-id-value="<%= @booking.id %>"
   data-action-booking-is-owner-value="<%= current_user.id == @booking.vehicle.user.id ? "owner" : "customer" %>"
   data-action-booking-target = "action">
-  <%= render "bookings/action_choice", booking: @booking, is_owner: @is_owner %>
+  <%= render "bookings/action_choice", booking: @booking, is_owner: @is_owner%>
 </div>                   <!-- Booking action user fin -->
 <!-- TCHAT -->
 <div class="bookingchatroom">
@@ -133,7 +134,7 @@
     data-controller="tchatmate-subscription"
     data-tchatmate-subscription-booking-id-value="<%= @booking.id %>">
 
-    <div class="zonetext"
+    <div class="zonetext mt-2"
     data-tchatmate-subscription-target="zonetext">
       <div class="pas-encore-de-message <%= "d-none" if @booking.messages.length > 0%>">Pas encore de message</div>
         <div data-tchatmate-subscription-target="messages">

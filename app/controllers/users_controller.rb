@@ -6,6 +6,9 @@ class UsersController < ApplicationController
       if badge.duration < Time.now
         badge.destroy
       end
+      if badge.name == "minus_one_euro" && badge.created_at == "1999-12-31 23:00:00"
+        badge.destroy
+      end
     end
   end
 
