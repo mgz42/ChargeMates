@@ -5,7 +5,9 @@
 <% elsif booking.en_attente_de_paiement? %>
   <p>En attente de paiement de <%= booking.vehicle.user.username %>.</p>
 <% elsif booking.en_attente_de_charge?  %>
-  <p class="date-heure-reservationcard p-3"> Pour assurer un accès fluide à votre place de parking, veuillez fournir autant de détails que possible à <%= booking.vehicle.user.username %>.  </p>
+
+  <p class="date-heure-reservationcard p-3">  N'hesitez pas à donner un maximum de détails à <%= booking.vehicle.user.username %>, afin de faciliter l'accés a votre station de recharge.  </p>
+
 <% elsif booking.en_charge?  %>
   <p>en cours de charge</p>
 <% elsif booking.termine?  %>

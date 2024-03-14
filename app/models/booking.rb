@@ -19,6 +19,10 @@ class Booking < ApplicationRecord
     termine: 'termine'
   }
 
+  def en_attente_de_confirmation?
+    status == 'en_attente_de_confirmation'
+  end
+
   def en_attente_de_soumission?
     status == 'en_attente_de_soumission'
   end
@@ -47,35 +51,40 @@ class Booking < ApplicationRecord
     update(status: :en_attente_de_confirmation)
   end
 
+  def confirmer_offre!
+    update(status: :en_attente_de_soumission)
+  end
 
   def soumettre_offre!
     update(status: :en_attente_de_validation)
-    messages.create(content: "🤖 Message automatique: Bonjour👋, je souhaite venir recharger ma voiture le #{date_heure_reservation.strftime("%d/%m/%Y")} à #{date_heure_reservation.strftime("%H:%M")}.", user: vehicle.user)
-  end
-
-  def en_attente_de_confirmation?
-    status == 'en_attente_de_confirmation'
+    created_message = messages.create(content: "🤖 Message bot: Bonjour👋, je souhaite venir recharger ma voiture le #{date_heure_reservation.strftime('%d/%m/%Y')} à #{date_heure_reservation.strftime('%H:%M')}.", user: vehicle.user)
+    refresh_tchat(created_message)
   end
 
   def accepter_offre!
     update(status: :en_attente_de_paiement)
-    messages.create(content: "🤖 Message automatique: Bonjour👋, votre demande est acceptée. la place est disponible pour le #{date_heure_reservation.strftime("%d/%m/%Y")} à #{date_heure_reservation.strftime("%H:%M")}", user: station.user)
+    created_message = messages.create(content: "🤖 Message bot: Bonjour👋, votre demande est acceptée. La place est disponible pour le #{date_heure_reservation.strftime('%d/%m/%Y')} à #{date_heure_reservation.strftime('%H:%M')}.", user: station.user)
+    refresh_tchat(created_message)
   end
 
   def refuser_offre!
     update(status: :termine)
-    messages.create(content: "🤖 Message automatique: Bonjour, 🫣 oups je ne serais pas disponible.", user: station.user)
+    created_message = messages.create(content: "🤖 Message bot: Bonjour, 🫣 oups je ne serais pas disponible.", user: station.user)
+    refresh_tchat(created_message)
   end
 
   def valider_paiement!
     update(status: :en_attente_de_charge)
-    messages.create(content: "🤖 Message automatique: ✅ Paiement effectué le #{Time.zone.now.strftime('%d/%m/%Y à %H:%M')}",user: vehicle.user)
-    messages.create(content: "🤖 Message automatique: Mon adresse est #{station.address}", user: station.user)
+    message_paiement = messages.create(content: "🤖 Message bot: ✅ Paiement effectué le #{Time.zone.now.strftime('%d/%m/%Y à %H:%M')}", user: vehicle.user)
+    message_comment_supply = messages.create(content: "🤖 Message bot: #{station.comment_supply}", user: station.user)
+    refresh_tchat(message_paiement)
+
   end
 
   def commencer_charge!
     update(status: :en_charge, date_heure_debut_recharge: Time.current)
-    messages.create(content: "🤖 Message automatique: 🔌 Mon véhicule est en charge", user: vehicle.user)
+    created_message = messages.create(content: "🤖 Message bot: 🔌 Mon véhicule est en charge", user: vehicle.user)
+    refresh_tchat(created_message)
   end
 
   def terminer_charge!
@@ -83,8 +92,10 @@ class Booking < ApplicationRecord
     duration = recharge_duration
     kwh = kw_h_consommes_reel
     percentage = pourcentage_batterie_reel
-    messages.create(content: "🤖 Message automatique: 🔋 J'ai fini de recharger mon véhicule, j'ai rechargé #{duration} heures, environ #{kwh} kW/h ce qui représente #{percentage}% de ma batterie, Merci ChargeMate!", user: vehicle.user)
+    created_message = messages.create(content: "🤖 Message bot: 🔋 J'ai fini de recharger mon véhicule, j'ai rechargé #{duration} heures, environ #{kwh} kW/h ce qui représente #{percentage}% de ma batterie, Merci ChargeMate!", user: vehicle.user)
+    refresh_tchat(created_message)
   end
+
 
   def recharge_duration
     return 0 unless date_heure_debut_recharge && date_heure_fin_recharge
@@ -140,6 +151,13 @@ class Booking < ApplicationRecord
   end
 
   private
+
+  def refresh_tchat(message)
+    TchatMateChannel.broadcast_to(
+      self,
+      ApplicationController.render(partial: 'messages/messagelist', locals: { booking: self })
+    )
+  end
 
   def set_default_status
     self.status ||= 'en_attente_de_soumission'
