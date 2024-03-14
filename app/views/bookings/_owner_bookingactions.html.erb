@@ -5,17 +5,22 @@
 <% elsif booking.en_attente_de_paiement? %>
   <%= button_to 'Valider le paiement', booking_path(booking), method: :patch, class: 'paiement btn btn-success' %>
 <% elsif booking.en_attente_de_charge? %>
-  <%= form_with model: booking, url: booking_path(booking), method: :patch do |form| %>
+  <%= form_with model: booking, url: booking_path(booking), class:"d-flex flex-column justify-content-center align-items-center", method: :patch do |form| %>
     <div class="logoadress d-flex justify-content-center align-items-center mb-2">
       <img src="https://i.ibb.co/PhJ1S2h/googlemap.jpg" alt="Google Map" style="width: 90px; height: 60px; border-radius: 10px;" />
       <img src="https://i.ibb.co/0n3sDBj/waze.png" alt="Waze" style="width: 45px; height: 45px; border-radius: 10px; margin-right: 1rem;" />
     </div>
-      <p class="date-heure-reservationcard p-2"><%= booking.station.address %></p>
-    <p class="d-flex justify-content-center align-items-center">
-      <%= form.number_field :code_station, placeholder: 'Rentrer le code de la borne' %></p>
+      <p class="date-heure-reservationcard p-3"><%= booking.station.address %></p>
+    <p class="d-flex justify-content-center align-items-center mb-0">
+      <%= form.number_field :code_station, style:"
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    border: 1px solid grey;" ,placeholder: 'Entrez code de la borne' %></p>
     <%= form.submit 'Commencer à recharger', class: 'commencercharge btn btn-info' %>
   <% end %>
 <% elsif booking.en_charge? %>
+<div data-controller="notification-none" data-action="click->notification-none#launch_pop">
   <%= button_to 'Arrêter la charge', booking_path(booking), method: :patch, class: 'arretercharge btn btn-warning' %>
+</div>
 <% elsif booking.termine? %>
 <% end %>

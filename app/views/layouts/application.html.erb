@@ -56,7 +56,8 @@
 
 
 
-<div data-controller="preloader" data-preloader-target="introscreen" data-action="click->preloader#getout" class="preloader d-flex flex-column justify-content-center align-items-center">
+<div data-controller="preloader" data-preloader-target="introscreen" data-action="click->preloader#getout" class="preloader d-flex flex-column justify-content-center align-items-center
+<%= "d-none" if request.original_url != "https://www.chargemates.xyz/"%>">
 <div class="logo-center"></div>
 <div>ChargeMates</div></div>
 
@@ -79,6 +80,7 @@
   <div class="d-flex flex-column align-items-center justify-content-center pt-2">
     <%= link_to bookings_path do %>
     <i class="navbarre-icon fa-solid fa-users" style="font-size: 1.2rem;"></i>
+    <div id="notif-b" class="notification-blue d-flex justify-content-center align-items-center <%= "d-none" unless current_user.station.bookings.last.status == "en_attente_de_validation"%>">1</div>
     <% end %>
     <div>Mes mates</div>
   </div>

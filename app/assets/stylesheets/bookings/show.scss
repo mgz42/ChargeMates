@@ -133,6 +133,20 @@
   }
 }
 
+#mon_xp{
+  position: fixed;
+  padding: 1rem 1.5rem;
+  top: 50%;
+  left: 15%;
+  color: #466318;
+  font-size: 1.2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: all 1s ease;
+}
+
 .titre-reservation-details {
   font-weight: bold;
   color: #A40753;
@@ -261,38 +275,29 @@ margin-top: 0.3rem;
   }
 
   .accepter{
-    margin: 0rem 1rem 1rem 1rem;
+    border: none;
+    background-color: #33b878;
+    color: white;
     border-radius: 10px;
     font-size: 18px;
-    color: white;
-    background-color: darkgreen;
-
-    &:hover {
-      background-color: rgb(41, 182, 41);
-    }
+    margin: 0rem 1rem 1rem 1rem;
   }
   .refuser{
+    border: none;
+    background-color: #e71e4f;
+    color: white;
     border-radius: 10px;
     font-size: 18px;
     margin: 0rem 1rem 1rem 1rem;
-    color: white;
-    background-color: crimson;
-
-    &:hover {
-      background-color: rgb(236, 88, 118);
-    }
   }
   .paiement {
     border: none;
-    background-color: #5EA482;
+    background-color: #33b878;
+
     color: white;
     border-radius: 10px;
     font-size: 18px;
     margin: 0rem 1rem 1rem 1rem;
-
-    &:hover {
-      background-color: rgb(41, 182, 41);
-    }
   }
     .arretercharge {
     border-radius: 10px;
@@ -303,9 +308,9 @@ margin-top: 0.3rem;
     padding: 0.2rem 5.2rem;
     border: none;
 
-    &:hover {
-    background: linear-gradient(to left, #FF6868, #9B0054);
-    }
+    // &:hover {
+    // background: linear-gradient(to left, #FF6868, #9B0054);
+    // }
   }
 
 
@@ -314,17 +319,11 @@ margin-top: 0.3rem;
   border-radius: 10px;
   font-size: 18px;
   background: linear-gradient(to right, #FF6868, #9B0054);
-
   margin: 1rem 0rem 2rem 0rem;
   color: white;
-
   padding: 0.2rem 5.2rem;
   border: none;
-
-  &:hover {
-    background: linear-gradient(to left, #FF6868, #9B0054);
-    color: white;
-  }
+  padding: 0.2rem 3.2rem;
 }
 
 
