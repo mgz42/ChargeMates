@@ -35,7 +35,12 @@
     top: 50%;
     height: 13rem;
     left: 50%;
-    transform: translate(-50%, -80%);
+    transform: translate(-50%, -80%) scale(0.85);
+    transition: all 1s ease;
+}
+.scaled{
+  transform:  translate(-50%, -80%) scale(1) !important;
+  transition: all 0.25s ease;
 }
 .roue-relative{
   position: relative;

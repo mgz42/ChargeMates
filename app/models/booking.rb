@@ -78,6 +78,7 @@ class Booking < ApplicationRecord
     message_paiement = messages.create(content: "🤖 Message bot: ✅ Paiement effectué le #{Time.zone.now.strftime('%d/%m/%Y à %H:%M')}", user: vehicle.user)
     message_comment_supply = messages.create(content: "🤖 Message bot: #{station.comment_supply}", user: station.user)
     refresh_tchat(message_paiement)
+
   end
 
   def commencer_charge!
@@ -146,7 +147,6 @@ class Booking < ApplicationRecord
     prix_par_kwh = 0.23
     prix_base_stationnement = 3
     energie_consommee_kwh = kw_h_consommes_reservation
-
     (energie_consommee_kwh * prix_par_kwh + prix_base_stationnement).round(2)
   end
 

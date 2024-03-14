@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 
-    
+
     <style>
 
       <%= ".msg-#{current_user&.id}" %> {
@@ -29,13 +29,14 @@
             }
       }
     </style>
-    
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 
-
+  <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
+  <%= render 'shared/ios_pwa_links' %>
   </head>
 
 
@@ -55,7 +56,8 @@
 
 
 
-<div data-controller="preloader" data-preloader-target="introscreen" data-action="click->preloader#getout" class="preloader d-flex flex-column justify-content-center align-items-center">
+<div data-controller="preloader" data-preloader-target="introscreen" data-action="click->preloader#getout" class="preloader d-flex flex-column justify-content-center align-items-center
+<%= "d-none" if request.original_url != "https://www.chargemates.xyz/"%>">
 <div class="logo-center"></div>
 <div>ChargeMates</div></div>
 
@@ -78,6 +80,7 @@
   <div class="d-flex flex-column align-items-center justify-content-center pt-2">
     <%= link_to bookings_path do %>
     <i class="navbarre-icon fa-solid fa-users" style="font-size: 1.2rem;"></i>
+    <div id="notif-b" class="notification-blue d-flex justify-content-center align-items-center <%= "d-none" unless current_user.station.bookings.last.status == "en_attente_de_validation"%>">1</div>
     <% end %>
     <div>Mes mates</div>
   </div>

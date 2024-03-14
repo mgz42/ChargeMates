@@ -1,6 +1,14 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_booking, only: [:show, :update, :destroy]
+before_action :set_booking, only: [:show, :update, :destroy, :submit_offer, :accept_offer, :reject_offer, :start_charge, :stop_charge, :validate_payment]
+  before_action do
+    current_user.badges.each do |badge|
+      if badge.duration < Time.now
+        badge.destroy
+      end
+    end
+  end
+
 
   def index
     # Pour récupérer les véhicules et la station de l'utilisateur actuel
@@ -58,6 +66,43 @@ class BookingsController < ApplicationController
 
       }
     )
+
+    if @booking.status == "termine"
+      #xp
+      gain_xp = 300
+      if (@booking.station.user.badges.find_by_name("double_xp"))
+        gain_xp = gain_xp * 2
+      end
+      #orders
+      @booking.station.user.orders ? u_order = @booking.station.user.orders + 1 : u_order = 1
+      ### update @booking.station.user
+      @booking.station.user.update(orders: u_order, xp: @booking.station.user.xp + gain_xp )
+
+
+      (@booking.vehicle.user.seriecurrent - @booking.vehicle.user.seriestart) > 60 * 60 * 24 ? serie = ((@booking.vehicle.user.seriecurrent - @booking.vehicle.user.seriestart) / (60 * 60 * 24 * 7)).ceil : serie = 0
+      serie * 100 > 1000 ? serie = 1000 : serie = serie * 100
+      gain_xp = serie + 300
+      if (@booking.vehicle.user.badges.find_by_name("double_xp"))
+        gain_xp = gain_xp * 2
+      end
+      #orders
+      @booking.vehicle.user.orders ? u_order = @booking.vehicle.user.orders + 1 : u_order = 1
+      #serie
+      if @booking.vehicle.user.seriecurrent + 60 * 60 * 24 * 7 < Time.now && !(@booking.vehicle.user.badges.find_by_name("freeze") || @booking.vehicle.user.badges.find_by_name("freeze_month"))
+        u_seriestart = Time.now
+        u_seriecurrent = Time.now + 60 * 60 * 24
+      else
+        u_seriestart = @booking.vehicle.user.seriestart
+        u_seriecurrent = Time.now
+      end
+      ### update @booking.vehicle.user
+      @booking.vehicle.user.update(orders: u_order, seriestart: u_seriestart, seriecurrent: u_seriecurrent, xp: @booking.vehicle.user.xp + gain_xp )
+
+      ### gere minusoneeuro
+      if @booking.vehicle.user.badges.find_by_name("minus_one_euro")
+        @booking.vehicle.user.badges.find_by_name("minus_one_euro").update(created_at: "1999-12-31 23:00:00")
+      end
+    end
   end
 
   def destroy

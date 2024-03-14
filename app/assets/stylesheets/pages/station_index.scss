@@ -22,7 +22,7 @@
     color: #F35A5A;
   }
 }
-   
+
 #plug{
   background-image: linear-gradient(to right, #FF6868, #9B0054);
   padding-left: 1rem !important;
@@ -88,7 +88,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 .station-break {
-  height: 1.5rem;
+  height: 1rem;
   width: 100%;
 }
 
@@ -141,6 +141,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 .disponible-station {
+  color: #2a7a52;
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -184,6 +185,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 .bouton-reserver-station{
   align-items: end;
+
 }
 .notification-red{
   background-color: #ff4444;
@@ -195,7 +197,30 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   border: 2px solid white;
   right: 1rem;
 }
+.notification-blue{
+  background-color: #ff4444;
+  height: 1.4rem;
+  width: 1.4rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.3rem;
+  border: 2px solid white;
+  color: white!important;
+  right: 7.5rem;
+}
 
 .pac-logo::after{
   display: none;
+}
+.proche-de-lieux{
+  color: #373737;
+  font-weight: 600;
+  margin-top: -0.2rem;
+}
+.prix-green{
+  color: #3bb67b;
+  position: absolute;
+  top: 8.2rem;
+  right: 0.7rem;
+  font-size: 1.1rem;
 }

@@ -4,9 +4,10 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["introscreen"];
   connect() {
-    if (document.readyState !== "interactive" ){
-      this.introscreenTarget.classList.add("d-none");
-    }
+    // if (window.location.href !== "http://localhost:3000/" ){
+    //   this.introscreenTarget.classList.add("d-none");
+    // }
+    // console.log(window.location.href)
   }
 
   getout() {
