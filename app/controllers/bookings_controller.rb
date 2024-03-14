@@ -51,8 +51,10 @@ class BookingsController < ApplicationController
       when "en_charge" then stop_charge
     end
     ActionBookingChannel.broadcast_to(
-      @booking,
-      render_to_string(partial: "bookings/action_choice", locals: { booking: @booking, is_owner: @is_owner } ),
+      @booking, {
+        owner: render_to_string(partial: "bookings/action_choice", locals: { booking: @booking, is_owner: true } ),
+        customer: render_to_string(partial: "bookings/action_choice", locals: { booking: @booking, is_owner: false } ),
+      }
     )
   end
 
@@ -63,11 +65,13 @@ class BookingsController < ApplicationController
 
   private
 
+
+
   def check_and_return(booking)
     if booking.status == "en_attente_de_soumission"
       booking.update(booking_params)
       booking.initier_offre!
-      redirect_to booking_path(booking), notice: 'Réservation mise à jour avec succès.'
+      redirect_to booking_path(booking)
       return
     end
   end

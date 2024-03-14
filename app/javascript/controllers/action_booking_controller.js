@@ -14,21 +14,15 @@ static targets = ["action"]
     console.log(this.isOwnerValue)
     this.channel = createConsumer().subscriptions.create(
       { channel: "ActionBookingChannel", id: this.bookingIdValue },
-      { received: data => this.actionTarget.innerHTML = data }
+      { received: (data) => {
+        if (this.isOwnerValue == "owner"){
+          this.actionTarget.innerHTML = data["owner"]
+        }
+        else {
+          this.actionTarget.innerHTML = data["customer"]
+        }
+      } }
     )
     console.log(`Subscribed to the chatroom with the id ${this.bookingIdValue}.`)
   }
-
-  // #insertPartial() {
-  //   if (this.ownerIdValue === this.userIdValue) {
-  //     this.actionTarget.innerHTML = <% render :partial => "owner_bookingactions" -%>
-  //   } else {
-  //     this.actionTarget.innerHTML = `<%= render 'customer_bookingactions', booking: @booking %>`;
-  //   };
-
-
-
-  // };
-
-
 }
