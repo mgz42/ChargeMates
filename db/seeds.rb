@@ -1,3 +1,4 @@
+require "open-uri"
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -25,33 +26,63 @@
 #     )
 #   end
 # end
-User.create(username: "marine", email: "marine@wagon.com", password: "123456", xp: 1200)
-User.create(username: "honorine", email: "honorine@wagon.com", password: "123456", xp: 3420)
-User.create(username: "benoit", email: "benoit@wagon.com", password: "123456", xp: 850)
-User.create(username: "stephane", email: "stephane@wagon.com", password: "123456", xp: 9700)
 
-Vehicle.create(brand: "Hyundai", model: "Kona Electric", plug: "Type 2", max_kW_recharge: 100, immatriculation: "2YUCK98", model_year: 2022, user_id: User.first.id )
-Vehicle.create(brand: "Lexus", model: "UX 300e", plug: "Type 2", max_kW_recharge: 50, immatriculation: "6UYGK98", model_year: 2021, user_id: User.first.id )
+# profil 1
+fileMarine = URI.open("https://i.ibb.co/5RvJNg5/Sans-titre.jpg")
+marine = User.create(username: "marine_road", email: "marine@wagon.com", password: "123456", xp: 27550, wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60 * 60 * 24 * 9, seriecurrent: Time.now, order: 65 )
+marine.photo.attach(io: fileMarine, filename: "Sans-titre.jpg", content_type: "image/png")
+marine.save
 
-Vehicle.create(brand: "Nissan", model: "Leaf", plug: "Type 2", max_kW_recharge: 50, immatriculation: "98HGK98", model_year: 2023, user_id: User.second.id )
+# profil 2
+fileHonorine = URI.open("https://i.ibb.co/vJP0vMc/Capture-d-cran-2024-03-13-153535.png")
+honorine = User.create(username: "h0n0rin3", email: "honorine@wagon.com", password: "123456", xp: 16350, wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60 * 60 * 24 * 5, seriecurrent: Time.now, order: 39 )
+honorine.photo.attach(io: fileHonorine, filename: "Capture-d-cran-2024-03-13-153535.png", content_type: "image/png")
+honorine.save
 
-Vehicle.create(brand: "Porsche", model: "Taycan", plug: "CCS Combo", max_kW_recharge: 270, immatriculation: "UI22GK9", model_year: 2022, user_id: User.third.id )
+# profil 3
+fileBenoit = URI.open("https://i.ibb.co/K5pnKWv/Capture-d-cran-2024-03-13-154205.png")
+benoit = User.create(username: "Ecoben", email: "benoit@wagon.com", password: "123456", xp: 88300, wheel: Time.now - 60 * 60 * 24 , seriestart: Time.now - 60 * 60 * 24 * 33, seriecurrent: Time.now, order: 197 )
+benoit.photo.attach(io: fileBenoit, filename: "Capture-d-cran-2024-03-13-154205.png", content_type: "image/png")
+benoit.save
 
-Vehicle.create(brand: "Tesla", model: "Model X", plug: "Type 2", max_kW_recharge: 250, immatriculation: "F34HGK9", model_year: 2023, user_id: User.fourth.id )
-Vehicle.create(brand: "Jaguar", model: "I-Pace", plug: "CCS Combo", max_kW_recharge: 100, immatriculation: "724FGK9", model_year: 2023, user_id: User.fourth.id )
+# profil 4
+fileStephane = URI.open("https://i.ibb.co/M6M1N7H/Capture-d-cran-2024-03-13-153416.png")
+stephane = User.create(username: "stephane", email: "stephane@wagon.com", password: "123456", xp: 62600, wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60 * 60 * 24 * 16, seriecurrent: Time.now, order: 130 )
+stephane.photo.attach(io: fileStephane, filename: "Capture-d-cran-2024-03-13-153416.png", content_type: "image/png")
+stephane.save
 
-Station.create(address: "63, Rue Malbec, Saint-Jean, Bordeaux Sud, Bordeaux, Gironde, Nouvelle-Aquitaine, France métropolitaine, 33800, France", latitude: 44.82592, longitude: -0.56233, plug: "Type 2", brand: "Wallbox", model: "Pulsar", parking_price: 3, consomation_price: 3.5, max_kW_recharge: 22, available: true, code_station: 1234, user_id: User.first.id )
-Station.create(address: "55, Rue Giacomo Matteotti, La Benauge, La Bastide, Bordeaux, Gironde, Nouvelle-Aquitaine, France métropolitaine, 33100, France", latitude: 44.83248, longitude: -0.54329, plug: "Type 2", brand: "Walker", model: "UP-3", parking_price: 3, consomation_price: 4.3, max_kW_recharge: 22, available: true, code_station: 1234, user_id: User.second.id )
-Station.create(address: "138, Rue Carle Vernet, Belcier, Bordeaux Sud, Bordeaux, Gironde, Nouvelle-Aquitaine, France métropolitaine, 33800, France", latitude: 44.81803, longitude: -0.55285, plug: "CCS Combo", brand: "Wallbox", model: "Soleil", parking_price: 3, consomation_price: 5.5, max_kW_recharge: 270, available: true, code_station: 1234, user_id: User.third.id )
-Station.create(address: "9, Rue Carpenteyre, Saint-Michel, Bordeaux Sud, Bordeaux, Gironde, Nouvelle-Aquitaine, France métropolitaine, 33800, France", latitude: 44.83428, longitude: -0.56403, plug: "CCS Combo", brand: "Wallbox", model: "Pulsar", parking_price: 3, consomation_price: 4.3, max_kW_recharge: 250, available: true, code_station: 1234, user_id: User.fourth.id )
+# profil 5
+fileSeb = URI.open("https://i.ibb.co/pPktGQv/seb.png")
+seb = User.create(username: "sebdu33", email: "sebdu33@wagon.com", password: "123456", xp: 7450, wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60, seriecurrent: Time.now, order: 18 )
+seb.photo.attach(io: fileSeb, filename: "seb.png", content_type: "image/png")
+seb.save
 
-#booking honorine
-Booking.create(vehicle_id: 3, station_id: Station.first.id, date_heure_reservation: "20240304140020", date_heure_debut_recharge: "20240304140520", duree_recharge: 2.5 , date_heure_fin_recharge: "20240304170020" , status: "termine" )
-Booking.create(vehicle_id: 1, station_id: Station.second.id, date_heure_reservation: "20240304140020",date_heure_debut_recharge: "20240304140520", duree_recharge: 2.5, date_heure_fin_recharge: "20240304170020", status: "termine" )
+# profil 6
+fileAnne = URI.open("https://i.ibb.co/MPgqNdQ/anne.png")
+anne = User.create(username: "AnneGrand", email: "annegrand@wagon.com", password: "123456", xp: 22300,  wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60, seriecurrent: Time.now , order: 55)
+anne.photo.attach(io: fileAnne, filename: "anne.png", content_type: "image/png")
+anne.save
 
-#booking benoit
-Booking.create(vehicle_id: 4, station_id: Station.fourth.id, date_heure_reservation: "20240304140020",date_heure_debut_recharge: "20240304140520" , duree_recharge: 2.5, date_heure_fin_recharge: "20240304170020", status: "termine" )
-Booking.create(vehicle_id: 6, station_id: Station.third.id, date_heure_reservation: "20240304140020",date_heure_debut_recharge: "20240304140520", duree_recharge: 2.5, date_heure_fin_recharge: "20240304170020", status: "termine" )
+# profil 7
+fileJohnDoe = URI.open("https://i.ibb.co/P4kmNd3/john.png")
+john = User.create(username: "JohnDoe", email: "johndoe@wagon.com", password: "123456", xp: 31850,  wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60 * 60 * 24 * 40, seriecurrent: Time.now, order: 79 )
+john.photo.attach(io: fileJohnDoe, filename: "john.png", content_type: "image/png")
+john.save
 
-#booking stephane
-Booking.create(vehicle_id: 5, station_id: Station.second.id, date_heure_reservation: "20240304140020",date_heure_debut_recharge: "20240304140520", duree_recharge: 2.5, date_heure_fin_recharge: "20240304170020", status: "termine" )
+# profil 8
+fileAlain = URI.open("https://i.ibb.co/923DKMf/alain.png")
+alain = User.create(username: "alainproviste", email: "alainproviste@wagon.com", password: "123456", xp: 14700,  wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60 * 60 * 24 * 2, seriecurrent: Time.now, order: 36 )
+alain.photo.attach(io: fileAlain, filename: "alain.png", content_type: "image/Png")
+alain.save
+
+# profil 9
+fileEric = URI.open("https://i.ibb.co/WxQxsJP/eric.png")
+eric = User.create(username: "EricTeslaPassion", email: "ericteslapassion@wagon.com", password: "123456", xp: 51200,  wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60 * 60 * 24 * 26, seriecurrent: Time.now, order: 121 )
+eric.photo.attach(io: fileEric, filename: "eric.png", content_type: "image/png")
+eric.save
+
+# profil 10
+fileUrban = URI.open("https://i.ibb.co/rdfD2dw/urbannomad.png")
+urban = User.create(username: "UrbanNomad", email: "urbannomad@wagon.com", password: "123456", xp: 26450,  wheel: Time.now - 60 * 60 * 24, seriestart: Time.now - 60 * 60 * 24 * 16, seriecurrent: Time.now, order: 58 )
+urban.photo.attach(io: fileUrban, filename: "urbannomad.png", content_type: "image.png")
+urban.save

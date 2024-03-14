@@ -51,13 +51,13 @@
 
 
          <!-- cartes -->
-      <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: 9rem;" >
+      <div class="d-flex flex-column carte-rose-user align-items-end"  style="max-width: fit-content;" >
       <div class="economise-partage">Partagé</div>
       <div class="economise-partage-chiffres"><%= current_user.orders ? current_user.orders : 0 %></div>
     </div>
-    <div class="d-flex flex-column carte-rose-user align-items-end" style="max-width: 9rem;" >
+    <div class="d-flex flex-column carte-rose-user align-items-end" style="max-width: fit-content;" >
       <div class="economise-partage">Economisé</div>
-      <div class="economise-partage-chiffres"><%= current_user.orders ? "%.2f" % (current_user.orders * 8.55).round(2) : "%.2f" % 0 %>€</div>
+      <div class="economise-partage-chiffres"><%= current_user.orders ? "%.2f" % (current_user.orders * 7.55).round(2) : "%.2f" % 0 %>€</div>
     </div>
       </div>
 
@@ -77,7 +77,7 @@
   <%# <div class="barregrise"></div> %>
   <div class="text-center historique-title-show-user mt-2"><strong>Mes véhicules</strong></div>
 
-  <div class="container d-flex justify-content-center my-3">
+  <div class="container d-flex justify-content-center my-3 mb-2">
     <div class="card text-white bg-primary mb-3 align-items-center custom-card " style="width: 22.8rem;">
       <div class="card-body" style="width: 80%;">
         <div class="d-flex justify-content-center space-between">
@@ -124,7 +124,7 @@
   </div>
 
 
-  <div class="barregrise"></div>
+  <%# <div class="barregrise"></div> %>
 
   <div class="col-md-12-historique">
   <div class="container mes-bookings">
@@ -248,18 +248,15 @@
         </div>
 
 
-
-
-
-
       </div>
     </div>
   </div>
 </div>
 <div class="mt-5 pt-5"></div>
+
 <script>  $(document).ready(function(){
     $('.num').counterUp({
-      time: 1200
+      time: 800
     });
   });
 </script>

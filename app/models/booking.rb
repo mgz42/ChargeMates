@@ -71,8 +71,6 @@ class Booking < ApplicationRecord
     update(status: :en_attente_de_charge)
     messages.create(content: "🤖 Message automatique: ✅ Paiement effectué le #{Time.zone.now.strftime('%d/%m/%Y à %H:%M')}",user: vehicle.user)
     messages.create(content: "🤖 Message automatique: Mon adresse est #{station.address}", user: station.user)
-
-
   end
 
   def commencer_charge!
@@ -138,7 +136,6 @@ class Booking < ApplicationRecord
     prix_par_kwh = 0.23
     prix_base_stationnement = 3
     energie_consommee_kwh = kw_h_consommes_reservation
-
     (energie_consommee_kwh * prix_par_kwh + prix_base_stationnement).round(2)
   end
 
